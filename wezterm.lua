@@ -1,5 +1,6 @@
 -- Pull in the wezterm API
 local wezterm = require 'wezterm'
+local act = wezterm.action
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
@@ -20,7 +21,7 @@ config.font_size = 14
 
 -- Opacity
 -- Waiting for KDE blur support...
-if wezterm.target_triple.find("windows") then
+if string.find(wezterm.target_triple, "windows") then
   config.window_background_opacity = 0.6
   config.win32_system_backdrop = 'Acrylic'
 end
@@ -37,6 +38,38 @@ config.keys = {
     key = ')',
     mods = 'CTRL|SHIFT',
     action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+  },
+}
+
+-- Mouse bindings
+config.mouse_bindings = {
+  -- Change the default click behavior so that it only selects
+  -- text and doesn't open hyperlinks
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'NONE',
+    action = act.CompleteSelection 'ClipboardAndPrimarySelection',
+  },
+
+  -- and make CTRL-Click open hyperlinks
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'CTRL',
+    action = act.OpenLinkAtMouseCursor,
+  },
+
+  -- Scrolling up while holding CTRL increases the font size
+  {
+    event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+    mods = 'CTRL',
+    action = act.IncreaseFontSize,
+  },
+
+  -- Scrolling down while holding CTRL decreases the font size
+  {
+    event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+    mods = 'CTRL',
+    action = act.DecreaseFontSize,
   },
 }
 
