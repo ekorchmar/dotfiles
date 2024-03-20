@@ -1,0 +1,2 @@
+multigrid = true
+neovim-bin = "/home/ekorchmar/.local/bin/lvim"

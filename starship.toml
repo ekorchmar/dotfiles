@@ -1,0 +1,114 @@
+format = """
+$status[$os $username $shell$env_var](bg:#c0caf5 fg:#1f2335)\
+[](bg:#7aa2f7 fg:#c0caf5)\
+$directory\
+[](fg:#7aa2f7 bg:#3b4261)\
+$git_branch\
+$git_commit\
+$git_status\
+[](fg:#3b4261 bg:#292e42)\
+$nodejs\
+$rust\
+$golang\
+$python\
+$rlang\
+$lua\
+[](fg:#292e42 bg:#1f2335)\
+$time\
+[ ](fg:#1f2335)\
+\n$character"""
+
+[directory]
+style = "fg:#3b4261 bg:#7aa2f7"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = ""
+style = "fg:#7aa2f7 bg:#3b4261"
+format = '[ $symbol $branch ]($style)'
+
+[git_commit]
+tag_symbol = ""
+style = "fg:#7aa2f7 bg:#3b4261"
+format = '[ $hash$tag ]($style)'
+
+[git_status]
+style = "fg:#7aa2f7 bg:#3b4261"
+format = '[($all_status$ahead_behind )]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+
+[php]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+
+[python]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($virtualenv $version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+
+[rlang]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+
+[lua]
+symbol = ""
+style = "bg:#292e42"
+version_format = "$raw"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+lua_binary = "nvim --headless -c 'lua print(_VERSION) | qa'"
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#1f2335"
+format = '[[  $time ](fg:#73DACA bg:#1f2335)]($style)'
+
+[username]
+show_always=true
+style_user="bg:#c0caf5 fg:#1f2335"
+format = '[$user]($style)'
+
+[os]
+format = '[ $symbol ]($style)'
+style="bg:#c0caf5 fg:#1f2335"
+disabled=false
+
+[os.symbols]
+Windows = ""
+Linux = ""
+Ubuntu = ""
+Macos = ""
+Arch = ""
+
+[shell]
+disabled=false
+style="bg:#c0caf5 fg:#1f2335"
+
+[character]
+format=" $symbol[ : ](bold white)"
+success_symbol="[󰣐](bold #ff79c6)"
+error_symbol="[󰋔](bold #db3a3a)"
+
+[status]
+disabled=true
+map_symbol=true
+format="[$signal_name$common_meaning]($style)\n"
+style="bold white bg:red"
