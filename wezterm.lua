@@ -17,6 +17,7 @@ config.tab_max_width = 16
 
 -- Font
 config.font = wezterm.font("FiraCode Nerd Font")
+config.adjust_window_size_when_changing_font_size = false
 config.font_size = 14
 
 -- Opacity
