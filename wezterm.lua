@@ -25,6 +25,7 @@ config.font_size = 14
 if string.find(wezterm.target_triple, "windows") then
   config.window_background_opacity = 0.6
   config.win32_system_backdrop = 'Acrylic'
+  config.default_prog = { 'pwsh' }
 end
 
 -- Key bindings
