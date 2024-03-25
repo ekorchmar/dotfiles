@@ -131,7 +131,7 @@ require('colorizer').setup()
 vim.keymap.set({'v', 'n'}, '<leader>t', '<cmd>lua require("toggleterm").toggle()<cr>')
 
 -- Windows specific
-if vim.loop.os_uname().sysname == "Windows" then
+if vim.loop.os_uname().sysname == "Windows_NT" then
 
   -- Enable powershell as your default shell
   vim.opt.shell = "pwsh.exe -NoLogo"
