@@ -35,3 +35,6 @@ Makes it a little cleaner from the default. Also uses Dracula for lack of other 
 ## neovide
 Just defaults to LunarVim rather than the default Neovim.
 
+## Powershell
+Starship prompt & LunarVim alias.
+
