@@ -156,3 +156,11 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
   }
 end
 
+-- Set wrap for markdown, html, xml and text
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {"markdown", "html", "xml", "text"},
+  callback = function()
+    vim.opt_local.wrap = true
+  end
+})
+
