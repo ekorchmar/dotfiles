@@ -84,6 +84,7 @@ format = '[[  $time ](fg:#73DACA bg:#1f2335)]($style)'
 [username]
 show_always=true
 style_user="bg:#c0caf5 fg:#1f2335"
+style_root="bg:#c0caf5 fg:#db3a3a bold"
 format = '[$user]($style)'
 
 [os]
