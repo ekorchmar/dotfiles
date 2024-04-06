@@ -13,6 +13,7 @@ $golang\
 $python\
 $rlang\
 $lua\
+$java\
 [](fg:#292e42 bg:#1f2335)\
 $time\
 [ ](fg:#1f2335)\
@@ -74,6 +75,12 @@ style = "bg:#292e42"
 version_format = "$raw"
 format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
 lua_binary = "nvim --headless -c 'lua print(_VERSION) | qa'"
+
+[java]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+detect_files = ['pom.xml', 'build.gradle.kts', 'build.sbt', '.java-version', 'deps.edn', 'project.clj', 'build.boot', '.sdkmanrc', 'build.xml']
 
 [time]
 disabled = false
