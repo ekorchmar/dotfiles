@@ -20,6 +20,7 @@
 }
 
 #tabbrowser-tabs {
+  padding-top: 3px;
   --tab-min-height: 29px !important;
   border: none !important;
   box-shadow: none !important;
