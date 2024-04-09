@@ -1,0 +1,22 @@
+gui:
+# UI styling
+  theme:
+    activeBorderColor:
+      - blue
+      - bold
+  nerdFontsVersion: "3"
+  border: single
+  animateExplosion: false
+
+# Messages and infos
+  showRandomTip: false
+
+# Updates are handled by the package manager
+updates:
+  method: never
+
+# Use console nvim for editing
+os:
+  eidtPreset: 'nvim'
+  editInTerminal: true
+

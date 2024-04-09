@@ -38,3 +38,6 @@ Just defaults to LunarVim rather than the default Neovim.
 ## Powershell
 Starship prompt & LunarVim alias.
 
+## Lazygit
+Slightly bluer color scheme, slightly less visual clutter, Nerdfonts icons.
+
