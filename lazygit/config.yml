@@ -11,6 +11,10 @@ gui:
 # Messages and infos
   showRandomTip: false
 
+# Style my commits
+  authorColors:
+    'Eduard Korchmar': '#6e42d2'
+
 # Updates are handled by the package manager
 updates:
   method: never
