@@ -14,6 +14,7 @@ $python\
 $rlang\
 $lua\
 $java\
+$c\
 [](fg:#292e42 bg:#1f2335)\
 $time\
 [ ](fg:#1f2335)\
@@ -81,6 +82,13 @@ symbol = ""
 style = "bg:#292e42"
 format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
 detect_files = ['pom.xml', 'build.gradle.kts', 'build.sbt', '.java-version', 'deps.edn', 'project.clj', 'build.boot', '.sdkmanrc', 'build.xml']
+
+[c]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+detect_extensions = ['c', 'h', 'cpp', 'hpp']
+
 
 [time]
 disabled = false
