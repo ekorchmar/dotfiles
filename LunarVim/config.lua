@@ -128,7 +128,7 @@ vim.keymap.set('i', '<C-y>', 'copilot#Accept("")', {
 require('colorizer').setup()
 
 -- Toggleterm
-vim.keymap.set({'v', 'n'}, '<leader>t', '<cmd>lua require("toggleterm").toggle()<cr>')
+vim.keymap.set({'v', 'n'}, '<leader>t', require("toggleterm").toggle)
 
 -- Windows specific
 if vim.loop.os_uname().sysname == "Windows_NT" then
@@ -156,11 +156,21 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
   }
 end
 
--- Set wrap for markdown, html, xml and text
+-- Colorcolumn to 80
+vim.opt.colorcolumn = "80"
+
+-- Set wrap for markdown, html, xml and text; also move Colorcolumn to 120
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {"markdown", "html", "xml", "text"},
   callback = function()
     vim.opt_local.wrap = true
+    vim.opt_local.colorcolumn = "120"
   end
 })
+
+-- Vim surround:
+-- "c" for C-style multiline comments
+vim.g.surround_99 = "/* \r */"
+-- "h" for HTML comment
+vim.g.surround_104 = "<!-- \r -->"
 
