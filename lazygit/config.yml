@@ -16,11 +16,11 @@ gui:
     'Eduard Korchmar': '#6e42d2'
 
 # Updates are handled by the package manager
-updates:
+update:
   method: never
 
 # Use console nvim for editing
 os:
-  eidtPreset: 'nvim'
+  editPreset: 'nvim'
   editInTerminal: true
 
