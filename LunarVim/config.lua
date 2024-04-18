@@ -1,9 +1,3 @@
--- Read the docs: https://www.lunarvim.org/docs/configuration
--- Example configs: https://github.com/LunarVim/starter.lvim
--- Video Tutorials: https://www.youtube.com/watch?v=sFA9kX-Ud_c&list=PLhoH5vyxr6QqGu0i7tt_XoVK9v-KvZ3m6
--- Forum: https://www.reddit.com/r/lunarvim/
--- Discord: https://discord.com/invite/Xb9B4Ny
-
 vim.g.shiftwidth = 4
 vim.wo.relativenumber = true
 
@@ -119,7 +113,13 @@ end
 vim.g.copilot_filetypes = { markdown = true }
 vim.g.copilot_no_tab_map = true
 
+-- Accept suggestions with Ctrl+y
 vim.keymap.set('i', '<C-y>', 'copilot#Accept("")', {
+  expr = true,
+  replace_keycodes = false
+})
+-- Accept single line with Ctrl+Y
+vim.keymap.set('i', '<C-Y>', 'copilot#AcceptLine("")', {
   expr = true,
   replace_keycodes = false
 })
@@ -136,7 +136,8 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
   -- Enable powershell as your default shell
   vim.opt.shell = "pwsh.exe -NoLogo"
   vim.opt.shellcmdflag =
-    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::" ..
+    "InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
   vim.cmd [[
       let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
       let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
@@ -173,4 +174,23 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.g.surround_99 = "/* \r */"
 -- "h" for HTML comment
 vim.g.surround_104 = "<!-- \r -->"
+-- 1 through 6 for h1 through h6
+vim.g.surround_49 = "<h1>\r</h1>"
+vim.g.surround_50 = "<h2>\r</h2>"
+vim.g.surround_51 = "<h3>\r</h3>"
+vim.g.surround_52 = "<h4>\r</h4>"
+vim.g.surround_53 = "<h5>\r</h5>"
+vim.g.surround_54 = "<h6>\r</h6>"
+-- "p" for paragraph
+vim.g.surround_112 = "<p>\r</p>"
+-- "d" for div
+vim.g.surround_100 = "<div>\r</div>"
+-- "s" for span
+vim.g.surround_115 = "<span>\r</span>"
+-- "a" for anchor (puts text in href)
+vim.g.surround_97 = "<a href=\"\r\"></a>"
+-- "A" for anchor (puts text inside tag)
+vim.g.surround_65 = "<a href=\"\">\r</a>"
+-- "i" for image (puts text in src)
+vim.g.surround_105 = "<img src=\"\r\">"
 
