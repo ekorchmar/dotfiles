@@ -1,5 +1,5 @@
 format = """
-$status[$os $username $shell$env_var](bg:#c0caf5 fg:#1f2335)\
+$status[$os $username $shell$shlvl](bg:#c0caf5 fg:#1f2335)\
 [](bg:#7aa2f7 fg:#c0caf5)\
 $directory\
 [](fg:#7aa2f7 bg:#3b4261)\
@@ -117,6 +117,16 @@ Arch = ""
 [shell]
 disabled=false
 style="bg:#c0caf5 fg:#1f2335"
+bash_indicator=""
+zsh_indicator=""
+powershell_indicator="󰨊"
+fish_indicator="󰈺"
+cmd_indicator=""
+
+[shlvl]
+disabled=false
+style="bg:#c0caf5 fg:#1f2335"
+format='[ $shlvl]($style)'
 
 [character]
 format=" $symbol[ : ](bold white)"
