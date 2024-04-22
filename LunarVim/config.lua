@@ -114,13 +114,8 @@ end
 vim.g.copilot_filetypes = { markdown = true }
 vim.g.copilot_no_tab_map = true
 
--- Accept suggestions with Ctrl+y
-vim.keymap.set('i', '<C-y>', 'copilot#Accept("")', {
-  expr = true,
-  replace_keycodes = false
-})
--- Accept single line with Ctrl+Y
-vim.keymap.set('i', '<C-Y>', 'copilot#AcceptLine("")', {
+-- Accept suggestions with Ctrl+a
+vim.keymap.set('i', '<C-a>', 'copilot#Accept("")', {
   expr = true,
   replace_keycodes = false
 })
