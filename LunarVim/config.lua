@@ -14,7 +14,7 @@ lvim.plugins = {
     },
   },
   'anuvyklack/pretty-fold.nvim',
-  'norcalli/nvim-colorizer.lua',
+  'NvChad/nvim-colorizer.lua',
   'unblevable/quick-scope'
 }
 
@@ -126,7 +126,17 @@ vim.keymap.set('i', '<C-Y>', 'copilot#AcceptLine("")', {
 })
 
 -- Colorizer
-require('colorizer').setup()
+require('colorizer').setup {
+  filetypes = {
+    '*';
+    css = { rgb_fn = true; };
+    scss = { rgb_fn = true; };
+    html = { rgb_fn = true; };
+  },
+  user_default_options = {
+    names = false;
+  }
+}
 
 -- Toggleterm
 vim.keymap.set({'v', 'n'}, '<leader>t', require("toggleterm").toggle)
@@ -198,6 +208,4 @@ vim.g.surround_105 = "<img src=\"\r\">"
 
 -- Quick scope settings
 vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
-vim.cmd [[ highlight QuickScopePrimary guifg='#f7768e' gui=underline ]]
-vim.cmd [[ highlight QuickScopeSecondary guifg='#bc9afa' gui=underline ]]
 
