@@ -14,7 +14,8 @@ lvim.plugins = {
     },
   },
   'anuvyklack/pretty-fold.nvim',
-  'norcalli/nvim-colorizer.lua'
+  'norcalli/nvim-colorizer.lua',
+  'unblevable/quick-scope'
 }
 
 -- I know how to use the mouse, thanks
@@ -193,4 +194,10 @@ vim.g.surround_97 = "<a href=\"\r\"></a>"
 vim.g.surround_65 = "<a href=\"\">\r</a>"
 -- "i" for image (puts text in src)
 vim.g.surround_105 = "<img src=\"\r\">"
+
+
+-- Quick scope settings
+vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
+vim.cmd [[ highlight QuickScopePrimary guifg='#f7768e' gui=underline ]]
+vim.cmd [[ highlight QuickScopeSecondary guifg='#bc9afa' gui=underline ]]
 
