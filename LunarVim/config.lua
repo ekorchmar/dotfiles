@@ -199,7 +199,8 @@ vim.g.surround_97 = "<a href=\"\r\"></a>"
 vim.g.surround_65 = "<a href=\"\">\r</a>"
 -- "i" for image (puts text in src)
 vim.g.surround_105 = "<img src=\"\r\">"
-
+-- "P" for Python """ multiline string/Docstring
+vim.g.surround_80 = "\"\"\"\n\r\n\"\"\""
 
 -- Quick scope settings
 vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
