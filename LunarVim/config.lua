@@ -10,12 +10,19 @@ lvim.plugins = {
     dependencies = "nvim-lua/plenary.nvim",
     config = true,
     keys = { -- load the plugin only when using it's keybinding:
-      { "<leader>u", require('undotree').toggle },
+      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>"},
     },
   },
   'anuvyklack/pretty-fold.nvim',
   'NvChad/nvim-colorizer.lua',
-  'unblevable/quick-scope'
+  'unblevable/quick-scope',
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = function()
+      require("todo-comments").setup()
+    end,
+  }
 }
 
 -- I know how to use the mouse, thanks
@@ -25,7 +32,7 @@ vim.cmd.aunmenu{'PopUp.-1-' }
 
 require('which-key').register({
   ['<leader>'] = {
-    u = { require("undotree").toggle, 'Undo Tree' },
+    u = {  "<cmd>lua require('undotree').toggle()<cr>", 'Undo Tree' },
     t = { require("toggleterm").toggle, 'Toggle Terminal' },
   }
 })
