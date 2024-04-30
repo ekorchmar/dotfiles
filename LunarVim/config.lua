@@ -22,7 +22,12 @@ lvim.plugins = {
     config = function()
       require("todo-comments").setup()
     end,
-  }
+  },
+  -- ABNF syntax
+  {
+    'vim-scripts/abnf',
+    ft = 'abnf'
+  },
 }
 
 -- I know how to use the mouse, thanks
@@ -169,7 +174,7 @@ vim.opt.colorcolumn = "80"
 
 -- Set wrap for markdown, html, xml and text; also move Colorcolumn to 120
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = {"markdown", "html", "xml", "text"},
+  pattern = {"markdown", "html", "xml", "text", "abnf"},
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.colorcolumn = "120"
@@ -205,4 +210,12 @@ vim.g.surround_80 = "\"\"\"\n\r\n\"\"\""
 
 -- Quick scope settings
 vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
+
+-- Filetypes:
+-- ABNF
+vim.filetype.add({
+  extension = {
+    abnf = 'abnf'
+  }
+})
 
