@@ -10,7 +10,7 @@ lvim.plugins = {
     dependencies = "nvim-lua/plenary.nvim",
     config = true,
     keys = { -- load the plugin only when using it's keybinding:
-      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
+      { "<leader>u", require('undotree').toggle },
     },
   },
   'anuvyklack/pretty-fold.nvim',
@@ -25,8 +25,8 @@ vim.cmd.aunmenu{'PopUp.-1-' }
 
 require('which-key').register({
   ['<leader>'] = {
-    u = { '<cmd>lua require("undotree").toggle()<cr>', 'Undo Tree' },
-    t = { '<cmd>lua require("toggleterm").toggle()<cr>', 'Toggle Terminal' },
+    u = { require("undotree").toggle, 'Undo Tree' },
+    t = { require("toggleterm").toggle, 'Toggle Terminal' },
   }
 })
 
@@ -64,12 +64,6 @@ if vim.fn.has('gui_running') then
     vim.keymap.set('v', '<C-v>', '"+p<CR>')
     vim.keymap.set('v', '<C-x>', '"+d')
     vim.keymap.set('i', '<C-v>', '<C-R>+')
-    -- Same but with Ctrl+Shift
-    vim.keymap.set('c', '<C-S-v>', '<C-V> <C-R>+')
-    vim.keymap.set('v', '<C-S-c>', '"+y')
-    vim.keymap.set('v', '<C-S-v>', '"+p<CR>')
-    vim.keymap.set('v', '<C-S-x>', '"+d')
-    vim.keymap.set('i', '<C-S-v>', '<C-R>+')
 
     function Increase_font_size()
       vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
