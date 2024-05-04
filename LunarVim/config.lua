@@ -219,3 +219,13 @@ vim.filetype.add({
   }
 })
 
+-- Listchars
+vim.opt.list = true
+vim.opt.listchars = {
+  tab = '>-',
+  eol = '⤶',
+  -- space = '⋅', -- A lot of clutter; TODO: highlight leading spaces only
+  trail = '•',
+  extends = '◀',
+  precedes = '▶',
+}
