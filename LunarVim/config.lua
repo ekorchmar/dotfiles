@@ -41,6 +41,9 @@ require('which-key').register({
     t = { require("toggleterm").toggle, 'Toggle Terminal' },
   }
 })
+lvim.builtin.which_key.mappings["sd"] = {
+  "<cmd>TodoTelescope<cr>", "TODO comments"
+}
 
 -- Folding
 require('pretty-fold').setup{
