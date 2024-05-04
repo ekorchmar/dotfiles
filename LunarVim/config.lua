@@ -38,12 +38,11 @@ vim.cmd.aunmenu{'PopUp.-1-' }
 require('which-key').register({
   ['<leader>'] = {
     u = {  "<cmd>lua require('undotree').toggle()<cr>", 'Undo Tree' },
-    t = { require("toggleterm").toggle, 'Toggle Terminal' },
   }
 })
-lvim.builtin.which_key.mappings["sd"] = {
-  "<cmd>TodoTelescope<cr>", "TODO comments"
-}
+local wkm = lvim.builtin.which_key.mappings
+wkm["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
+wkm["t"] = {require("toggleterm").toggle, "Toggle Terminal"}
 
 -- Folding
 require('pretty-fold').setup{
@@ -141,9 +140,6 @@ require('colorizer').setup {
     names = false;
   }
 }
-
--- Toggleterm
-vim.keymap.set({'v', 'n'}, '<leader>t', require("toggleterm").toggle)
 
 -- Windows specific
 if vim.loop.os_uname().sysname == "Windows_NT" then
