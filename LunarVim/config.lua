@@ -1,5 +1,10 @@
 vim.g.shiftwidth = 4
 vim.wo.relativenumber = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldlevel = 99
 
 lvim.plugins = {
   'github/copilot.vim',
@@ -86,6 +91,22 @@ if vim.fn.has('gui_running') then
     function Decrease_font_size()
       vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 0.9
     end
+
+    function Toggle_animation()
+      if vim.g.neovide_animation_length == 0 then
+        vim.g.neovide_animation_length = 0.3
+      else
+        vim.g.neovide_animation_length = 0
+      end
+    end
+
+    -- Add which-key mappings and submenu
+    wkm["G"] = {
+      name = "GUI",
+      i = { Increase_font_size, "Increase font size" },
+      d = { Decrease_font_size, "Decrease font size" },
+      a = { Toggle_animation, "Toggle animation" },
+    }
   else
     -- Assume QT
     vim.s.fontsize = 13
@@ -228,3 +249,19 @@ vim.opt.listchars = {
   extends = '◀',
   precedes = '▶',
 }
+
+-- Autocommands to set linenumber & signcolumn background for better contrast
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    vim.cmd([[
+      highlight ColorColumn guibg=#13141b ctermbg=232
+      highlight LineNr      guibg=#13141b ctermbg=232
+      highlight SignColumn  guibg=#13141b ctermbg=232
+      highlight GitSignsAdd     guibg=#13141b ctermbg=232
+      highlight GitSignsChange  guibg=#13141b ctermbg=232
+      highlight GitSignsDelete  guibg=#13141b ctermbg=232
+    ]])
+  end
+})
+
