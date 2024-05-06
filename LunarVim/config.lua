@@ -8,8 +8,14 @@ vim.opt.foldlevel = 99
 
 lvim.plugins = {
   'github/copilot.vim',
-  'tpope/vim-surround',
-  'chrisbra/sudoedit.vim',
+  {
+    'tpope/vim-surround',
+    event = "BufRead",
+  },
+  {
+    'chrisbra/sudoedit.vim',
+    cmd = 'SudoWrite',
+  },
   {
     "jiaoshijie/undotree",
     dependencies = "nvim-lua/plenary.nvim",
@@ -19,8 +25,14 @@ lvim.plugins = {
     },
   },
   'anuvyklack/pretty-fold.nvim',
-  'NvChad/nvim-colorizer.lua',
-  'unblevable/quick-scope',
+  {
+    'NvChad/nvim-colorizer.lua',
+    event = "BufRead",
+  },
+  {
+    'unblevable/quick-scope',
+    keys = { 'f', 'F', 't', 'T' },
+  },
   {
     "folke/todo-comments.nvim",
     event = "BufRead",
@@ -28,10 +40,42 @@ lvim.plugins = {
       require("todo-comments").setup()
     end,
   },
-  -- ABNF syntax
   {
     'vim-scripts/abnf',
     ft = 'abnf'
+  },
+  'tpope/vim-repeat',
+  {
+    'MeanderingProgrammer/markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('render-markdown').setup({
+        headings = {
+          '󰲡 ',
+          ' 󰲣 ',
+          '  󰲥 ',
+          '   󰲧 ',
+          '    󰲩 ',
+          '     󰲫 ',
+        },
+        -- Disable heading coloring
+        highlights = { heading = {
+          backgrounds = { 'LineNr' },
+          foregrounds = { 'Cursor' }
+        } },
+      })
+    end,
+    ft = 'markdown'
+  },
+  {
+    "tversteeg/registers.nvim",
+    cmd = "Registers",
+    config = true,
+    keys = {
+      { "\"", mode = { "n", "v" } },
+      { "<C-R>", mode = "i" }
+    },
+    name = "registers",
   },
 }
 
