@@ -1,3 +1,4 @@
+vim.opt.cmdheight = 2
 vim.g.shiftwidth = 4
 vim.wo.relativenumber = true
 vim.opt.splitright = true
@@ -86,7 +87,7 @@ vim.cmd.aunmenu{'PopUp.-1-' }
 
 require('which-key').register({
   ['<leader>'] = {
-    u = {  "<cmd>lua require('undotree').toggle()<cr>", 'Undo Tree' },
+    u = {  require('undotree').toggle, 'Undo Tree' },
   }
 })
 local wkm = lvim.builtin.which_key.mappings
