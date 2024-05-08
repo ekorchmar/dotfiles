@@ -92,6 +92,14 @@ require('which-key').register({
 local wkm = lvim.builtin.which_key.mappings
 wkm["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 wkm["t"] = {require("toggleterm").toggle, "Toggle Terminal"}
+-- Remove unneeded and duplicating menus
+wkm["c"] = {}
+wkm["f"] = {}
+wkm["p"] = {}
+wkm["q"] = {}
+wkm["w"] = {}
+wkm["T"] = {}
+
 
 -- Folding
 require('pretty-fold').setup{
@@ -139,14 +147,20 @@ if vim.fn.has('gui_running') then
     function Toggle_animation()
       if vim.g.neovide_animation_length == 0 then
         vim.g.neovide_animation_length = 0.3
+        vim.g.neovide_cursor_animate_command_line = true
+        vim.g.neovide_scroll_animation_length = 0.1
+        vim.print("Neovide animation enabled")
       else
         vim.g.neovide_animation_length = 0
+        vim.g.neovide_cursor_animate_command_line = false
+        vim.g.neovide_scroll_animation_length = 0
+        vim.print("Neovide animation disabled")
       end
     end
 
     -- Add which-key mappings and submenu
     wkm["G"] = {
-      name = "GUI",
+      name = "GUI (Neovide)",
       i = { Increase_font_size, "Increase font size" },
       d = { Decrease_font_size, "Decrease font size" },
       a = { Toggle_animation, "Toggle animation" },
