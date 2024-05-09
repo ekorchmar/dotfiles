@@ -61,8 +61,7 @@ lvim.plugins = {
         },
         -- Disable heading coloring
         highlights = { heading = {
-          backgrounds = { 'LineNr' },
-          foregrounds = { 'Cursor' }
+          backgrounds = { 'NormalFloat' },
         } },
       })
     end,
@@ -368,9 +367,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
     vim.cmd([[
-      highlight ColorColumn guibg=#13141b ctermbg=232
-      highlight LineNr      guibg=#13141b ctermbg=232
-      highlight SignColumn  guibg=#13141b ctermbg=232
+      highlight ColorColumn     guibg=#13141b ctermbg=232
+      highlight LineNr          guibg=#13141b ctermbg=232
+      highlight CursorLineNr    guibg=#13141b ctermbg=232
+      highlight SignColumn      guibg=#13141b ctermbg=232
       highlight GitSignsAdd     guibg=#13141b ctermbg=232
       highlight GitSignsChange  guibg=#13141b ctermbg=232
       highlight GitSignsDelete  guibg=#13141b ctermbg=232
