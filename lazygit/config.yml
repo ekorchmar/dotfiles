@@ -11,8 +11,9 @@ gui:
   nerdFontsVersion: "3"
   border: single
   animateExplosion: false
+  # Will have no effect until the next release
   spinner:
-    frames: ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
+    frames: ['', '', '', '', '', '']
     rate: 100
 
 # Messages and infos
