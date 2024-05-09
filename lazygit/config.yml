@@ -33,3 +33,9 @@ os:
   edit: 'lvim {{filename}}'
   editAtLine: 'lvim {{filename}} -c {{line}}'
 
+# Ö and Ä for tabs (more accessible on German keyboards)
+keybinding:
+  universal:
+    nextTab: 'ä'
+    prevTab: 'ö'
+
