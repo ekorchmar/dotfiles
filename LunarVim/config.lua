@@ -189,6 +189,12 @@ if vim.fn.has('gui_running') then
     vim.keymap.set('v', '<C-v>', '"+p<CR>')
     vim.keymap.set('v', '<C-x>', '"+d')
     vim.keymap.set('i', '<C-v>', '<C-R>+')
+    -- Ctrl-Shift-C and Ctrl-Shift-V specifically for clipboard
+    -- Only GUI allows double modifier keys
+    vim.keymap.set('v', '<C-S-v>', '"+p<CR>')
+    vim.keymap.set('v', '<C-S-c>', '"+y')
+    vim.keymap.set('i', '<C-S-v>', '<C-R>+')
+    vim.keymap.set('n', '<C-S-v>', '"+p<CR>')
 
     function Increase_font_size()
       vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
