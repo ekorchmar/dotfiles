@@ -61,7 +61,7 @@ lvim.plugins = {
         },
         -- Disable heading coloring
         highlights = { heading = {
-          backgrounds = { 'NormalFloat' },
+          backgrounds = { },
         } },
       })
     end,
