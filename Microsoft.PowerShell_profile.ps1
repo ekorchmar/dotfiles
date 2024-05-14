@@ -4,3 +4,5 @@ $ENV:COLORTERM = "truecolor"
 Invoke-Expression (&starship init powershell)
 
 Set-Alias lvim "$HOME\.local\bin\lvim.ps1"
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
