@@ -69,6 +69,20 @@ lvim.plugins = {
     end,
     ft = 'markdown'
   },
+  {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("oil").setup {
+        columns = { "icon", "permissions", "size", "mtime" },
+        view_options = {
+          show_hidden = true,
+        },
+      }
+      -- Open parent directory in current window
+      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+    end,
+  },
 }
 
 -- I know how to use the mouse, thanks
@@ -85,6 +99,7 @@ local wkm = lvim.builtin.which_key.mappings
 wkm["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 wkm["t"] = {require("toggleterm").toggle, "Toggle Terminal"}
 wkm["u"] = {require("undotree").toggle, "Undo Tree"}
+wkm["-"] = {"<CMD>Oil<CR>", "Oil the directory"}
 -- Remove unneeded and duplicating menus
 wkm["c"] = {}
 wkm["f"] = {}
