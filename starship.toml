@@ -1,4 +1,5 @@
 format = """
+$cmd_duration\
 $status[$os $username $shell$shlvl](bg:#c0caf5 fg:#1f2335)\
 [](bg:#7aa2f7 fg:#c0caf5)\
 $directory\
@@ -138,3 +139,9 @@ disabled=true
 map_symbol=true
 format="[$signal_name$common_meaning]($style)\n"
 style="bold white bg:red"
+
+[cmd_duration]
+format = "[ 󱙷 $duration]($style)\n"
+show_milliseconds = true
+min_time = 5_000
+
