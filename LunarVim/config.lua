@@ -94,6 +94,21 @@ lvim.plugins = {
   {
     '2KAbhishek/nerdy.nvim',
     dependencies = { 'stevearc/dressing.nvim' },
+  },
+  {
+    'petertriho/nvim-scrollbar',
+    enabled = function()
+      return vim.fn.exists('g:neovide') ~= 1
+    end, -- Neovide is glitchy
+    dependencies = { "lewis6991/gitsigns.nvim" },
+    event = "BufRead",
+    config = function()
+      require("scrollbar").setup({
+        show_in_active_only = true,
+        hide_if_all_visible = true,
+      })
+      require("scrollbar.handlers.gitsigns").setup()
+    end
   }
 }
 
@@ -162,8 +177,8 @@ lvim.builtin.which_key.setup = {
       window = {
         border = "single", -- none, single, double, shadow
         position = "bottom", -- bottom, top
-        margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-        padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+        margin = { 1, 0, 1, 0 },
+        padding = { 2, 2, 2, 2 },
         winblend = 0,
       },
       layout = {
@@ -172,11 +187,12 @@ lvim.builtin.which_key.setup = {
         spacing = 3, -- spacing between columns
         align = "left", -- align columns left, center or right
       },
-      ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-      show_help = true, -- show help message on the command line when the popup is visible
-      show_keys = true, -- show the currently pressed key and its label as a message in the command line
-      triggers = "auto", -- automatically setup triggers
+      ignore_missing = false,
+      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>",
+                 "call", "lua", "^:", "^ " },
+      show_help = true,
+      show_keys = true,
+      triggers = "auto",
       triggers_blacklist = {
         i = { "j", "k" },
         v = { "j", "k" },
