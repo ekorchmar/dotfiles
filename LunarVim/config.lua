@@ -109,6 +109,19 @@ lvim.plugins = {
       })
       require("scrollbar.handlers.gitsigns").setup()
     end
+  },
+  {
+    'bennypowers/nvim-regexplainer',
+    event = "BufRead",
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'MunifTanjim/nui.nvim',
+    },
+    config = function()
+      require('regexplainer').setup({
+        auto = true,
+      })
+    end,
   }
 }
 
