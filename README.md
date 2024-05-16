@@ -10,6 +10,8 @@ A place for me to store configs for the software I use. Configs are not recommen
 6. [konsole](#konsole)
 7. [bat](#bat)
 8. [neovide](#neovide)
+9. [Powershell](#Powershell)
+10. [Lazygit](#Lazygit)
 
 ## lvim
 Although I used to have a much longer and comprehensive [.vimrc](https://gist.github.com/ekorchmar/04735e1e280e37899d26b6cc552dd052), I have since switched to LunarVim, to have a managed default and not to have to worry about much. This is the content of my `~/.config/lvim/config.lua` file.
