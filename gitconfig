@@ -11,10 +11,10 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
+	diff = true
+	status = true
+	branch = true
+	interactive = true
 	ui = true
 	pager = true
 [alias]
