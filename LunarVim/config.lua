@@ -375,13 +375,14 @@ vim.filetype.add({
 })
 
 -- Check if JSON for .conf and .etlconf
-vim.api.nvim_create_autocmd("BufRead", {
-  pattern = "*.etlconf",
-  callback = function()
-    vim.bo.filetype = 'json'
-  end
+vim.filetype.add({
+  extension = {
+    etlconf = 'json'
+  }
 })
+
 -- conf only if file starts with { and ends with }
+-- TODO: use vim.filetype.add() instead
 vim.api.nvim_create_autocmd("BufRead", {
   pattern = "*.conf",
   callback = function()
@@ -389,7 +390,7 @@ vim.api.nvim_create_autocmd("BufRead", {
     if line:find('^%s*{') then -- starts with {
       line = vim.fn.getline('$')
       if line:find('^%s*}') then -- ends with }
-        vim.bo.filetype = 'conf'
+        vim.bo.filetype = 'json'
       end
     end
   end
