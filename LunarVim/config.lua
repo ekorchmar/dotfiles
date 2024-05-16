@@ -90,6 +90,10 @@ lvim.plugins = {
         modes = { 'n', 'v', 'i', 't' },
       })
     end,
+  },
+  {
+    '2KAbhishek/nerdy.nvim',
+    dependencies = { 'stevearc/dressing.nvim' },
   }
 }
 
@@ -105,6 +109,15 @@ require('which-key').register({
 })
 local wkm = lvim.builtin.which_key.mappings
 wkm["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
+wkm["sn"] = {
+  function()
+    local telescope = require("telescope")
+    if not telescope.extensions.nerdy then
+      telescope.load_extension("nerdy")
+    end
+    vim.cmd("Nerdy")
+  end,
+ "Nerd font symbols" }
 wkm["t"] = {require("toggleterm").toggle, "Toggle Terminal"}
 wkm["u"] = {require("undotree").toggle, "Undo Tree"}
 wkm["-"] = {"<CMD>Oil<CR>", "Oil the directory"}
@@ -119,31 +132,27 @@ wkm["T"] = {}
 lvim.builtin.which_key.setup = {
       plugins = {
         marks = false, -- shows a list of your marks on ' and `
-        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+        registers = true,
         spelling = {
           enabled = true,
           suggestions = 20,
-        }, -- use which-key for spelling hints
-        -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-        -- No actual key bindings are created
+        },
         presets = {
-          operators = true, -- adds help for operators like d, y, ...
-          motions = true, -- adds help for motions
-          text_objects = true, -- help for text objects triggered after entering an operator
+          operators = true,
+          motions = true,
+          text_objects = true,
           windows = true, -- default bindings on <c-w>
           nav = true, -- misc bindings to work with windows
           z = true, -- bindings for folds, spelling and others prefixed with z
           g = true, -- bindings for prefixed with g
         },
       },
-      -- add operators that will trigger motion and text object completion
-      -- to enable all native operators, set the preset / operators plugin above
       operators = { gc = "Comments" },
       key_labels = {
       },
       icons = {
-        breadcrumb = lvim.icons.ui.DoubleChevronRight, -- symbol used in the command line area that shows your active key combo
-        separator = lvim.icons.ui.BoldArrowRight, -- symbol used between a key and it's label
+        breadcrumb = lvim.icons.ui.DoubleChevronRight,
+        separator = lvim.icons.ui.BoldArrowRight,
         group = lvim.icons.ui.Plus, -- symbol prepended to a group
       },
       popup_mappings = {
