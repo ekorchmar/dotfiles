@@ -1,0 +1,32 @@
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	email = korchmar.eduard@gmail.com
+	name = Eduard Korchmar
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = true
+	pager = true
+[alias]
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	root = rev-parse --show-toplevel
+	ship = !(git rev-parse --show-toplevel | xargs git add) && git commit && git push
+	nah = ! git reset --hard && git clean -df
+[push]
+	autoSetupRemote = true
+[pull]
+	rebase = true
+[rerere]
+	enabled = true
+

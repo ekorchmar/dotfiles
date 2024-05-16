@@ -12,6 +12,7 @@ A place for me to store configs for the software I use. Configs are not recommen
 8. [neovide](#neovide)
 9. [Powershell](#Powershell)
 10. [Lazygit](#Lazygit)
+11. [git](#git)
 
 ## lvim
 Although I used to have a much longer and comprehensive [.vimrc](https://gist.github.com/ekorchmar/04735e1e280e37899d26b6cc552dd052), I have since switched to LunarVim, to have a managed default and not to have to worry about much. This is the content of my `~/.config/lvim/config.lua` file.
@@ -42,4 +43,7 @@ Starship prompt & LunarVim alias.
 
 ## Lazygit
 Slightly bluer color scheme, slightly less visual clutter, Nerdfonts icons.
+
+## git
+Just a few useful aliases and good defaults.
 
