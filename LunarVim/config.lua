@@ -80,10 +80,17 @@ lvim.plugins = {
         },
         constrain_cursor = "name",
       }
-      -- Open parent directory in current window
-      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end,
   },
+  {
+    'Bekaboo/deadcolumn.nvim',
+    event = "BufRead",
+    config = function()
+      require('deadcolumn').setup({
+        modes = { 'n', 'v', 'i', 't' },
+      })
+    end,
+  }
 }
 
 -- I know how to use the mouse, thanks
@@ -407,13 +414,14 @@ vim.opt.listchars = {
   extends = '◀',
   precedes = '▶',
 }
+vim.opt.showbreak = '↪'
 
 -- Autocommands to set linenumber & signcolumn background for better contrast
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
     vim.cmd([[
-      highlight ColorColumn     guibg=#13141b ctermbg=232
+      highlight ColorColumn     guibg=black ctermbg=0
       highlight LineNr          guibg=#13141b ctermbg=232
       highlight CursorLineNr    guibg=#13141b ctermbg=232
       highlight SignColumn      guibg=#13141b ctermbg=232
