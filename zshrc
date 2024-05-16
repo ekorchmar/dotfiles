@@ -97,26 +97,32 @@ export R_LIBS_USER=${XDG_DATA_HOME:-$HOME/.local/share}/R/%p-library/%v
 # Fixes Wezterm
 export XCURSOR_THEME=Dracula-cursors:32
 
+#fzf integration
+eval "$(fzf --zsh)"
 
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*' 'r:|[._-]=** r:|=**'
 zstyle :compinstall filename '/home/ekorchmar/.zshrc'
+zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'
 zstyle ':completion:*:*:-command-:*:*' ignored-patterns '^_'
-
 
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
 
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 setopt autocd beep extendedglob
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 unsetopt nomatch
 bindkey -e
-# End of lines configured by zsh-newuser-install
 
 # If we are not in TTY:
 if [[ $XDG_SESSION_TYPE != "tty" ]]; then
@@ -381,7 +387,8 @@ fi
 #
 
 \builtin alias z=__zoxide_z
-\builtin alias zi=__zoxide_zi
+\builtin alias cd=__zoxide_z
+\builtin alias cdi=__zoxide_zi
 
 # =============================================================================
 #
