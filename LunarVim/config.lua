@@ -416,8 +416,7 @@ vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
 -- ABNF
 vim.filetype.add({
   extension = {
-    abnf = 'abnf',
-    ecl = 'ecl',
+    abnf = 'abnf'
   }
 })
 
@@ -427,18 +426,6 @@ vim.filetype.add({
     etlconf = 'json'
   }
 })
-
--- Custom parsers
--- SNOMED ECL
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.snomed_ecl = {
-  install_info = {
-      url = "~/git/tree-sitter-snomed-ecl/",
-      filetype = "ecl",
-      files = {"src/parser.c"}
-  }
-}
-vim.treesitter.language.register('snomed_ecl', 'ecl')
 
 -- conf only if file starts with { and ends with }
 -- TODO: use vim.filetype.add() instead
