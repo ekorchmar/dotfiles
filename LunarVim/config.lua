@@ -87,7 +87,12 @@ lvim.plugins = {
     event = "BufRead",
     config = function()
       require('deadcolumn').setup({
-        modes = { 'n', 'v', 'i', 't' },
+        modes = function(_)
+          return true
+        end,
+        blending = {
+          hlgroup = { 'SignColumn', 'bg' },
+        },
       })
     end,
   },
@@ -122,19 +127,17 @@ lvim.plugins = {
         auto = true,
       })
     end,
-  }
+  },
+  {
+    'dstein64/vim-startuptime',
+    cmd = 'StartupTime',
+  },
 }
 
 -- I know how to use the mouse, thanks
 vim.cmd.aunmenu{'PopUp.How-to\\ disable\\ mouse'}
 vim.cmd.aunmenu{'PopUp.-1-' }
 
-
-require('which-key').register({
-  ['<leader>'] = {
-    u = {  require('undotree').toggle, 'Undo Tree' },
-  }
-})
 local wkm = lvim.builtin.which_key.mappings
 wkm["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 wkm["sn"] = {
@@ -146,9 +149,9 @@ wkm["sn"] = {
     vim.cmd("Nerdy")
   end,
  "Nerd font symbols" }
-wkm["t"] = {require("toggleterm").toggle, "Toggle Terminal"}
-wkm["u"] = {require("undotree").toggle, "Undo Tree"}
-wkm["-"] = {"<CMD>Oil<CR>", "Oil the directory"}
+wkm["t"] = {"<cmd>ToggleTerm direction=vertical size=80<cr>","Split terminal"}
+wkm["u"] = {"<cmd>lua require('undotree').toggle()<cr>", "Undo Tree"}
+wkm["-"] = {"<cmd>Oil<cr>", "Oil the directory"}
 -- Remove unneeded and duplicating menus
 wkm["c"] = {}
 wkm["f"] = {}
