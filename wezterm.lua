@@ -28,6 +28,7 @@ if string.find(wezterm.target_triple, "windows") then
   config.win32_system_backdrop = 'Acrylic'
   config.default_prog = { 'pwsh' }
   -- Native decorations
+  config.use_fancy_tab_bar = true
   config.tab_bar_at_bottom = false
   config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 end
