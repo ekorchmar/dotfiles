@@ -20,12 +20,16 @@ config.font = wezterm.font("FiraCode Nerd Font")
 config.adjust_window_size_when_changing_font_size = false
 config.font_size = 14
 
--- Opacity
--- Waiting for KDE blur support...
+-- Windows specific settings
 if string.find(wezterm.target_triple, "windows") then
+  -- Opacity
+  -- Waiting for KDE blur support...
   config.window_background_opacity = 0.6
   config.win32_system_backdrop = 'Acrylic'
   config.default_prog = { 'pwsh' }
+  -- Native decorations
+  config.tab_bar_at_bottom = false
+  config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 end
 
 -- Key bindings
