@@ -169,7 +169,7 @@ alias yoink='paru -Syu'
 alias yeet='paru -Rscu'
 
 # Mnemonics
-alias l='exa -la --icons --git'
+alias l='exa -la --icons --git --group-directories-first -h'
 
 # Vim workflow
 alias :q='exit'
