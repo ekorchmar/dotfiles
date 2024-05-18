@@ -141,6 +141,7 @@ format="[$signal_name$common_meaning]($style)\n"
 style="bold white bg:red"
 
 [cmd_duration]
+disabled = true
 format = "[ 󱙷 $duration]($style)\n"
 show_milliseconds = true
 min_time = 5_000
