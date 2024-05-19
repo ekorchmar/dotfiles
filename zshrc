@@ -1,3 +1,5 @@
+bindkey -v
+
 # Autocompletion colors
 # Dracula Theme (for zsh-syntax-highlighting)
 #
