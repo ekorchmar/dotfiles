@@ -45,6 +45,17 @@ config.keys = {
     mods = 'CTRL|SHIFT',
     action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
   },
+  -- Shift + arrows to switch tabs
+  {
+    key = 'LeftArrow',
+    mods = 'SHIFT',
+    action = wezterm.action.ActivateTabRelative(-1),
+  },
+  {
+    key = 'RightArrow',
+    mods = 'SHIFT',
+    action = wezterm.action.ActivateTabRelative(1),
+  },
 }
 
 -- Mouse bindings
