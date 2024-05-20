@@ -15,6 +15,7 @@ input type:touchpad {
 input type:keyboard xkb_layout "de,ua"
 input type:keyboard xkb_variant "nodeadkeys"
 input type:keyboard xkb_options "grp:alt_shift_toggle"
+input type:keyboard xkb_numlock enabled
 
 exec_always {
     'swaymsg input type:keyboard xkb_layout "$(localectl status | grep "X11 Layout" | sed -e "s/^.*X11 Layout://")"'
