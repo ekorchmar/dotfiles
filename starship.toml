@@ -134,7 +134,7 @@ format=" $symbol[: ](bold white)"
 success_symbol="[󰣐 ](bold #ff79c6)"
 error_symbol="[󰋔 ](bold #db3a3a)"
 vimcmd_symbol="[󰧑 ](bold #ad8ee6)"
-vimcmd_replace_one_symbol="[](bold #e0af68)1"
+vimcmd_replace_one_symbol="[󰋇 ](bold #e0af68)"
 vimcmd_replace_symbol="[ ](bold #e0af68)"
 vimcmd_visual_symbol="[ ](bold #9ece6a)"
 
