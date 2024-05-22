@@ -106,11 +106,24 @@ eval "$(fzf --zsh)"
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*' 'r:|[._-]=** r:|=**'
 zstyle :compinstall filename '/home/ekorchmar/.zshrc'
-zstyle ':completion:*' list-colors '${(s.:.)LS_COLORS}'
 zstyle ':completion:*:*:-command-:*:*' ignored-patterns '^_'
+
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
 
 autoload -Uz compinit
 compinit
+source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -297,6 +310,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # Utility functions for zoxide.
 #
 
+export _ZO_ECHO='1'
 # pwd based on the value of _ZO_RESOLVE_SYMLINKS.
 function __zoxide_pwd() {
     \builtin pwd -L
@@ -396,7 +410,7 @@ fi
 #
 # To initialize zoxide, add this to your configuration (usually ~/.zshrc):
 #
-# eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh)"
 
 eval $(thefuck --alias)
 alias f='fuck'
