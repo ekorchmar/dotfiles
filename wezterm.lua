@@ -26,7 +26,7 @@ if string.find(wezterm.target_triple, "windows") then
   -- Waiting for KDE blur support...
   config.window_background_opacity = 0.6
   config.win32_system_backdrop = 'Acrylic'
-  config.default_prog = { 'pwsh' }
+  config.default_prog = { 'pwsh', '-NoLogo' }
   -- Native decorations
   config.tab_bar_at_bottom = false
   config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
