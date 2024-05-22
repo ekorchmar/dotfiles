@@ -9,11 +9,11 @@ vim.opt.foldlevel = 99
 vim.o.autochdir = true
 
 lvim.plugins = {
-  'github/copilot.vim',
   {
-    'tpope/vim-surround',
-    event = "BufRead",
+    'github/copilot.vim', 
+    build = ':Copilot auth',
   },
+  'tpope/vim-surround',
   {
     'chrisbra/sudoedit.vim',
     cmd = 'SudoWrite',
@@ -83,6 +83,8 @@ lvim.plugins = {
     end,
   },
   {
+    -- Breaks markdown rendering which links some hl to colorcolumn
+    enabled = false,
     'Bekaboo/deadcolumn.nvim',
     event = "BufRead",
     config = function()
@@ -102,7 +104,7 @@ lvim.plugins = {
   },
   {
     'petertriho/nvim-scrollbar',
-    enabled = function()
+    cond = function()
       return vim.fn.exists('g:neovide') ~= 1
     end, -- Neovide is glitchy
     dependencies = { "lewis6991/gitsigns.nvim" },
@@ -387,12 +389,12 @@ end
 -- Colorcolumn to 80
 vim.opt.colorcolumn = "80"
 
--- Set wrap for markdown, html, xml and text; also move Colorcolumn to 120
+-- Set wrap for markdown, html, xml and text; also remove Colorcolumn
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {"markdown", "html", "xml", "text", "abnf"},
   callback = function()
     vim.opt_local.wrap = true
-    vim.opt_local.colorcolumn = "120"
+    vim.opt_local.colorcolumn = ""
   end
 })
 
