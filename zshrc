@@ -190,6 +190,7 @@ alias l='exa -la --icons --git --group-directories-first -h'
 alias :q='exit'
 alias :wq='exit'
 alias :qa='exit'
+alias :w='echo "👌"'
 
 # Neovim everywhere
 alias nano=lvim
