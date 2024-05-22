@@ -18,11 +18,13 @@ $rlang\
 $lua\
 $java\
 $c\
+$julia\
 [](fg:#292e42 bg:#1f2335)\
 $time$battery\
 [ ](fg:#1f2335)\
 \n$character"""
 
+# Directory and git
 [directory]
 style = "fg:#3b4261 bg:#7aa2f7"
 format = "[ $path ]($style)"
@@ -43,6 +45,7 @@ format = '[ $hash$tag ]($style)'
 style = "fg:#7aa2f7 bg:#3b4261"
 format = '[($all_status$ahead_behind )]($style)'
 
+# Languages
 [nodejs]
 symbol = ""
 style = "bg:#292e42"
@@ -90,13 +93,12 @@ style = "bg:#292e42"
 format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
 detect_extensions = ['c', 'h', 'cpp', 'hpp']
 
+[julia]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
 
-[time]
-disabled = false
-time_format = "%R" # Hour:Minute Format
-style = "bg:#1f2335"
-format = '[[  $time ](fg:#73DACA bg:#1f2335)]($style)'
-
+# Standart prompt elements
 [username]
 show_always=true
 style_user="bg:#c0caf5 fg:#1f2335 bold"
@@ -156,6 +158,7 @@ format = "[ 󱙷 $duration]($style)\n"
 show_milliseconds = true
 min_time = 5_000
 
+# Physical world
 [battery]
 format = '[$symbol $percentage]($style)'
 full_symbol="󰁹"
@@ -181,4 +184,10 @@ threshold = 55
 style="bg:#1f2335 fg:#73daca"
 discharging_symbol="󱊢"
 charging_symbol="󱊥"
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#1f2335"
+format = '[[  $time ](fg:#73DACA bg:#1f2335)]($style)'
 
