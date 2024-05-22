@@ -275,11 +275,13 @@ if vim.fn.has('gui_running') then
         vim.g.neovide_animation_length = 0.3
         vim.g.neovide_cursor_animate_command_line = true
         vim.g.neovide_scroll_animation_length = 0.1
+        vim.g.neovide_position_animation_length = 0.15
         vim.print("Neovide animation enabled")
       else
         vim.g.neovide_animation_length = 0
         vim.g.neovide_cursor_animate_command_line = false
         vim.g.neovide_scroll_animation_length = 0
+        vim.g.neovide_position_animation_length = 0
         vim.print("Neovide animation disabled")
       end
     end
