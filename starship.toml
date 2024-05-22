@@ -17,7 +17,7 @@ $lua\
 $java\
 $c\
 [](fg:#292e42 bg:#1f2335)\
-$time\
+$time$battery\
 [ ](fg:#1f2335)\
 \n$character"""
 
@@ -153,4 +153,30 @@ disabled = true
 format = "[ 󱙷 $duration]($style)\n"
 show_milliseconds = true
 min_time = 5_000
+
+[battery]
+format = '[$symbol $percentage]($style)'
+full_symbol="󰁹"
+charging_symbol="󰂄"
+discharging_symbol="󱟞"
+empty_symbol="󰂎"
+unknown_symbol="󰂑"
+
+[[battery.display]]
+threshold = 10
+style="bg:#1f2335 fg:#db3a3a"
+discharging_symbol="󰂎"
+charging_symbol="󰢟"
+
+[[battery.display]]
+threshold = 30
+style="bg:#1f2335 fg:#e0af68"
+discharging_symbol="󱊡"
+charging_symbol="󱊤"
+
+[[battery.display]]
+threshold = 55
+style="bg:#1f2335 fg:#73daca"
+discharging_symbol="󱊢"
+charging_symbol="󱊥"
 
