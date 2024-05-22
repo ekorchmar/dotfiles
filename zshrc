@@ -137,7 +137,7 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 unsetopt nomatch
-bindkey -e
+bindkey -v
 
 # If we are not in TTY:
 if [[ $XDG_SESSION_TYPE != "tty" ]]; then
