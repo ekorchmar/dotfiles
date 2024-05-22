@@ -132,6 +132,15 @@ lvim.plugins = {
     'dstein64/vim-startuptime',
     cmd = 'StartupTime',
   },
+  {
+    'nanotee/zoxide.vim',
+    cmd = {
+      'Cd', 'Cdi',
+      'Jcd', 'Jcdi',
+      'Lcd', 'Lcdi',
+      'Tcd', 'Tcdi',
+    },
+  }
 }
 
 -- I know how to use the mouse, thanks
@@ -475,4 +484,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end
 })
 
+
+-- Zoxide
+vim.g.zoxide_prefix = 'cd'
+vim.g.zoxide_uses_select = 1
 
