@@ -175,6 +175,8 @@ function command_not_found_handler {
     return 127
 }
 
+bindkey -e
+
 # Replace builtins with better alternatives
 alias ls='exa'
 alias grep='grep --color=auto'
