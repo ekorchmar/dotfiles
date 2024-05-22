@@ -9,7 +9,6 @@ Invoke-Expression (& { (zoxide init powershell --cmd cd | Out-String) })
 $ENV:_ZO_ECHO = "1"
 
 Set-PSReadLineOption -EditMode Vi
-Set-PSReadLineKeyHandler -Chord Tab -Function Complete
-Set-PSReadLineKeyHandler -Chord Ctrl-r -Function ReverseSearchHistory -ViMode Insert
-Set-PSReadLineKeyHandler -Chord Ctrl-r -Function ReverseSearchHistory -ViMode Command
+Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
