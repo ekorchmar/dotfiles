@@ -191,66 +191,24 @@ wkm["q"] = {}
 wkm["w"] = {}
 wkm["T"] = {}
 
-lvim.builtin.which_key.setup = {
-      plugins = {
-        marks = false, -- shows a list of your marks on ' and `
-        registers = true,
-        spelling = {
-          enabled = true,
-          suggestions = 20,
-        },
-        presets = {
-          operators = true,
-          motions = true,
-          text_objects = true,
-          windows = true, -- default bindings on <c-w>
-          nav = true, -- misc bindings to work with windows
-          z = true, -- bindings for folds, spelling and others prefixed with z
-          g = true, -- bindings for prefixed with g
-        },
-      },
-      operators = { gc = "Comments" },
-      key_labels = {
-      },
-      icons = {
-        breadcrumb = lvim.icons.ui.DoubleChevronRight,
-        separator = lvim.icons.ui.BoldArrowRight,
-        group = lvim.icons.ui.Plus, -- symbol prepended to a group
-      },
-      popup_mappings = {
-        scroll_down = "<c-d>", -- binding to scroll down inside the popup
-        scroll_up = "<c-u>", -- binding to scroll up inside the popup
-      },
-      window = {
-        border = "single", -- none, single, double, shadow
-        position = "bottom", -- bottom, top
-        margin = { 1, 0, 1, 0 },
-        padding = { 2, 2, 2, 2 },
-        winblend = 0,
-      },
-      layout = {
-        height = { min = 4, max = 25 }, -- min and max height of the columns
-        width = { min = 20, max = 50 }, -- min and max width of the columns
-        spacing = 3, -- spacing between columns
-        align = "left", -- align columns left, center or right
-      },
-      ignore_missing = false,
-      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>",
-                 "call", "lua", "^:", "^ " },
-      show_help = true,
-      show_keys = true,
-      triggers = "auto",
-      triggers_blacklist = {
-        i = { "j", "k" },
-        v = { "j", "k" },
-      },
-      -- disable the WhichKey popup for certain buf types and file types.
-      -- Disabled by default for Telescope
-      disable = {
-        buftypes = {},
-        filetypes = { "TelescopePrompt" },
-      },
-    }
+lvim.builtin.which_key.setup.plugins = {
+  marks = false, -- shows a list of your marks on ' and `
+  registers = true,
+  spelling = {
+    enabled = true,
+    suggestions = 20,
+  },
+}
+
+lvim.builtin.which_key.setup.presets = {
+  operators = true,
+  motions = true,
+  text_objects = true,
+  windows = true, -- default bindings on <c-w>
+  nav = true, -- misc bindings to work with windows
+  z = true, -- bindings for folds, spelling and others prefixed with z
+  g = true, -- bindings for prefixed with g
+}
 
 -- Folding
 require('pretty-fold').setup{
