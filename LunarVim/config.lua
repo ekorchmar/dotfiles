@@ -54,11 +54,11 @@ lvim.plugins = {
       require('render-markdown').setup({
         headings = {
           '󰲡 ',
-          ' 󰲣 ',
-          '  󰲥 ',
-          '   󰲧 ',
-          '    󰲩 ',
-          '     󰲫 ',
+          '#󰲣 ',
+          '##󰲥 ',
+          '###󰲧 ',
+          '####󰲩 ',
+          '#####󰲫 ',
         },
         -- Disable heading coloring
         highlights = { heading = {
