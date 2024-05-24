@@ -7,6 +7,18 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevel = 99
 vim.o.autochdir = true
+vim.opt.colorcolumn = "80"
+-- Listchars
+vim.opt.list = true
+vim.opt.listchars = {
+  tab = '>-',
+  eol = '⤶',
+  -- space = '⋅', -- A lot of clutter; TODO: highlight leading spaces only
+  trail = '•',
+  extends = '◀',
+  precedes = '▶',
+}
+vim.opt.showbreak = '↪'
 
 lvim.plugins = {
   {
@@ -26,10 +38,39 @@ lvim.plugins = {
       { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>"},
     },
   },
-  'anuvyklack/pretty-fold.nvim',
+  {
+    'anuvyklack/pretty-fold.nvim',
+    event = "BufRead",
+    config = function()
+    require('pretty-fold').setup{
+      keep_indentation = false,
+      fill_char = '━',
+      sections = {
+        left = {
+         '━ ', function() return string.rep('>', vim.v.foldlevel) end, ' ━┫',
+         'content', '┣━━━┫ ', 'number_of_folded_lines', ' ┣━',
+        },
+        right = {}
+      }
+}
+    end,
+  },
   {
     'NvChad/nvim-colorizer.lua',
     event = "BufRead",
+    config = function()
+      require('colorizer').setup {
+        filetypes = {
+          '*';
+          css = { rgb_fn = true; };
+          scss = { rgb_fn = true; };
+          html = { rgb_fn = true; };
+        },
+        user_default_options = {
+          names = false;
+        }
+      }
+    end,
   },
   {
     'unblevable/quick-scope',
@@ -210,19 +251,6 @@ lvim.builtin.which_key.setup.presets = {
   g = true, -- bindings for prefixed with g
 }
 
--- Folding
-require('pretty-fold').setup{
-   keep_indentation = false,
-   fill_char = '━',
-   sections = {
-      left = {
-         '━ ', function() return string.rep('>', vim.v.foldlevel) end, ' ━┫',
-         'content', '┣━━━┫ ', 'number_of_folded_lines', ' ┣━',
-      },
-      right = {}
-   }
-}
-
 -- GUI settings
 if vim.fn.has('gui_running') then
   vim.cmd('set guifont=FiraCode\\ Nerd\\ Font:h13')
@@ -317,25 +345,11 @@ end
 -- Copilot
 vim.g.copilot_filetypes = { markdown = true }
 vim.g.copilot_no_tab_map = true
-
 -- Accept suggestions with Ctrl+a
 vim.keymap.set('i', '<C-a>', 'copilot#Accept("")', {
   expr = true,
   replace_keycodes = false
 })
-
--- Colorizer
-require('colorizer').setup {
-  filetypes = {
-    '*';
-    css = { rgb_fn = true; };
-    scss = { rgb_fn = true; };
-    html = { rgb_fn = true; };
-  },
-  user_default_options = {
-    names = false;
-  }
-}
 
 -- Windows specific
 if vim.loop.os_uname().sysname == "Windows_NT" then
@@ -363,9 +377,6 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
     },
   }
 end
-
--- Colorcolumn to 80
-vim.opt.colorcolumn = "80"
 
 -- Set wrap for markdown, html, xml and text; also remove Colorcolumn
 vim.api.nvim_create_autocmd("FileType", {
@@ -438,17 +449,6 @@ vim.api.nvim_create_autocmd("BufRead", {
   end
 })
 
--- Listchars
-vim.opt.list = true
-vim.opt.listchars = {
-  tab = '>-',
-  eol = '⤶',
-  -- space = '⋅', -- A lot of clutter; TODO: highlight leading spaces only
-  trail = '•',
-  extends = '◀',
-  precedes = '▶',
-}
-vim.opt.showbreak = '↪'
 
 -- Autocommands to set linenumber & signcolumn background for better contrast
 vim.api.nvim_create_autocmd("ColorScheme", {
