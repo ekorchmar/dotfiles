@@ -303,11 +303,25 @@ if vim.fn.has('gui_running') then
       end
     end
 
+    -- Set transparency and background color (title bar color)
+    vim.g.neovide_transparency = 1
+    -- Add keybinds to change transparency
+    Change_transparency = function(delta)
+      local new_t = vim.g.neovide_transparency + delta
+      vim.g.neovide_transparency = math.min(1, math.max(0, new_t))
+    end
+
     -- Add which-key mappings and submenu
     wkm["G"] = {
       name = "GUI (Neovide)",
       i = { Increase_font_size, "Increase font size" },
       d = { Decrease_font_size, "Decrease font size" },
+      o = { function ()
+        vim.g.neovide_transparency = 1
+      end, "Opaque window" },
+      t = { function ()
+        vim.g.neovide_transparency = 0.8
+      end, "Transparent window (0.8)" },
       a = { Toggle_animation, "Toggle animation" },
     }
   else
@@ -330,15 +344,21 @@ if vim.fn.has('gui_running') then
   end
 
   vim.keymap.set(
-    {'n', 'v', 'i'},
+    {'n', 'v', 'i', 'o'},
     '<C-ScrollWheelUp>',
     Increase_font_size
   )
   vim.keymap.set(
-    {'n', 'v', 'i'},
+    {'n', 'v', 'i', 'o'},
     '<C-ScrollWheelDown>',
     Decrease_font_size
   )
+  vim.keymap.set({ "n", "v", "o" }, "<M-ScrollWheelUp>", function()
+    Change_transparency(0.05)
+  end)
+  vim.keymap.set({ "n", "v", "o" }, "<M-ScrollWheelDown>", function()
+    Change_transparency(-0.05)
+  end)
 end
 
 
