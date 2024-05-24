@@ -10,7 +10,7 @@ vim.o.autochdir = true
 
 lvim.plugins = {
   {
-    'github/copilot.vim', 
+    'github/copilot.vim',
     build = ':Copilot auth',
   },
   'tpope/vim-surround',
@@ -150,7 +150,26 @@ lvim.plugins = {
 vim.cmd.aunmenu{'PopUp.How-to\\ disable\\ mouse'}
 vim.cmd.aunmenu{'PopUp.-1-' }
 
+-- Override Lazygit command
+lvim.builtin.terminal.size = 120
+local function toggle_lazygit()
+  local Terminal = require("toggleterm.terminal").Terminal
+  local lazygit = Terminal:new {
+    cmd = "lazygit",
+    hidden = true,
+    direction = "vertical",
+    on_open = function(_)
+      vim.cmd "startinsert!"
+    end,
+    on_close = function(_) end,
+    count = 99,
+  }
+  lazygit:toggle()
+end
+
+
 local wkm = lvim.builtin.which_key.mappings
+wkm["gg"] = { toggle_lazygit, "Lazygit" }
 wkm["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 wkm["sn"] = {
   function()
@@ -493,4 +512,24 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- Zoxide
 vim.g.zoxide_prefix = 'cd'
 vim.g.zoxide_uses_select = 1
+
+-- Set the terminal to override ANSI colors (lunar color scheme does not)
+-- The OG eight
+vim.g.terminal_color_0 = '#2a2b3d' -- Black
+vim.g.terminal_color_1 = '#f7768e' -- Red
+vim.g.terminal_color_2 = '#9ece6a' -- Green
+vim.g.terminal_color_3 = '#e0af68' -- Yellow
+vim.g.terminal_color_4 = '#7aa2f7' -- Blue
+vim.g.terminal_color_5 = '#ad8ee6' -- Magenta
+vim.g.terminal_color_6 = '#7dcfff' -- Cyan
+vim.g.terminal_color_7 = '#787c99' -- White
+-- The bright bunch
+vim.g.terminal_color_8 = '#3b3d57' -- Black
+vim.g.terminal_color_9 = '#ff7a95' -- Red
+vim.g.terminal_color_10 = '#afe274' -- Green
+vim.g.terminal_color_11 = '#f4bd71' -- Yellow
+vim.g.terminal_color_12 = '#7ea9ff' -- Blue
+vim.g.terminal_color_13 = '#bc9afa' -- Magenta
+vim.g.terminal_color_14 = '#91d7ff' -- Cyan
+vim.g.terminal_color_15 = '#888dad' -- White
 
