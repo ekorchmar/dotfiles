@@ -7,7 +7,7 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevel = 99
 vim.o.autochdir = true
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "81"
 -- Listchars
 vim.opt.list = true
 vim.opt.listchars = {
@@ -19,6 +19,8 @@ vim.opt.listchars = {
   precedes = '▶',
 }
 vim.opt.showbreak = '↪'
+vim.opt.virtualedit = 'block,onemore'
+
 
 lvim.plugins = {
   {
@@ -401,7 +403,7 @@ end
 -- Set wrap for markdown, html, xml and text; also remove Colorcolumn
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {"markdown", "html", "xml", "text", "abnf"},
-  callback = function()
+  command = function()
     vim.opt_local.wrap = true
     vim.opt_local.colorcolumn = ""
   end
