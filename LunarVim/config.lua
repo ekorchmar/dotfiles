@@ -54,7 +54,7 @@ lvim.plugins = {
         },
         right = {}
       }
-}
+    }
     end,
   },
   {
@@ -403,7 +403,7 @@ end
 -- Set wrap for markdown, html, xml and text; also remove Colorcolumn
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {"markdown", "html", "xml", "text", "abnf"},
-  command = function()
+  callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.colorcolumn = ""
   end
@@ -471,7 +471,6 @@ vim.api.nvim_create_autocmd("BufRead", {
   end
 })
 
-
 -- Autocommands to set linenumber & signcolumn background for better contrast
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
@@ -487,7 +486,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     ]])
   end
 })
-
 
 -- Zoxide
 vim.g.zoxide_prefix = 'cd'
