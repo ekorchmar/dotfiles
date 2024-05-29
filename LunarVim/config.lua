@@ -186,7 +186,33 @@ lvim.plugins = {
       'Lcd', 'Lcdi',
       'Tcd', 'Tcdi',
     },
-  }
+  },
+  {
+    "HakonHarnes/zen-mode.nvim",
+    dependencies = {
+      "folke/twilight.nvim",
+    },
+    cmd = "ZenMode",
+    opts = {
+      window = {
+        backdrop = 0.6,
+        width = function ()
+          local wide = { markdown = true, html = true,
+                         text = true, abnf = true }
+          if wide[vim.bo.filetype] then
+            return 0.8 * vim.o.columns
+          end
+
+          return 0.618 * vim.o.columns
+        end,
+        signcolumn = "no",
+        colorcolumn = "",
+      }
+    },
+    plugins = {
+      wezterm = { enabled = true },
+    },
+  },
 }
 
 -- I know how to use the mouse, thanks
@@ -225,6 +251,7 @@ wkm["sn"] = {
  "Nerd font symbols" }
 wkm["t"] = {"<cmd>ToggleTerm direction=vertical size=80<cr>","Split terminal"}
 wkm["u"] = {"<cmd>lua require('undotree').toggle()<cr>", "Undo Tree"}
+wkm["z"] = {"<cmd>ZenMode<cr>", "Zen mode"}
 wkm["-"] = {"<cmd>Oil<cr>", "Oil the directory"}
 -- Remove unneeded and duplicating menus
 wkm["c"] = {}
