@@ -188,7 +188,7 @@ lvim.plugins = {
     },
   },
   {
-    "HakonHarnes/zen-mode.nvim",
+    "folke/zen-mode.nvim",
     dependencies = {
       "folke/twilight.nvim",
     },
@@ -205,8 +205,10 @@ lvim.plugins = {
 
           return 0.618 * vim.o.columns
         end,
-        signcolumn = "no",
-        colorcolumn = "",
+        options = {
+          signcolumn = "no",
+          colorcolumn = "",
+        },
       }
     },
     plugins = {
