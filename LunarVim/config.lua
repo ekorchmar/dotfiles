@@ -209,12 +209,39 @@ lvim.plugins = {
           signcolumn = "no",
           colorcolumn = "",
         },
-      }
-    },
-    plugins = {
-      wezterm = { enabled = true },
+      },
+      plugins = {
+        wezterm = { enabled = true },
+      },
+      on_open = function()
+        -- Currently broken:
+        -- https://github.com/nvim-lualine/lualine.nvim/issues/1066
+        require("lualine").hide()
+        vim.opt.laststatus = 0
+        vim.opt.cmdheight = 0
+
+        -- Get the lines of current window
+        local lines = vim.api.nvim_win_get_height(0)
+
+        local wins = vim.api.nvim_list_wins()
+        local bg_window = wins[#wins]
+        local zen_window = wins[#wins - 1]
+
+        -- Offset the windows to fill space of cmd and status line
+        vim.api.nvim_win_set_height(bg_window, lines + 4)
+        vim.api.nvim_win_set_height(zen_window, lines + 4)
+      end,
+      on_close = function()
+        require("lualine").hide { unhide = true }
+        vim.opt.cmdheight = 2
+      end,
     },
   },
+  {
+    "folke/twilight.nvim",
+    lazy = true,
+    opts = { context = 14 }
+  }
 }
 
 -- I know how to use the mouse, thanks
@@ -240,6 +267,7 @@ end
 
 
 local wkm = lvim.builtin.which_key.mappings
+wkm["bq"] = { "<cmd>bd<cr>", "Close current buffer" }
 wkm["gg"] = { toggle_lazygit, "Lazygit" }
 wkm["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 wkm["sn"] = {
