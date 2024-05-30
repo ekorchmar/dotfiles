@@ -220,16 +220,8 @@ lvim.plugins = {
         vim.opt.laststatus = 0
         vim.opt.cmdheight = 0
 
-        -- Get the lines of current window
-        local lines = vim.api.nvim_win_get_height(0)
-
-        local wins = vim.api.nvim_list_wins()
-        local bg_window = wins[#wins]
-        local zen_window = wins[#wins - 1]
-
-        -- Offset the windows to fill space of cmd and status line
-        vim.api.nvim_win_set_height(bg_window, lines + 4)
-        vim.api.nvim_win_set_height(zen_window, lines + 4)
+        -- Reshape ZenMode window & backdrop
+        require("zen-mode.view").fix_layout(true)
       end,
       on_close = function()
         require("lualine").hide { unhide = true }
@@ -311,10 +303,10 @@ lvim.builtin.which_key.setup.presets = {
 }
 
 -- GUI settings
-if vim.fn.has('gui_running') then
+if vim.fn.has('gui_running') == 1 then
   vim.cmd('set guifont=FiraCode\\ Nerd\\ Font:h13')
 
-  if vim.fn.exists('g:neovide') then
+  if vim.g.neovide then
     vim.g.neovide_hide_mouse_when_typing = 1
     vim.g.neovide_cursor_animate_in_insert_mode = false
     vim.g.neovide_cursor_animate_command_line = true
