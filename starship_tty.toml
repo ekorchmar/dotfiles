@@ -24,7 +24,7 @@ $time$battery\
 style = "fg:239 bg:111"
 format = "[ $path ]($style)"
 truncation_length = 3
-truncation_symbol = "…/"
+truncation_symbol = ".../"
 
 [git_branch]
 symbol = "git"
