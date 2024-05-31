@@ -28,6 +28,7 @@ Custom CSS to remove as much clutter from the UI as possible.
 
 ## starship
 Heavily modified and updated built-in Tokyo Night.
+`starship_tty.toml` is a custom prompt with minimalistic style, 256 colors and no nerd font symbols. Can be used by setting `STARSHIP_CONFIG` environment variable to the path of this file.
 
 ## konsole
 This is handcrafted Konsole/Yakuake color scheme, based on [Tokyo Night](https://github.com/enkia/tokyo-night-vscode-theme).
