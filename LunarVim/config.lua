@@ -211,7 +211,7 @@ lvim.plugins = {
         },
       },
       plugins = {
-        wezterm = { enabled = true },
+        wezterm = { enabled = true, font = "+2" },
       },
       on_open = function()
         -- Currently broken:
@@ -344,12 +344,14 @@ if vim.fn.has('gui_running') == 1 then
         vim.g.neovide_cursor_animate_command_line = true
         vim.g.neovide_scroll_animation_length = 0.1
         vim.g.neovide_position_animation_length = 0.15
+        vim.g.neovide_cursor_animation_length = 0.06
         vim.print("Neovide animation enabled")
       else
         vim.g.neovide_animation_length = 0
         vim.g.neovide_cursor_animate_command_line = false
         vim.g.neovide_scroll_animation_length = 0
         vim.g.neovide_position_animation_length = 0
+        vim.g.neovide_cursor_animation_length = 0
         vim.print("Neovide animation disabled")
       end
     end
