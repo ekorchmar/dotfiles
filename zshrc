@@ -1,38 +1,9 @@
-bindkey -v
-
 # Autocompletion colors
 # Dracula Theme (for zsh-syntax-highlighting)
-#
-# https://github.com/zenorocha/dracula-theme
-#
-# Copyright 2021, All rights reserved
-#
-# Code licensed under the MIT license
-# http://zenorocha.mit-license.org
-#
-# @author George Pickering <@bigpick>
-# @author Zeno Rocha <hi@zenorocha.com>
-# Paste this files contents inside your ~/.zshrc before you activate zsh-syntax-highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 typeset -gA ZSH_HIGHLIGHT_STYLES
-# Default groupings per, https://spec.draculatheme.com, try to logically separate
-# possible ZSH_HIGHLIGHT_STYLES settings accordingly...?
-#
-# Italics not yet supported by zsh; potentially soon:
-#    https://github.com/zsh-users/zsh-syntax-highlighting/issues/432
-#    https://www.zsh.org/mla/workers/2021/msg00678.html
-# ... in hopes that they will, labelling accordingly with ,italic where appropriate
-#
-# Main highlighter styling: https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md
-#
-## General
-### Diffs
-### Markup
-## Classes
 ## Comments
 ZSH_HIGHLIGHT_STYLES[comment]='fg=#6272A4'
-## Constants
-## Entitites
 ## Functions/methods
 ZSH_HIGHLIGHT_STYLES[alias]='fg=#50FA7B'
 ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=#50FA7B'
@@ -44,7 +15,6 @@ ZSH_HIGHLIGHT_STYLES[autodirectory]='fg=#FFB86C,italic'
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#FFB86C'
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#FFB86C'
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=#BD93F9'
-## Keywords
 ## Built ins
 ZSH_HIGHLIGHT_STYLES[builtin]='fg=#8BE9FD'
 ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#8BE9FD'
@@ -57,8 +27,6 @@ ZSH_HIGHLIGHT_STYLES[process-substitution-delimiter]='fg=#F8F8F2'
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]='fg=#FF79C6'
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='fg=#FF79C6'
 ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]='fg=#FF79C6'
-## Serializable / Configuration Languages
-## Storage
 ## Strings
 ZSH_HIGHLIGHT_STYLES[command-substitution-quoted]='fg=#F1FA8C'
 ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter-quoted]='fg=#F1FA8C'
@@ -82,9 +50,6 @@ ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=#F8F8F2'
 ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]='fg=#FF79C6'
 ZSH_HIGHLIGHT_STYLES[globbing]='fg=#F8F8F2'
 ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#BD93F9'
-#ZSH_HIGHLIGHT_STYLES[command-substitution]='fg=?'
-#ZSH_HIGHLIGHT_STYLES[command-substitution-unquoted]='fg=?'
-#ZSH_HIGHLIGHT_STYLES[process-substitution]='fg=?'
 #ZSH_HIGHLIGHT_STYLES[arithmetic-expansion]='fg=?'
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument-unclosed]='fg=#FF5555'
 ZSH_HIGHLIGHT_STYLES[redirection]='fg=#F8F8F2'
@@ -142,9 +107,11 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 unsetopt nomatch
 
-# If we are not in TTY:
-if [[ $XDG_SESSION_TYPE != "tty" ]]; then
-    source <(/usr/bin/starship init zsh --print-full-init)
+# Starsip prompt
+source <(/usr/bin/starship init zsh --print-full-init)
+# If we are in TTY, use leegacy color config
+if [[ $XDG_SESSION_TYPE == "tty" ]]; then
+    export STARSHIP_CONFIG=~/.config/starship_tty.toml
 fi
 
 # Paru to search for missing command
@@ -202,10 +169,14 @@ alias nano=lvim
 alias vi=lvim
 alias vim=lvim
 alias nvim=lvim
+
+# Some env variables for common programs
 export EDITOR=lvim
 export VISUAL=neovide
 export BROWSER=firefox
-export TERMINAL=konsole
+export TERMINAL=wezterm
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
 
 # My custom scripts
 path+=('/home/ekorchmar/bin')
@@ -236,32 +207,6 @@ function dopamine () {
 
     echo "<===UPDATING FWUPD===>"
     sudo fwupdmgr update
-
-    # echo "<===UPDATING NPM===>"
-    # sudo npm update -g
-
-    #echo "<===UPDATING PIP===>"
-    #sudo pip install --upgrade pip
-
-    # echo "<===UPDATING VIM STACK===>"
-    # echo "Pulling vimrc..."
-    # git -C ~/git/vimrc pull
-
-    # echo "Updating vim-plug..."
-    # nvim --headless +PlugUpgrade +qall
-    # echo ""
-    # echo "Installing missing plugins..."
-    # nvim --headless +PlugInstall +qall
-    # echo ""
-    # echo "Updating plugins..."
-    # nvim --headless +PlugUpdate +qall
-    # echo ""
-    # echo "Updating TreeSitter parsers..."
-    # nvim --headless +TSUpdate +qall
-    # echo ""
-    # echo "Updating LSP servers..."
-    # nvim --headless MasonUpdate +qall
-    # echo ""
 
     # echo "<===UPDATING RUST===>"
     # rustup update
