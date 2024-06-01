@@ -188,7 +188,8 @@ lvim.plugins = {
     },
   },
   {
-    "folke/zen-mode.nvim",
+    "ekorchmar/zen-mode.nvim",
+    branch = "feat_neovide",
     dependencies = {
       "folke/twilight.nvim",
     },
@@ -212,11 +213,12 @@ lvim.plugins = {
       },
       plugins = {
         wezterm = { enabled = true, font = "+2" },
+        neovide = { enabled = true },
       },
       on_open = function()
         -- Currently broken:
         -- https://github.com/nvim-lualine/lualine.nvim/issues/1066
-        require("lualine").hide()
+        -- require("lualine").hide()
         vim.opt.laststatus = 0
         vim.opt.cmdheight = 0
 
@@ -224,7 +226,8 @@ lvim.plugins = {
         require("zen-mode.view").fix_layout(true)
       end,
       on_close = function()
-        require("lualine").hide { unhide = true }
+        -- require("lualine").hide { unhide = true }
+        vim.opt.laststatus = 3
         vim.opt.cmdheight = 2
       end,
     },
