@@ -565,3 +565,26 @@ vim.g.terminal_color_13 = '#bc9afa' -- Magenta
 vim.g.terminal_color_14 = '#91d7ff' -- Cyan
 vim.g.terminal_color_15 = '#888dad' -- White
 
+-- Alpha header
+-- Only if system has cowsay and fortune
+if os.execute("cowsay -l") == 0 and os.execute("fortune -v") == 0 then
+  local function lines(str)
+    local result = {}
+    for line in str:gmatch '[^\n]+' do
+      table.insert(result, line)
+    end
+    return result
+  end
+
+  local handle = io.popen("fortune | cowsay -f tux")
+  if not handle then
+    return
+  end
+  local cow_quote = handle:read("*a")
+  handle:close()
+
+  lvim.builtin.alpha.active = true
+  lvim.builtin.alpha.mode = "dashboard"
+  lvim.builtin.alpha.dashboard.section.header.val = lines(cow_quote)
+end
+
