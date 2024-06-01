@@ -56,6 +56,35 @@ config.keys = {
     mods = 'SHIFT',
     action = wezterm.action.ActivateTabRelative(1),
   },
+  -- Ctrl + Tab to switch panes
+  {
+    key = 'Tab',
+    mods = 'CTRL',
+    action = wezterm.action.ActivateWindowRelative(1),
+  },
+  {
+    key = 'Tab',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.ActivateWindowRelative(-1),
+  },
+  -- Ctrl + Shift + F to search
+  {
+    key = 'f',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.Search("CurrentSelectionOrEmptyString"),
+  },
+  -- Ctrl + Shift + arrows to move tabs
+  {
+    key = 'LeftArrow',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.MoveTabRelative(-1),
+  },
+  {
+    key = 'RightArrow',
+    mods = 'CTRL|SHIFT',
+    action = wezterm.action.MoveTabRelative(1),
+  },
+
 }
 
 -- Mouse bindings
