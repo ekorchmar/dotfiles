@@ -20,6 +20,12 @@ config.font = wezterm.font("FiraCode Nerd Font")
 config.adjust_window_size_when_changing_font_size = false
 config.font_size = 14
 
+-- Scroll bar
+config.enable_scroll_bar = true
+config.colors = {
+  scrollbar_thumb = "#232433",
+}
+
 -- Command palette
 config.command_palette_bg_color = "#1a1b26"
 config.command_palette_fg_color = "#a9b1d6"
