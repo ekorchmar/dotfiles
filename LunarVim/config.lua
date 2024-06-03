@@ -41,7 +41,7 @@ lvim.plugins = {
     },
   },
   {
-    'anuvyklack/pretty-fold.nvim',
+    'bbjornstad/pretty-fold.nvim',
     event = "BufRead",
     config = function()
     require('pretty-fold').setup{
