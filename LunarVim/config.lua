@@ -576,7 +576,7 @@ if os.execute("cowsay -l") == 0 and os.execute("fortune -v") == 0 then
     return result
   end
 
-  local handle = io.popen("fortune | cowsay -f tux")
+  local handle = io.popen("fortune -n 255 -s | cowsay -f tux")
   if not handle then
     return
   end
