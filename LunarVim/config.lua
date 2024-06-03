@@ -463,6 +463,15 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+-- Set autocmd to set 4 space indents
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 0
+  end
+})
+
 -- Vim surround:
 -- "c" for C-style multiline comments
 vim.g.surround_99 = "/* \r */"
