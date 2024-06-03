@@ -21,6 +21,7 @@ $time$battery\
 
 # Directory and git
 [directory]
+truncate_to_repo = false
 style = "fg:239 bg:111"
 format = "[ $path ]($style)"
 truncation_length = 3

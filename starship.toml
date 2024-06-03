@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = """
+format = """\
 $cmd_duration\
 $status[$os $username$hostname $shell$shlvl](bg:#c0caf5 fg:#1f2335)\
 [](bg:#7aa2f7 fg:#c0caf5)\
@@ -26,10 +26,22 @@ $time$battery\
 
 # Directory and git
 [directory]
+truncate_to_repo = false
 style = "fg:#3b4261 bg:#7aa2f7"
-format = "[ $path ]($style)"
-truncation_length = 3
+before_repo_root_style = "fg:#3b4261 bg:#7aa2f7"
+repo_root_style = "fg:#1f2335 bg:#7aa2f7 bold"
+format = "[ $path ]($style)[$read_only]($read_only_style)"
+repo_root_format = """\
+[$before_root_path]($before_repo_root_style)\
+[$repo_root]($repo_root_style)\
+[$path ]($style)\
+[$read_only]($read_only_style)\
+"""
+truncation_length = 6
 truncation_symbol = "…/"
+home_symbol = "󰋜 "
+read_only = " "
+read_only_style = "fg:#1f2335"
 
 [git_branch]
 symbol = ""
