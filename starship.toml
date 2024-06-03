@@ -39,7 +39,7 @@ repo_root_format = """\
 """
 truncation_length = 6
 truncation_symbol = "…/"
-home_symbol = "󰋜 "
+home_symbol = " ~"
 read_only = " "
 read_only_style = "fg:#1f2335"
 
