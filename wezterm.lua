@@ -20,6 +20,12 @@ config.font = wezterm.font("FiraCode Nerd Font")
 config.adjust_window_size_when_changing_font_size = false
 config.font_size = 14
 
+-- Command palette
+config.command_palette_bg_color = "#1a1b26"
+config.command_palette_fg_color = "#a9b1d6"
+config.command_palette_rows = 8
+config.command_palette_font_size = 16
+
 -- Windows specific settings
 if string.find(wezterm.target_triple, "windows") then
   -- Opacity
@@ -33,6 +39,7 @@ if string.find(wezterm.target_triple, "windows") then
 end
 
 -- Key bindings
+config.disable_default_key_bindings = true
 config.keys = {
   -- Ctrl+Shift+brackets for V and H split
   {
@@ -83,6 +90,35 @@ config.keys = {
     key = 'RightArrow',
     mods = 'CTRL|SHIFT',
     action = wezterm.action.MoveTabRelative(1),
+  },
+  -- Ctrl + Shift + C to copy, V to paste
+  {
+    key = 'c',
+    mods = 'CTRL|SHIFT',
+    action = act.CopyTo 'Clipboard',
+  },
+  {
+    key = 'v',
+    mods = 'CTRL|SHIFT',
+    action = act.PasteFrom 'Clipboard',
+  },
+  -- Ctrl + Shift + T to open a new tab
+  {
+    key = 't',
+    mods = 'CTRL|SHIFT',
+    action = act.SpawnTab 'DefaultDomain',
+  },
+  -- Ctrl + Shift + P for command palette
+  {
+    key = 'p',
+    mods = 'CTRL|SHIFT',
+    action = act.ActivateCommandPalette,
+  },
+  -- Ctrl + Shift + W to close tab without confirmation
+  {
+    key = 'w',
+    mods = 'CTRL|SHIFT',
+    action = act.CloseCurrentTab { confirm = false },
   },
 
 }

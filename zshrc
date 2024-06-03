@@ -230,7 +230,7 @@ add-zsh-hook -Uz chpwd chpwd_dirstack
 
 DIRSTACKSIZE='20'
 
-setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME
+setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME CD_SILENT
 
 ## Remove duplicate entries
 setopt PUSHD_IGNORE_DUPS
