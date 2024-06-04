@@ -28,6 +28,7 @@ lvim.plugins = {
     build = ':Copilot auth',
   },
   'tpope/vim-surround',
+  'tpope/vim-sleuth',
   {
     'chrisbra/sudoedit.vim',
     cmd = 'SudoWrite',
@@ -222,6 +223,11 @@ lvim.plugins = {
         vim.opt.laststatus = 0
         vim.opt.cmdheight = 0
 
+        -- For neovide: go full screen
+        if vim.g.neovide and not vim.g.neovide_fullscreen then
+          vim.g.neovide_fullscreen = true
+        end
+
         -- Reshape ZenMode window & backdrop
         require("zen-mode.view").fix_layout(true)
       end,
@@ -229,6 +235,10 @@ lvim.plugins = {
         -- require("lualine").hide { unhide = true }
         vim.opt.laststatus = 3
         vim.opt.cmdheight = 2
+
+        if vim.g.neovide and vim.g.neovide_fullscreen then
+          vim.g.neovide_fullscreen = false
+        end
       end,
     },
   },
@@ -460,15 +470,6 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.colorcolumn = ""
-  end
-})
-
--- Set autocmd to set 4 space indents
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "*",
-  callback = function()
-    vim.opt_local.tabstop = 4
-    vim.opt_local.shiftwidth = 0
   end
 })
 
