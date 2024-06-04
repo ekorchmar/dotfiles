@@ -178,6 +178,7 @@ config.mouse_bindings = {
 }
 
 -- Nvim Zen Mode
+FULLSCREEN_BEFORE_ZEN = false
 wezterm.on('user-var-changed', function(window, pane, name, value)
       local overrides = window:get_config_overrides() or {}
       if name == "ZEN_MODE" then
@@ -189,11 +190,17 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
                 number_value = number_value - 1
             end
             overrides.enable_tab_bar = false
-            window:perform_action(act.ToggleFullScreen, pane)
+            FULLSCREEN_BEFORE_ZEN = window:get_dimensions().is_full_screen
+            if not FULLSCREEN_BEFORE_ZEN then
+                window:perform_action(act.ToggleFullScreen, pane)
+            end
         elseif number_value < 0 then
             window:perform_action(act.ResetFontSize, pane)
             overrides.font_size = nil
             overrides.enable_tab_bar = true
+            if not FULLSCREEN_BEFORE_ZEN then
+              window:perform_action(act.ToggleFullScreen, pane)
+            end
         else
               overrides.font_size = number_value
               overrides.enable_tab_bar = false
