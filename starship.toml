@@ -32,7 +32,7 @@ before_repo_root_style = "fg:#3b4261 bg:#7aa2f7"
 repo_root_style = "fg:#1f2335 bg:#7aa2f7 bold"
 format = "[ $path ]($style)[$read_only]($read_only_style)"
 repo_root_format = """\
-[$before_root_path]($before_repo_root_style)\
+[ $before_root_path]($before_repo_root_style)\
 [$repo_root]($repo_root_style)\
 [$path ]($style)\
 [$read_only]($read_only_style)\
