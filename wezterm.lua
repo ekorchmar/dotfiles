@@ -26,6 +26,9 @@ config.colors = {
   scrollbar_thumb = "#232433",
 }
 
+-- Graphics acceleration
+config.front_end = "WebGpu"
+
 -- Command palette
 config.command_palette_bg_color = "#1a1b26"
 config.command_palette_fg_color = "#a9b1d6"
@@ -126,7 +129,12 @@ config.keys = {
     mods = 'CTRL|SHIFT',
     action = act.CloseCurrentTab { confirm = false },
   },
-
+  -- Ctrl + Shift + N to open a new window
+  {
+    key = 'n',
+    mods = 'SHIFT|CTRL',
+    action = act.SpawnWindow,
+  },
 }
 
 -- Mouse bindings
