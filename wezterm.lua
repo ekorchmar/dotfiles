@@ -54,51 +54,51 @@ config.keys = {
   {
     key = '(',
     mods = 'CTRL|SHIFT',
-    action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+    action = act.SplitVertical { domain = 'CurrentPaneDomain' },
   },
   {
     key = ')',
     mods = 'CTRL|SHIFT',
-    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+    action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
   },
   -- Shift + arrows to switch tabs
   {
     key = 'LeftArrow',
     mods = 'SHIFT',
-    action = wezterm.action.ActivateTabRelative(-1),
+    action = act.ActivateTabRelative(-1),
   },
   {
     key = 'RightArrow',
     mods = 'SHIFT',
-    action = wezterm.action.ActivateTabRelative(1),
+    action = act.ActivateTabRelative(1),
   },
   -- Ctrl + Tab to switch panes
   {
     key = 'Tab',
     mods = 'CTRL',
-    action = wezterm.action.ActivateWindowRelative(1),
+    action = act.ActivateWindowRelative(1),
   },
   {
     key = 'Tab',
     mods = 'CTRL|SHIFT',
-    action = wezterm.action.ActivateWindowRelative(-1),
+    action = act.ActivateWindowRelative(-1),
   },
   -- Ctrl + Shift + F to search
   {
     key = 'f',
     mods = 'CTRL|SHIFT',
-    action = wezterm.action.Search("CurrentSelectionOrEmptyString"),
+    action = act.Search("CurrentSelectionOrEmptyString"),
   },
   -- Ctrl + Shift + arrows to move tabs
   {
     key = 'LeftArrow',
     mods = 'CTRL|SHIFT',
-    action = wezterm.action.MoveTabRelative(-1),
+    action = act.MoveTabRelative(-1),
   },
   {
     key = 'RightArrow',
     mods = 'CTRL|SHIFT',
-    action = wezterm.action.MoveTabRelative(1),
+    action = act.MoveTabRelative(1),
   },
   -- Ctrl + Shift + C to copy, V to paste
   {
@@ -135,6 +135,12 @@ config.keys = {
     mods = 'SHIFT|CTRL',
     action = act.SpawnWindow,
   },
+  -- Ctrl + Alt + F to toggle fullscreen
+  {
+      key = 'f',
+      mods = 'CTRL|ALT',
+      action = act.ToggleFullScreen,
+  },
 }
 
 -- Mouse bindings
@@ -167,6 +173,8 @@ config.mouse_bindings = {
     mods = 'CTRL',
     action = act.DecreaseFontSize,
   },
+
+  -- 
 }
 
 -- Nvim Zen Mode
@@ -177,12 +185,13 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
         local number_value = tonumber(value)
         if incremental ~= nil then
               while (number_value > 0) do
-                window:perform_action(wezterm.action.IncreaseFontSize, pane)
+                window:perform_action(act.IncreaseFontSize, pane)
                 number_value = number_value - 1
             end
             overrides.enable_tab_bar = false
+            window:perform_action(act.ToggleFullScreen, pane)
         elseif number_value < 0 then
-            window:perform_action(wezterm.action.ResetFontSize, pane)
+            window:perform_action(act.ResetFontSize, pane)
             overrides.font_size = nil
             overrides.enable_tab_bar = true
         else

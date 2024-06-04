@@ -179,7 +179,6 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT="-c"
 
 # My custom scripts
-path+=('/home/ekorchmar/bin')
 path+=('/home/ekorchmar/.local/bin')
 export PATH
 
