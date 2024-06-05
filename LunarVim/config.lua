@@ -43,7 +43,7 @@ lvim.plugins = {
   },
   {
     'bbjornstad/pretty-fold.nvim',
-    event = "BufRead",
+    event = "BufEnter",
     config = function()
     require('pretty-fold').setup{
       keep_indentation = false,
@@ -60,7 +60,7 @@ lvim.plugins = {
   },
   {
     'NvChad/nvim-colorizer.lua',
-    event = "BufRead",
+    event = "BufEnter",
     config = function()
       require('colorizer').setup {
         filetypes = {
@@ -81,7 +81,7 @@ lvim.plugins = {
   },
   {
     "folke/todo-comments.nvim",
-    event = "BufRead",
+    event = "BufEnter",
     config = function()
       require("todo-comments").setup()
     end,
@@ -130,7 +130,7 @@ lvim.plugins = {
     -- Breaks markdown rendering which links some hl to colorcolumn
     enabled = false,
     'Bekaboo/deadcolumn.nvim',
-    event = "BufRead",
+    event = "BufEnter",
     config = function()
       require('deadcolumn').setup({
         modes = function(_)
@@ -152,7 +152,7 @@ lvim.plugins = {
       return vim.fn.exists('g:neovide') ~= 1
     end, -- Neovide is glitchy
     dependencies = { "lewis6991/gitsigns.nvim" },
-    event = "BufRead",
+    event = "BufEnter",
     config = function()
       require("scrollbar").setup({
         show_in_active_only = true,
@@ -163,7 +163,7 @@ lvim.plugins = {
   },
   {
     'bennypowers/nvim-regexplainer',
-    event = "BufRead",
+    event = "BufEnter",
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
       'MunifTanjim/nui.nvim',
@@ -292,7 +292,21 @@ wkm["-"] = {"<cmd>Oil<cr>", "Oil the directory"}
 wkm["c"] = {}
 wkm["f"] = {}
 wkm["p"] = {}
-wkm["q"] = {}
+wkm["q"] = {
+  name = "Quick options",
+  p = {
+    function ()
+      print(vim.api.nvim_get_option_value("paste", {}) and "Normal" or "Paste")
+      vim.opt.paste = not vim.api.nvim_get_option_value("paste", {})
+    end, "Toggle paste mode"
+  },
+  s = {
+    function ()
+      print(vim.api.nvim_get_option_value("spell", {}) and "nospell" or "spell")
+      vim.opt.spell = not vim.opt.spell
+    end, "Toggle spell check" },
+  c = { "<cmd>windo set scrollbind<cr>", "Scrollbind all windows" },
+}
 wkm["w"] = {}
 wkm["T"] = {}
 
@@ -522,7 +536,7 @@ vim.filetype.add({
 
 -- conf only if file starts with { and ends with }
 -- TODO: use vim.filetype.add() instead
-vim.api.nvim_create_autocmd("BufRead", {
+vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*.conf",
   callback = function()
     local line = vim.fn.getline(1)
