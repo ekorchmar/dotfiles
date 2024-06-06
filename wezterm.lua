@@ -137,9 +137,18 @@ config.keys = {
   },
   -- Ctrl + Alt + F to toggle fullscreen
   {
-      key = 'f',
-      mods = 'CTRL|ALT',
-      action = act.ToggleFullScreen,
+    key = 'f',
+    mods = 'CTRL|ALT',
+    action = act.ToggleFullScreen,
+  },
+  -- Ctrl + Shift + K to send ^L and clear the screen
+  {
+    key = 'k',
+    mods = 'CTRL|SHIFT',
+    action = act.Multiple {
+      act.SendKey { key = 'L', mods = 'CTRL' },
+      act.ClearScrollback 'ScrollbackAndViewport',
+    },
   },
 }
 
@@ -173,8 +182,6 @@ config.mouse_bindings = {
     mods = 'CTRL',
     action = act.DecreaseFontSize,
   },
-
-  -- 
 }
 
 -- Nvim Zen Mode

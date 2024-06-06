@@ -272,7 +272,7 @@ end
 
 
 local wkm = lvim.builtin.which_key.mappings
-wkm["bq"] = { "<cmd>bd<cr>", "Close current buffer" }
+wkm["bq"] = { "<cmd>BufferKill<cr>", "Close current buffer" }
 wkm["gg"] = { toggle_lazygit, "Lazygit" }
 wkm["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 wkm["sn"] = {
