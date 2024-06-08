@@ -116,6 +116,7 @@ show_always=true
 style_user="bg:#c0caf5 fg:#1f2335 bold"
 style_root="bg:#c0caf5 fg:#db3a3a bold"
 format = '[$user]($style)'
+aliases = { "" = "Unknown" }
 
 [hostname]
 ssh_only=false
@@ -134,6 +135,7 @@ Linux = ""
 Ubuntu = ""
 Macos = ""
 Arch = ""
+Android = ""
 
 [shell]
 disabled=false

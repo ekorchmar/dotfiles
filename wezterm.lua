@@ -76,12 +76,12 @@ config.keys = {
   {
     key = 'Tab',
     mods = 'CTRL',
-    action = act.ActivateWindowRelative(1),
+    action = act.ActivatePaneDirection 'Next'
   },
   {
     key = 'Tab',
     mods = 'CTRL|SHIFT',
-    action = act.ActivateWindowRelative(-1),
+    action = act.ActivatePaneDirection 'Prev'
   },
   -- Ctrl + Shift + F to search
   {
