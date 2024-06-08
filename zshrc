@@ -109,54 +109,23 @@ unsetopt nomatch
 
 # Starsip prompt
 source <(/usr/bin/starship init zsh --print-full-init)
-# If we are in TTY, use leegacy color config
+# If we are in TTY, use legacy color config
 if [[ $XDG_SESSION_TYPE == "tty" ]]; then
     export STARSHIP_CONFIG=~/.config/starship_tty.toml
 fi
 
-# Paru to search for missing command
-function command_not_found_handler {
-    local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
-    printf 'zsh: command not found: %s\n' "$1"
-    local entries=(
-        ${(f)"$(/usr/bin/paru -F --machinereadable -- "/usr/bin/$1")"}
-    )
-    if (( ${#entries[@]} ))
-    then
-        printf "${bright}$1${reset} may be found in the following packages:\n"
-        local pkg
-        for entry in "${entries[@]}"
-        do
-            # (repo package version file)
-            local fields=(
-                ${(0)entry}
-            )
-            if [[ "$pkg" != "${fields[2]}" ]]
-            then
-                printf "${purple}%s/${bright}%s ${green}%s${reset}\n" "${fields[1]}" "${fields[2]}" "${fields[3]}"
-            fi
-            printf '    /%s\n' "${fields[4]}"
-            pkg="${fields[2]}"
-        done
-    fi
-    return 127
-}
-
 bindkey -e
 
 # Replace builtins with better alternatives
-alias ls='exa'
+alias ls='eza'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias diff='diff --color=auto'
 alias cat='bat'
 export BAT_THEME="Dracula"
 
-alias yoink='paru -Syu'
-alias yeet='paru -Rscu'
-
 # Mnemonics
-alias l='exa -la --icons --git --group-directories-first -h'
+alias l='eza -la --icons --git --group-directories-first -h'
 
 # Vim workflow
 alias :q='exit'
@@ -164,23 +133,56 @@ alias :wq='exit'
 alias :qa='exit'
 alias :w='echo "👌"'
 
-# Neovim everywhere
-alias nano=lvim
-alias vi=lvim
-alias vim=lvim
-alias nvim=lvim
+# If not on Android:
+if [[ -z $ANDROID_DATA ]]; then
+    alias yoink='paru -Syu'
+    alias yeet='paru -Rscu'
+    # Neovim everywhere
+    alias nano=lvim
+    alias vi=lvim
+    alias vim=lvim
+    alias nvim=lvim
 
-# Some env variables for common programs
-export EDITOR=lvim
-export VISUAL=neovide
-export BROWSER=firefox
-export TERMINAL=wezterm
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export MANROFFOPT="-c"
+    # Some env variables for common programs
+    export EDITOR=lvim
+    export VISUAL=neovide
+    export BROWSER=firefox
+    export TERMINAL=wezterm
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+    export MANROFFOPT="-c"
 
-# My custom scripts
-path+=('/home/ekorchmar/.local/bin')
-export PATH
+    # My custom scripts
+    path+=('/home/ekorchmar/.local/bin')
+    export PATH
+
+    # Paru to search for missing command
+    function command_not_found_handler {
+        local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
+        printf 'zsh: command not found: %s\n' "$1"
+        local entries=(
+            ${(f)"$(/usr/bin/paru -F --machinereadable -- "/usr/bin/$1")"}
+        )
+        if (( ${#entries[@]} ))
+        then
+            printf "${bright}$1${reset} may be found in the following packages:\n"
+            local pkg
+            for entry in "${entries[@]}"
+            do
+                # (repo package version file)
+                local fields=(
+                    ${(0)entry}
+                )
+                if [[ "$pkg" != "${fields[2]}" ]]
+                then
+                    printf "${purple}%s/${bright}%s ${green}%s${reset}\n" "${fields[1]}" "${fields[2]}" "${fields[3]}"
+                fi
+                printf '    /%s\n' "${fields[4]}"
+                pkg="${fields[2]}"
+            done
+        fi
+        return 127
+}
+fi
 
 # I miss MacOS sometimes
 function open () {
