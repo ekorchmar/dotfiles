@@ -41,7 +41,7 @@ truncation_length = 6
 truncation_symbol = "…/"
 home_symbol = "~"
 read_only = " "
-read_only_style = "fg:#1f2335"
+read_only_style = "bg:#7aa2f7 fg:#1f2335"
 
 [git_branch]
 symbol = ""

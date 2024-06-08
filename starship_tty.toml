@@ -26,6 +26,8 @@ style = "fg:239 bg:111"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = ".../"
+read_only = "X"
+read_only_style = "bg:111 red"
 
 [git_branch]
 symbol = "git"
