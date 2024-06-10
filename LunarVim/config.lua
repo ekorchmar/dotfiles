@@ -118,7 +118,7 @@ lvim.plugins = {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("oil").setup {
-        columns = { "icon", "permissions", "size", "mtime" },
+        columns = { "permissions", "size", "mtime", "icon" },
         view_options = {
           show_hidden = true,
         },
@@ -289,7 +289,7 @@ nor["sn"] = {
  "Nerd font symbols" }
 nor["u"] = {"<cmd>lua require('undotree').toggle()<cr>", "Undo Tree"}
 nor["z"] = {"<cmd>ZenMode<cr>", "Zen mode"}
-nor["-"] = {"<cmd>Oil<cr>", "Oil the directory"}
+nor["-"] = {"<cmd>Oil<cr>", "View parent as buffer"}
 -- Remove unneeded and duplicating menus
 nor["w"] = {}
 nor["T"] = {}
@@ -305,6 +305,7 @@ nor["c"] = {
 }
 nor["q"] = {
   name = "Quick options",
+  c = { "<cmd>windo set scrollbind<cr>", "Scrollbind all windows" },
   p = {
     function ()
       print(vim.api.nvim_get_option_value("paste", {}) and "Normal" or "Paste")
@@ -316,8 +317,23 @@ nor["q"] = {
       print(vim.api.nvim_get_option_value("spell", {}) and "nospell" or "spell")
       vim.opt.spell = not vim.opt.spell
     end, "Toggle spell check" },
-  c = { "<cmd>windo set scrollbind<cr>", "Scrollbind all windows" },
   u = { "<cmd>windo set noscrollbind<cr>", "Unscrollbind all windows" },
+  C = {
+    function ()
+      local has_col = vim.api.nvim_get_option_value("cursorcolumn", {})
+      local has_lin = vim.api.nvim_get_option_value("cursorline", {})
+      if not has_col and not has_lin then
+        vim.opt.cursorline = true
+        print("cursorline")
+      elseif has_lin and not has_col then
+        vim.opt.cursorcolumn = true
+        print("cursorcolumn")
+      else
+        vim.opt.cursorline = false
+        vim.opt.cursorcolumn = false
+        print("none")
+      end
+    end, "Toggle cursorline/column" },
 }
 nor["t"] = {
   name = "Terminal",
