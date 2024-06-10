@@ -255,28 +255,28 @@ lvim.plugins = {
 vim.cmd.aunmenu{'PopUp.How-to\\ disable\\ mouse'}
 vim.cmd.aunmenu{'PopUp.-1-' }
 
--- Override Lazygit command
-lvim.builtin.terminal.size = 120
-local function toggle_lazygit()
-  local Terminal = require("toggleterm.terminal").Terminal
-  local lazygit = Terminal:new {
-    cmd = "lazygit",
-    hidden = true,
-    direction = "vertical",
-    on_open = function(_)
-      vim.cmd "startinsert!"
-    end,
-    on_close = function(_) end,
-    count = 99,
-  }
-  lazygit:toggle()
+-- Custom terminal
+lvim.builtin.terminal.size = 80
+local function toggle_terminal(cmd)
+  return function ()
+    local Terminal = require("toggleterm.terminal").Terminal
+    local term = Terminal:new {
+      cmd = cmd or vim.o.shell,
+      hidden = true,
+      direction = "vertical",
+      on_open = function(_)
+        vim.cmd "startinsert!"
+      end,
+      on_close = function(_) end,
+      count = 99,
+    }
+    term:toggle()
+  end
 end
 
-
+-- Which key mappings (normal mode)
 local nor = lvim.builtin.which_key.mappings
-local vis = lvim.builtin.which_key.vmappings
 nor["bq"] = { "<cmd>BufferKill<cr>", "Close current buffer" }
-nor["gg"] = { toggle_lazygit, "Lazygit" }
 nor["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 nor["sn"] = {
   function()
@@ -287,7 +287,6 @@ nor["sn"] = {
     vim.cmd("Nerdy")
   end,
  "Nerd font symbols" }
-nor["t"] = {"<cmd>ToggleTerm direction=vertical size=80<cr>","Split terminal"}
 nor["u"] = {"<cmd>lua require('undotree').toggle()<cr>", "Undo Tree"}
 nor["z"] = {"<cmd>ZenMode<cr>", "Zen mode"}
 nor["-"] = {"<cmd>Oil<cr>", "Oil the directory"}
@@ -297,6 +296,13 @@ nor["T"] = {}
 nor["f"] = {}
 nor["p"] = {}
 -- Redefine some default menus
+nor["c"] = {
+  name = "Commands",
+  t = { "<cmd>StartupTime<cr>", "Startup time profile" },
+  S = { "<cmd>SudoWrite<cr>", "Save with sudo" },
+  l = { "<cmd>Lazygit<cr>", "Lazygit (manage installed plugins)" },
+  m = { "<cmd>Mason<cr>", "Mason (manage LSP)" },
+}
 nor["q"] = {
   name = "Quick options",
   p = {
@@ -313,15 +319,18 @@ nor["q"] = {
   c = { "<cmd>windo set scrollbind<cr>", "Scrollbind all windows" },
   u = { "<cmd>windo set noscrollbind<cr>", "Unscrollbind all windows" },
 }
-nor["c"] = {
-  name = "Commands",
-  t = { "<cmd>StartupTime<cr>", "Startup time profile" },
-  S = { "<cmd>SudoWrite<cr>", "Save with sudo" },
-  l = { "<cmd>Lazygit<cr>", "Lazygit (manage installed plugins)" },
-  m = { "<cmd>Mason<cr>", "Mason (manage LSP)" },
+nor["t"] = {
+  name = "Terminal",
+  d = { toggle_terminal("lazydocker"), "Lazydocker" },
+  g = { toggle_terminal("lazygit"), "Lazygit" },
+  i = { toggle_terminal("ipython"), "Python REPL (ipython)" },
+  l = { toggle_terminal("lua"), "Lua REPL" },
+  n = { toggle_terminal("node"), "Node REPL" },
+  s = { toggle_terminal(), "Default shell" },
 }
 
--- Visual mode mappings
+-- Which key mappings (visual mode)
+local vis = lvim.builtin.which_key.vmappings
 vis["c"] = {
   name = "Commands",
   d = { ":'<,'>call RemoveDups()<cr>", "Remove duplicate lines" },
@@ -632,3 +641,4 @@ lvim.builtin.alpha.dashboard.section.header.val = {
   [[│                                              │]],
   [[└──────────────────────────────────────────────┘]],
 }
+
