@@ -317,6 +317,8 @@ nor["c"] = {
   name = "Commands",
   t = { "<cmd>StartupTime<cr>", "Startup time profile" },
   S = { "<cmd>SudoWrite<cr>", "Save with sudo" },
+  l = { "<cmd>Lazygit<cr>", "Lazygit (manage installed plugins)" },
+  m = { "<cmd>Mason<cr>", "Mason (manage LSP)" },
 }
 
 -- Visual mode mappings
@@ -615,25 +617,18 @@ vim.g.terminal_color_14 = '#91d7ff' -- Cyan
 vim.g.terminal_color_15 = '#888dad' -- White
 
 -- Alpha header
--- Only if system has cowsay and fortune
-if os.execute("cowsay -l") == 0 and os.execute("fortune -v") == 0 then
-  local function lines(str)
-    local result = {}
-    for line in str:gmatch '[^\n]+' do
-      table.insert(result, line)
-    end
-    return result
-  end
-
-  local handle = io.popen("fortune -n 255 -s | cowsay -f tux")
-  if not handle then
-    return
-  end
-  local cow_quote = handle:read("*a")
-  handle:close()
-
-  lvim.builtin.alpha.active = true
-  lvim.builtin.alpha.mode = "dashboard"
-  lvim.builtin.alpha.dashboard.section.header.val = lines(cow_quote)
-end
-
+lvim.builtin.alpha.active = true
+lvim.builtin.alpha.mode = "dashboard"
+lvim.builtin.alpha.dashboard.section.header.val = {
+  [[┌──────────────────────────────────────────────┐]],
+  [[│                                              │]],
+  [[│         _               _     _              │]],
+  [[│        (_)             | |   | |             │]],
+  [[│  __   ___ _ __ ___     | |__ | |___      __  │]],
+  [[│  \ \ / / | '_ ` _ \    | '_ \| __\ \ /\ / /  │]],
+  [[│   \ V /| | | | | | |_  | |_) | |_ \ V  V /   │]],
+  [[│    \_/ |_|_| |_| |_( ) |_.__/ \__| \_/\_/    │]],
+  [[│                    |/                        │]],
+  [[│                                              │]],
+  [[└──────────────────────────────────────────────┘]],
+}
