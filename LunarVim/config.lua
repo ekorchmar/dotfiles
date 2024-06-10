@@ -249,6 +249,15 @@ lvim.plugins = {
   },
   "vim-scripts/RemoveDups.VIM",
   "vim-scripts/ReplaceWithRegister",
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+  },
 }
 
 -- I know how to use the mouse, thanks
@@ -298,10 +307,11 @@ nor["p"] = {}
 -- Redefine some default menus
 nor["c"] = {
   name = "Commands",
-  t = { "<cmd>StartupTime<cr>", "Startup time profile" },
-  S = { "<cmd>SudoWrite<cr>", "Save with sudo" },
   l = { "<cmd>Lazygit<cr>", "Lazygit (manage installed plugins)" },
   m = { "<cmd>Mason<cr>", "Mason (manage LSP)" },
+  t = { "<cmd>StartupTime<cr>", "Startup time profile" },
+  M = { "<cmd>MarkdownPreview<cr>", "Markdown preview in browser" },
+  S = { "<cmd>SudoWrite<cr>", "Save with sudo" },
 }
 nor["q"] = {
   name = "Quick options",
