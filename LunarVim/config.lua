@@ -246,7 +246,9 @@ lvim.plugins = {
     "folke/twilight.nvim",
     lazy = true,
     opts = { context = 14 }
-  }
+  },
+  "vim-scripts/RemoveDups.VIM",
+  "vim-scripts/ReplaceWithRegister",
 }
 
 -- I know how to use the mouse, thanks
@@ -271,11 +273,12 @@ local function toggle_lazygit()
 end
 
 
-local wkm = lvim.builtin.which_key.mappings
-wkm["bq"] = { "<cmd>BufferKill<cr>", "Close current buffer" }
-wkm["gg"] = { toggle_lazygit, "Lazygit" }
-wkm["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
-wkm["sn"] = {
+local nor = lvim.builtin.which_key.mappings
+local vis = lvim.builtin.which_key.vmappings
+nor["bq"] = { "<cmd>BufferKill<cr>", "Close current buffer" }
+nor["gg"] = { toggle_lazygit, "Lazygit" }
+nor["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
+nor["sn"] = {
   function()
     local telescope = require("telescope")
     if not telescope.extensions.nerdy then
@@ -284,15 +287,17 @@ wkm["sn"] = {
     vim.cmd("Nerdy")
   end,
  "Nerd font symbols" }
-wkm["t"] = {"<cmd>ToggleTerm direction=vertical size=80<cr>","Split terminal"}
-wkm["u"] = {"<cmd>lua require('undotree').toggle()<cr>", "Undo Tree"}
-wkm["z"] = {"<cmd>ZenMode<cr>", "Zen mode"}
-wkm["-"] = {"<cmd>Oil<cr>", "Oil the directory"}
+nor["t"] = {"<cmd>ToggleTerm direction=vertical size=80<cr>","Split terminal"}
+nor["u"] = {"<cmd>lua require('undotree').toggle()<cr>", "Undo Tree"}
+nor["z"] = {"<cmd>ZenMode<cr>", "Zen mode"}
+nor["-"] = {"<cmd>Oil<cr>", "Oil the directory"}
 -- Remove unneeded and duplicating menus
-wkm["c"] = {}
-wkm["f"] = {}
-wkm["p"] = {}
-wkm["q"] = {
+nor["w"] = {}
+nor["T"] = {}
+nor["f"] = {}
+nor["p"] = {}
+-- Redefine some default menus
+nor["q"] = {
   name = "Quick options",
   p = {
     function ()
@@ -306,9 +311,20 @@ wkm["q"] = {
       vim.opt.spell = not vim.opt.spell
     end, "Toggle spell check" },
   c = { "<cmd>windo set scrollbind<cr>", "Scrollbind all windows" },
+  u = { "<cmd>windo set noscrollbind<cr>", "Unscrollbind all windows" },
 }
-wkm["w"] = {}
-wkm["T"] = {}
+nor["c"] = {
+  name = "Commands",
+  t = { "<cmd>StartupTime<cr>", "Startup time profile" },
+  S = { "<cmd>SudoWrite<cr>", "Save with sudo" },
+}
+
+-- Visual mode mappings
+vis["c"] = {
+  name = "Commands",
+  d = { ":'<,'>call RemoveDups()<cr>", "Remove duplicate lines" },
+  s = { ":'<,'>sort<cr>", "Sort lines"},
+}
 
 lvim.builtin.which_key.setup.plugins = {
   marks = false, -- shows a list of your marks on ' and `
@@ -392,7 +408,7 @@ if vim.fn.has('gui_running') == 1 then
     end
 
     -- Add which-key mappings and submenu
-    wkm["G"] = {
+    nor["G"] = {
       name = "GUI (Neovide)",
       i = { Increase_font_size, "Increase font size" },
       d = { Decrease_font_size, "Decrease font size" },
@@ -441,6 +457,15 @@ if vim.fn.has('gui_running') == 1 then
   end)
 end
 
+-- Lualine to show mode name
+lvim.builtin.lualine.sections.lualine_a = {
+  {
+    "mode",
+    fmt = function(str)
+      return string.lower(lvim.icons.ui.Target .. " " .. str)
+    end
+  },
+}
 
 -- Copilot
 vim.g.copilot_filetypes = { markdown = true }
