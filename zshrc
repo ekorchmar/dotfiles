@@ -217,19 +217,20 @@ function dopamine () {
 alias pyhttp='python -m http.server --directory . & xdg-open http://localhost:8000'
 
 # Add Dirstack functionality
-autoload -Uz add-zsh-hook
+# Disabled: breaks in Neovim
+# autoload -Uz add-zsh-hook
 
-DIRSTACKFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dirs"
-if [[ -f "$DIRSTACKFILE" ]] && (( ${#dirstack} == 0 )); then
-    dirstack=("${(@f)"$(< "$DIRSTACKFILE")"}")
-    [[ -d "${dirstack[1]}" ]] && cd -- "${dirstack[1]}"
-fi
-chpwd_dirstack() {
-    print -l -- "$PWD" "${(u)dirstack[@]}" > "$DIRSTACKFILE"
-}
-add-zsh-hook -Uz chpwd chpwd_dirstack
+# DIRSTACKFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dirs"
+# if [[ -f "$DIRSTACKFILE" ]] && (( ${#dirstack} == 0 )); then
+#     dirstack=("${(@f)"$(< "$DIRSTACKFILE")"}")
+#     [[ -d "${dirstack[1]}" ]] && cd -- "${dirstack[1]}"
+# fi
+# chpwd_dirstack() {
+#     print -l -- "$PWD" "${(u)dirstack[@]}" > "$DIRSTACKFILE"
+# }
+# add-zsh-hook -Uz chpwd chpwd_dirstack
 
-DIRSTACKSIZE='20'
+# DIRSTACKSIZE='20'
 
 setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME CD_SILENT
 

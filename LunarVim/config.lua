@@ -272,7 +272,6 @@ local function toggle_terminal(cmd)
     local Terminal = require("toggleterm.terminal").Terminal
     local term = Terminal:new {
       cmd = cmd or vim.o.shell,
-      dir = "git_dir",
       hidden = true,
       direction = "vertical",
       on_open = function(_)
