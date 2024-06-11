@@ -274,6 +274,7 @@ local function toggle_terminal(cmd)
       hidden = true,
       direction = "vertical",
       on_open = function(_)
+        vim.opt_local.signcolumn = "no"
         vim.cmd "startinsert!"
       end,
       on_close = function(_) end,
@@ -300,6 +301,7 @@ nor["u"] = {"<cmd>lua require('undotree').toggle()<cr>", "Undo Tree"}
 nor["z"] = {"<cmd>ZenMode<cr>", "Zen mode"}
 nor["-"] = {"<cmd>Oil<cr>", "View parent as buffer"}
 -- Remove unneeded and duplicating menus
+nor["gg"] = { toggle_terminal("lazygit"), "Lazygit" }
 nor["w"] = {}
 nor["T"] = {}
 nor["f"] = {}
@@ -352,7 +354,7 @@ nor["t"] = {
   i = { toggle_terminal("ipython"), "Python REPL (ipython)" },
   l = { toggle_terminal("lua"), "Lua REPL" },
   n = { toggle_terminal("node"), "Node REPL" },
-  s = { toggle_terminal(), "Default shell" },
+  t = { toggle_terminal(), "Default shell" },
 }
 
 -- Which key mappings (visual mode)
