@@ -1,13 +1,15 @@
-vim.opt.cmdheight = 2
 vim.g.shiftwidth = 4
-vim.wo.relativenumber = true
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.foldmethod = 'expr'
+vim.opt.autochdir = true
+vim.opt.cmdheight = 2
+vim.opt.colorcolumn = "81"
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldlevel = 99
-vim.o.autochdir = true
-vim.opt.colorcolumn = "81"
+vim.opt.foldmethod = 'expr'
+vim.opt.relativenumber = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.virtualedit = 'block,onemore'
+
 -- Listchars
 vim.opt.list = true
 vim.opt.listchars = {
@@ -19,7 +21,6 @@ vim.opt.listchars = {
   precedes = '▶',
 }
 vim.opt.showbreak = '↪'
-vim.opt.virtualedit = 'block,onemore'
 
 
 lvim.plugins = {
@@ -271,6 +272,7 @@ local function toggle_terminal(cmd)
     local Terminal = require("toggleterm.terminal").Terminal
     local term = Terminal:new {
       cmd = cmd or vim.o.shell,
+      dir = "git_dir",
       hidden = true,
       direction = "vertical",
       on_open = function(_)
