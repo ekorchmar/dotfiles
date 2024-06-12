@@ -328,7 +328,7 @@ nor["q"] = {
   s = {
     function ()
       print(vim.api.nvim_get_option_value("spell", {}) and "nospell" or "spell")
-      vim.opt.spell = not vim.opt.spell
+      vim.opt.spell = not vim.api.nvim_get_option_value("spell", {})
     end, "Toggle spell check" },
   u = { "<cmd>windo set noscrollbind<cr>", "Unscrollbind all windows" },
   C = {
