@@ -259,6 +259,7 @@ lvim.plugins = {
     end,
     ft = { "markdown" },
   },
+  "tpope/vim-fugitive",
 }
 
 -- I know how to use the mouse, thanks
@@ -318,6 +319,7 @@ nor["c"] = {
 }
 nor["q"] = {
   name = "Quick options",
+  b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle inline blame" },
   c = { "<cmd>windo set scrollbind<cr>", "Scrollbind all windows" },
   p = {
     function ()
@@ -671,3 +673,5 @@ lvim.builtin.alpha.dashboard.section.header.val = {
   [[└──────────────────────────────────────────────┘]],
 }
 
+-- Gitsigns
+lvim.builtin.gitsigns.opts.current_line_blame = true
