@@ -277,6 +277,20 @@ lvim.plugins = {
     ft = { "markdown" },
   },
   "tpope/vim-fugitive",
+  {
+    'linux-cultist/venv-selector.nvim',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'nvim-telescope/telescope.nvim',
+      'mfussenegger/nvim-dap-python',
+    },
+    opts = {
+      search_venv_managers = false,
+      name = {"venv", ".venv"}
+    },
+    cmd = "VenvSelect",
+    keys = { "<leader>cP" },
+  },
 }
 
 -- I know how to use the mouse, thanks
@@ -332,6 +346,7 @@ nor["c"] = {
   m = { "<cmd>Mason<cr>", "Mason (manage LSP)" },
   t = { "<cmd>StartupTime<cr>", "Startup time profile" },
   M = { "<cmd>MarkdownPreview<cr>", "Markdown preview in browser" },
+  P = { "<cmd>VenvSelect<cr>", "Select Python venv" },
   S = { "<cmd>SudoWrite<cr>", "Save with sudo" },
 }
 nor["q"] = {
@@ -371,9 +386,10 @@ nor["t"] = {
   name = "Terminal",
   d = { toggle_terminal("lazydocker"), "Lazydocker" },
   g = { toggle_terminal("lazygit"), "Lazygit" },
-  i = { toggle_terminal("ipython"), "Python REPL (ipython)" },
+  i = { toggle_terminal("ipython"), "Python REPL (IPython)" },
   l = { toggle_terminal("lua"), "Lua REPL" },
   n = { toggle_terminal("node"), "Node REPL" },
+  p = { toggle_terminal("python"), "Python REPL (cPython)" },
   t = { toggle_terminal(), "Default shell" },
 }
 
