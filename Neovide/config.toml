@@ -1,6 +1,5 @@
 multigrid = true
 fork = true
-neovim-bin = "/home/ekorchmar/.local/bin/lvim"
 
 [font]
 normal = "FiraCode Nerd Font"  # Use system font instead of bundled
