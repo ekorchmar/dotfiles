@@ -1,3 +1,12 @@
+-- Constants for this run
+NEOVIDE = vim.g.neovide
+
+-- Tree-sitter settings to remove annoying comment highlighting
+lvim.builtin.treesitter.ensure_installed = {
+  "markdown", "html", "python", "lua", "json", "yaml", "toml", "rust"
+}
+lvim.builtin.treesitter.ignore_install = { "comment", }
+
 vim.g.shiftwidth = 4
 vim.opt.autochdir = true
 vim.opt.cmdheight = 2
@@ -22,6 +31,16 @@ vim.opt.listchars = {
 }
 vim.opt.showbreak = '↪'
 
+if not NEOVIDE then
+  -- Does not respect signcolumn background autocommands
+  -- lvim.transparent_window = true
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+      vim.cmd "highlight Normal guibg=none ctermbg=none"
+  end
+})
+end
 
 lvim.plugins = {
   {
@@ -149,9 +168,7 @@ lvim.plugins = {
   },
   {
     'petertriho/nvim-scrollbar',
-    cond = function()
-      return vim.fn.exists('g:neovide') ~= 1
-    end, -- Neovide is glitchy
+    cond = not NEOVIDE,
     dependencies = { "lewis6991/gitsigns.nvim" },
     event = "BufEnter",
     config = function()
@@ -225,7 +242,7 @@ lvim.plugins = {
         vim.opt.cmdheight = 0
 
         -- For neovide: go full screen
-        if vim.g.neovide and not vim.g.neovide_fullscreen then
+        if NEOVIDE and not vim.g.neovide_fullscreen then
           vim.g.neovide_fullscreen = true
         end
 
@@ -237,7 +254,7 @@ lvim.plugins = {
         vim.opt.laststatus = 3
         vim.opt.cmdheight = 2
 
-        if vim.g.neovide and vim.g.neovide_fullscreen then
+        if NEOVIDE and vim.g.neovide_fullscreen then
           vim.g.neovide_fullscreen = false
         end
       end,
@@ -391,7 +408,7 @@ lvim.builtin.which_key.setup.presets = {
 if vim.fn.has('gui_running') == 1 then
   vim.cmd('set guifont=FiraCode\\ Nerd\\ Font:h13')
 
-  if vim.g.neovide then
+  if NEOVIDE then
     vim.g.neovide_hide_mouse_when_typing = 1
     vim.g.neovide_cursor_animate_in_insert_mode = false
     vim.g.neovide_cursor_animate_command_line = true
