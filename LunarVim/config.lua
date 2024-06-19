@@ -1,9 +1,10 @@
 -- Constants for this run
 NEOVIDE = vim.g.neovide
+WINDOWS = vim.loop.os_uname().sysname == "Windows_NT"
 
 -- Tree-sitter settings to remove annoying comment highlighting
 lvim.builtin.treesitter.ensure_installed = {
-  "markdown", "html", "python", "lua", "json", "yaml", "toml", "rust"
+  "markdown", "html", "python", "lua", "json", "yaml", "toml", "rust", "latex"
 }
 lvim.builtin.treesitter.ignore_install = { "comment", }
 
@@ -205,6 +206,10 @@ lvim.plugins = {
       'Lcd', 'Lcdi',
       'Tcd', 'Tcdi',
     },
+    init = function()
+      vim.g.zoxide_prefix = 'cd'
+      vim.g.zoxide_uses_select = 1
+    end,
   },
   {
     "ekorchmar/zen-mode.nvim",
@@ -290,6 +295,21 @@ lvim.plugins = {
     },
     cmd = "VenvSelect",
     keys = { "<leader>cP" },
+  },
+  {
+    "lervag/vimtex",
+    ft = "tex",
+    init = function()
+      if WINDOWS then
+        vim.g.vimtex_view_general_viewer = "firefox"
+        vim.g.vimtex_view_general_options = "@pdf"
+      else
+        vim.g.vimtex_view_general_viewer = "okular"
+        vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
+      end
+
+      vim.g.maplocalleader = "^"
+    end
   },
 }
 
@@ -552,7 +572,7 @@ vim.keymap.set('i', '<C-a>', 'copilot#Accept("")', {
 })
 
 -- Windows specific
-if vim.loop.os_uname().sysname == "Windows_NT" then
+if WINDOWS then
 
   -- Enable powershell as your default shell
   vim.opt.shell = "pwsh.exe -NoLogo"
