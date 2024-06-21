@@ -297,7 +297,10 @@ lvim.plugins = {
     end,
     ft = { "markdown" },
   },
-  "tpope/vim-fugitive",
+  {
+    "tpope/vim-fugitive",
+    dependencies = { "tommcdo/vim-fubitive" },
+  },
   {
     'linux-cultist/venv-selector.nvim',
     dependencies = {
