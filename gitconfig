@@ -28,7 +28,8 @@
   ship = !(git rev-parse --show-toplevel | xargs git add) && git commit && git push
   nah = ! git reset --hard && git clean -df
   amend = commit --amend --no-edit
-  makegh = "!f() { gh repo create --private --confirm \"$1\"; git remote add origin https://github.com/\"$1\".git; git push origin master; }; f"
+  makegh = "!f() { gh repo create --private \"$1\"; git remote add origin https://github.com/ekorchmar/$1.git; git push origin master; }; f"
+  lazy = !lazygit
 [push]
   autoSetupRemote = true
 [pull]
