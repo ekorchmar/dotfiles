@@ -21,16 +21,32 @@ vim.opt.splitright = true
 vim.opt.virtualedit = 'block,onemore'
 
 -- Listchars
-vim.opt.list = true
-vim.opt.listchars = {
+local listchars = {
   tab = '>-',
-  eol = '⤶',
+  eol = '↲',
   -- space = '⋅', -- A lot of clutter; TODO: highlight leading spaces only
   trail = '•',
   extends = '◀',
   precedes = '▶',
 }
+
+vim.opt.list = true
+vim.opt.listchars = listchars
 vim.opt.showbreak = '↪'
+
+function Toggle_eol_chars()
+  if listchars.eol == '↲' then
+    listchars.eol = '¶'
+    vim.opt.listchars = listchars
+  elseif listchars.eol == '¶' then
+    listchars.eol = nil
+    vim.opt.listchars = listchars
+  else
+    listchars.eol = '↲'
+    vim.opt.listchars = listchars
+  end
+
+end
 
 if not NEOVIDE then
   -- Does not respect signcolumn background autocommands
@@ -354,7 +370,7 @@ nor["u"] = {"<cmd>lua require('undotree').toggle()<cr>", "Undo Tree"}
 nor["z"] = {"<cmd>ZenMode<cr>", "Zen mode"}
 nor["-"] = {"<cmd>Oil<cr>", "View parent as buffer"}
 -- Remove unneeded and duplicating menus
-nor["gg"] = { toggle_terminal("lazygit"), "Lazygit" }
+nor.g.g = { toggle_terminal("lazygit"), "Lazygit" }
 nor["w"] = {}
 nor["T"] = {}
 nor["f"] = {}
@@ -362,7 +378,8 @@ nor["p"] = {}
 -- Redefine some default menus
 nor["c"] = {
   name = "Commands",
-  l = { "<cmd>Lazygit<cr>", "Lazygit (manage installed plugins)" },
+  c = { "<cmd>ClangdSwitchSourceHeader<cr>", "C/C++ header switch" },
+  l = { "<cmd>Lazy<cr>", "Lazy (manage installed plugins)" },
   m = { "<cmd>Mason<cr>", "Mason (manage LSP)" },
   t = { "<cmd>StartupTime<cr>", "Startup time profile" },
   M = { "<cmd>MarkdownPreview<cr>", "Markdown preview in browser" },
@@ -373,6 +390,8 @@ nor["q"] = {
   name = "Quick options",
   b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle inline blame" },
   c = { "<cmd>windo set scrollbind<cr>", "Scrollbind all windows" },
+  d = { "<cmd>windo diffthis<cr>", "Diff all windows" },
+  e = { Toggle_eol_chars, "Toggle EOL ↲/¶/None" },
   p = {
     function ()
       print(vim.api.nvim_get_option_value("paste", {}) and "Normal" or "Paste")
@@ -384,7 +403,22 @@ nor["q"] = {
       print(vim.api.nvim_get_option_value("spell", {}) and "nospell" or "spell")
       vim.opt.spell = not vim.api.nvim_get_option_value("spell", {})
     end, "Toggle spell check" },
-  u = { "<cmd>windo set noscrollbind<cr>", "Unscrollbind all windows" },
+  u = { "<cmd>windo set noscrollbind<cr>"..
+        "<cmd>windo diffoff<cr>", "Unscrollbind/undiff windows" },
+  v = {
+    function ()
+      local ve = vim.api.nvim_get_option_value("virtualedit", {})
+      if ve == 'block,onemore' then
+        print("Block")
+        vim.opt.virtualedit = 'block'
+      elseif ve == 'block' then
+        print("All")
+        vim.opt.virtualedit = 'all'
+      else -- all
+        print("Onemore")
+        vim.opt.virtualedit = 'block,onemore'
+      end
+    end, "Toggle virtualedit" },
   C = {
     function ()
       local has_col = vim.api.nvim_get_option_value("cursorcolumn", {})
@@ -728,3 +762,6 @@ lvim.builtin.alpha.dashboard.section.header.val = {
 
 -- Gitsigns
 lvim.builtin.gitsigns.opts.current_line_blame = true
+
+-- Telescope wrap
+lvim.builtin.telescope.defaults.wrap_results = true
