@@ -19,6 +19,7 @@ $lua\
 $java\
 $c\
 $julia\
+$cmake\
 [](fg:#292e42 bg:#1f2335)\
 $time$battery\
 [ ](fg:#1f2335)\
@@ -104,6 +105,11 @@ symbol = ""
 style = "bg:#292e42"
 format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
 detect_extensions = ['c', 'h', 'cpp', 'hpp']
+
+[cmake]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
 
 [julia]
 symbol = ""

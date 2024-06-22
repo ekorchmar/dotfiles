@@ -91,6 +91,11 @@ style = "bg:236"
 format = '[[ $symbol ($version) ](fg:111 bg:236)]($style)'
 detect_extensions = ['c', 'h', 'cpp', 'hpp']
 
+[cmake]
+symbol = "cmake"
+style = "bg:236"
+format = '[[ $symbol ($version) ](fg:111 bg:236)]($style)'
+
 [julia]
 symbol = "jl"
 style = "bg:236"
