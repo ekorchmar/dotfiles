@@ -291,7 +291,7 @@ lvim.plugins = {
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && npm install",
+    build = "!cd app && npm install",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
     end,
@@ -319,12 +319,12 @@ lvim.plugins = {
     "lervag/vimtex",
     ft = "tex",
     init = function()
+      vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
       if WINDOWS then
-        vim.g.vimtex_view_general_viewer = "firefox"
-        vim.g.vimtex_view_general_options = "@pdf"
+        vim.g.vimtex_view_general_viewer =
+          "C:\\Program Files\\Okular\\bin\\okular.exe"
       else
         vim.g.vimtex_view_general_viewer = "okular"
-        vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
       end
 
       vim.g.maplocalleader = "^"
