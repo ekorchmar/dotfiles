@@ -67,8 +67,8 @@ lvim.plugins = {
   'tpope/vim-surround',
   'tpope/vim-sleuth',
   {
-    'chrisbra/sudoedit.vim',
-    cmd = 'SudoWrite',
+    "tpope/vim-eunuch",
+    cond = not WINDOWS,
   },
   {
     "jiaoshijie/undotree",
@@ -359,6 +359,7 @@ end
 -- Which key mappings (normal mode)
 local nor = lvim.builtin.which_key.mappings
 nor["bq"] = { "<cmd>BufferKill<cr>", "Close current buffer" }
+nor["bo"] = { "<cmd>BufferLineCloseOther<cr>", "Close other buffers" }
 nor["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 nor["sn"] = {
   function()
