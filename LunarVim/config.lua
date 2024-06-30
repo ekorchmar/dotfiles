@@ -23,7 +23,7 @@ vim.opt.virtualedit = 'block,onemore'
 -- Listchars
 local listchars = {
   tab = '>-',
-  eol = '↲',
+  -- eol = '↲',
   -- space = '⋅', -- A lot of clutter; TODO: highlight leading spaces only
   trail = '•',
   extends = '◀',
@@ -294,6 +294,7 @@ lvim.plugins = {
     build = "!cd app && npm install",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
+      vim.g.mkdp_page_title = '${name}'
     end,
     ft = { "markdown" },
   },
@@ -670,9 +671,13 @@ vim.g.surround_65 = "<a href=\"\">\r</a>"
 -- "i" for image (puts text in src)
 vim.g.surround_105 = "<img src=\"\r\">"
 -- "P" for Python """ multiline string/Docstring
-vim.g.surround_80 = "\"\"\"\n\r\n\"\"\""
+vim.g.surround_80 = '"""\n\r\n"""'
 -- "Q" for Qlik set selector
 vim.g.surround_81 = "{< \r; >}"
+-- "m" for markdown link (text is in [])
+vim.g.surround_109 = "[\r](url)"
+-- "M" for markdown link (text is in ())
+vim.g.surround_77 = "[text](\r)"
 
 -- Quick scope settings
 vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
