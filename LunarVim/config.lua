@@ -4,7 +4,8 @@ WINDOWS = vim.loop.os_uname().sysname == "Windows_NT"
 
 -- Tree-sitter settings to remove annoying comment highlighting
 lvim.builtin.treesitter.ensure_installed = {
-  "markdown", "html", "python", "lua", "json", "yaml", "toml", "rust", "latex"
+  "markdown", "html", "python", "lua", "json", "yaml", "toml",
+  "rust", "latex", "embedded_template",
 }
 lvim.builtin.treesitter.ignore_install = { "comment", }
 
@@ -712,6 +713,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
+-- EJS is HTML
+vim.filetype.add({
+  extension = {
+    ejs = 'html'
+  }
+})
+
 -- Autocommands to set linenumber & signcolumn background for better contrast
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
@@ -774,3 +782,25 @@ lvim.builtin.gitsigns.opts.current_line_blame = true
 
 -- Telescope wrap
 lvim.builtin.telescope.defaults.wrap_results = true
+
+-- LSP
+-- Disable annoying suggestion in every JS file
+-- https://github.com/LunarVim/LunarVim/discussions/4239
+local function filter_tsserver_diag(_, result, ctx, config)
+  if result.diagnostics == nil then
+    return
+  end
+  -- ignore some tsserver diagnostics
+  local idx = 1
+  while idx <= #result.diagnostics do
+    local entry = result.diagnostics[idx]
+    if entry.code == 80001 then
+      table.remove(result.diagnostics, idx)
+    else
+      idx = idx + 1
+    end
+  end
+  vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+end
+vim.lsp.handlers["textDocument/publishDiagnostics"] = filter_tsserver_diag
+
