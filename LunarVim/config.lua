@@ -56,6 +56,22 @@ function Toggle_eol_chars()
     end
 end
 
+function Toggle_colorcolumn()
+    local colorcolumn = vim.api.nvim_get_option_value("colorcolumn", {})
+    if colorcolumn == "" then
+        print("80 columns")
+        vim.opt.colorcolumn = "81"
+    else
+        if colorcolumn == "81" then
+            vim.opt.colorcolumn = "121"
+            print("120 columns")
+        else
+            vim.opt.colorcolumn = ""
+            print("  columns")
+        end
+    end
+end
+
 if not NEOVIDE then
     -- Does not respect signcolumn background autocommands
     -- lvim.transparent_window = true
@@ -350,10 +366,10 @@ lvim.plugins = {
         ft = "tex",
         init = function()
             vim.g.vimtex_view_general_options =
-            "--unique file:@pdf\\#src:@line@tex"
+                "--unique file:@pdf\\#src:@line@tex"
             if WINDOWS then
                 vim.g.vimtex_view_general_viewer =
-                "C:\\Program Files\\Okular\\bin\\okular.exe"
+                    "C:\\Program Files\\Okular\\bin\\okular.exe"
             else
                 vim.g.vimtex_view_general_viewer = "okular"
             end
@@ -428,11 +444,12 @@ nor["q"] = {
     c = { "<cmd>windo set scrollbind<cr>", "Scrollbind all windows" },
     d = { "<cmd>windo diffthis<cr>", "Diff all windows" },
     e = { Toggle_eol_chars, "Toggle EOL ↲/¶/None" },
+    o = { Toggle_colorcolumn, "Toggle colorcolumn" },
     p = {
         function()
             print(
                 vim.api.nvim_get_option_value("paste", {}) and "Normal"
-                or "Paste"
+                    or "Paste"
             )
             vim.opt.paste = not vim.api.nvim_get_option_value("paste", {})
         end,
@@ -442,7 +459,7 @@ nor["q"] = {
         function()
             print(
                 vim.api.nvim_get_option_value("spell", {}) and "nospell"
-                or "spell"
+                    or "spell"
             )
             vim.opt.spell = not vim.api.nvim_get_option_value("spell", {})
         end,
@@ -521,9 +538,9 @@ lvim.builtin.which_key.setup.presets = {
     motions = true,
     text_objects = true,
     windows = true, -- default bindings on <c-w>
-    nav = true,     -- misc bindings to work with windows
-    z = true,       -- bindings for folds, spelling and others prefixed with z
-    g = true,       -- bindings for prefixed with g
+    nav = true, -- misc bindings to work with windows
+    z = true, -- bindings for folds, spelling and others prefixed with z
+    g = true, -- bindings for prefixed with g
 }
 
 -- GUI settings
@@ -693,7 +710,7 @@ vim.api.nvim_create_autocmd("FileType", {
     pattern = { "markdown", "html", "xml", "text", "abnf" },
     callback = function()
         vim.opt_local.wrap = true
-        vim.opt_local.colorcolumn = ""
+        vim.opt_local.colorcolumn = "121"
     end,
 })
 
@@ -754,7 +771,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     pattern = "*.conf",
     callback = function()
         local line = vim.fn.getline(1)
-        if line:find("^%s*{") then     -- starts with {
+        if line:find("^%s*{") then -- starts with {
             line = vim.fn.getline("$")
             if line:find("^%s*}") then -- ends with }
                 vim.bo.filetype = "json"
@@ -792,17 +809,17 @@ vim.g.zoxide_uses_select = 1
 
 -- Set the terminal to override ANSI colors (lunar color scheme does not)
 -- The OG eight
-vim.g.terminal_color_0 = "#2a2b3d"  -- Black
-vim.g.terminal_color_1 = "#f7768e"  -- Red
-vim.g.terminal_color_2 = "#9ece6a"  -- Green
-vim.g.terminal_color_3 = "#e0af68"  -- Yellow
-vim.g.terminal_color_4 = "#7aa2f7"  -- Blue
-vim.g.terminal_color_5 = "#ad8ee6"  -- Magenta
-vim.g.terminal_color_6 = "#7dcfff"  -- Cyan
-vim.g.terminal_color_7 = "#787c99"  -- White
+vim.g.terminal_color_0 = "#2a2b3d" -- Black
+vim.g.terminal_color_1 = "#f7768e" -- Red
+vim.g.terminal_color_2 = "#9ece6a" -- Green
+vim.g.terminal_color_3 = "#e0af68" -- Yellow
+vim.g.terminal_color_4 = "#7aa2f7" -- Blue
+vim.g.terminal_color_5 = "#ad8ee6" -- Magenta
+vim.g.terminal_color_6 = "#7dcfff" -- Cyan
+vim.g.terminal_color_7 = "#787c99" -- White
 -- The bright bunch
-vim.g.terminal_color_8 = "#3b3d57"  -- Black
-vim.g.terminal_color_9 = "#ff7a95"  -- Red
+vim.g.terminal_color_8 = "#3b3d57" -- Black
+vim.g.terminal_color_9 = "#ff7a95" -- Red
 vim.g.terminal_color_10 = "#afe274" -- Green
 vim.g.terminal_color_11 = "#f4bd71" -- Yellow
 vim.g.terminal_color_12 = "#7ea9ff" -- Blue
