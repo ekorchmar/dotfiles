@@ -167,10 +167,21 @@ vimcmd_replace_symbol="[ ](bold #e0af68)"
 vimcmd_visual_symbol="[ ](bold #9ece6a)"
 
 [status]
-disabled=true
+disabled=false
+format="""\
+[ $symbol \
+$status$signal_number \
+$common_meaning$signal_name ]\
+($style)\
+[](bold bg:#c0caf5 fg:#db3a3a)\
+"""
+symbol=""
+not_executable_symbol=""
+not_found_symbol=""
+sigint_symbol=""
+signal_symbol=""
 map_symbol=true
-format="[$signal_name$common_meaning]($style)\n"
-style="bold white bg:red"
+style="bold bg:#db3a3a fg:#c0caf5"
 
 [cmd_duration]
 disabled = true

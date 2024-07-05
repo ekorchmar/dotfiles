@@ -150,10 +150,20 @@ vimcmd_replace_symbol="[R ](bold 179)"
 vimcmd_visual_symbol="[V ](bold 149)"
 
 [status]
-disabled=true
+disabled=false
+format="""\
+[ $symbol \
+$status$signal_number \
+$common_meaning$signal_name ]\
+($style)\
+"""
+symbol="!"
+not_executable_symbol="-"
+not_found_symbol="?"
+sigint_symbol="C"
+signal_symbol="X"
 map_symbol=true
-format="[$signal_name$common_meaning]($style)\n"
-style="bold white bg:red"
+style="fg:111 bg:167"
 
 [cmd_duration]
 disabled = true
