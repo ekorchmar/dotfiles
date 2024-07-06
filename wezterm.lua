@@ -6,7 +6,7 @@ local act = wezterm.action
 local config = wezterm.config_builder()
 
 -- Color scheme
-config.color_scheme = "rose-pine-moon"
+config.color_scheme = "Purple Rain"
 
 -- Tab bar
 config.tab_bar_at_bottom = true
