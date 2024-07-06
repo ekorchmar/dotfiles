@@ -265,8 +265,7 @@ lvim.plugins = {
         end,
     },
     {
-        "ekorchmar/zen-mode.nvim",
-        branch = "feat_neovide",
+        "folke/zen-mode.nvim",
         dependencies = {
             "folke/twilight.nvim",
         },
