@@ -376,6 +376,14 @@ lvim.plugins = {
             vim.g.maplocalleader = "^"
         end,
     },
+    {
+        "2kabhishek/co-author.nvim",
+        dependencies = {
+            "stevearc/dressing.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
+        cmd = { "CoAuthor" },
+    },
 }
 
 -- I know how to use the mouse, thanks
@@ -406,6 +414,7 @@ end
 local nor = lvim.builtin.which_key.mappings
 nor["bq"] = { "<cmd>BufferKill<cr>", "Close current buffer" }
 nor["bo"] = { "<cmd>BufferLineCloseOther<cr>", "Close other buffers" }
+nor["ga"] = { "<cmd>CoAuthor<cr>", "Add a co-author to a commit message" }
 nor["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 nor["sn"] = {
     function()
