@@ -150,6 +150,24 @@ config.keys = {
             act.ClearScrollback("ScrollbackAndViewport"),
         }),
     },
+    -- Ctrl + Shift + Ö to increase font size
+    {
+        key = "Ö",
+        mods = "CTRL|SHIFT",
+        action = act.IncreaseFontSize,
+    },
+    -- Ctrl + Shift + Ä to decrease font size
+    {
+        key = "Ä",
+        mods = "CTRL|SHIFT",
+        action = act.DecreaseFontSize,
+    },
+    -- Ctrl + Shift + Ü to reset font size
+    {
+        key = "Ü",
+        mods = "CTRL|SHIFT",
+        action = act.ResetFontSize,
+    },
 }
 
 -- Mouse bindings
