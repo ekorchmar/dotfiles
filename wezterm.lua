@@ -15,6 +15,33 @@ config.hide_tab_bar_if_only_one_tab = false
 config.use_fancy_tab_bar = false
 config.tab_max_width = 40
 
+-- Tab bar colors
+config.colors = {
+    tab_bar = {
+        background = "#20074a",
+        active_tab = {
+            bg_color = "#1a1b26",
+            fg_color = "#a9b1d6",
+            intensity = "Normal",
+        },
+        inactive_tab = {
+            bg_color = "#282e42",
+            fg_color = "#79a2f7",
+            intensity = "Normal",
+        },
+        inactive_tab_hover = {
+            bg_color = "#1a1b26",
+            fg_color = "#a9b1d6",
+            intensity = "Normal",
+        },
+        new_tab = {
+            bg_color = "#1a1b26",
+            fg_color = "#545c7e",
+            intensity = "Half",
+        },
+    },
+}
+
 -- Font
 config.font = wezterm.font("FiraCode Nerd Font")
 config.adjust_window_size_when_changing_font_size = false
@@ -22,9 +49,7 @@ config.font_size = 14
 
 -- Scroll bar
 config.enable_scroll_bar = true
-config.colors = {
-    scrollbar_thumb = "#232433",
-}
+config.colors.scrollbar_thumb = "#232433"
 
 -- Graphics acceleration
 config.front_end = "WebGpu"
