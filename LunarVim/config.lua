@@ -384,6 +384,11 @@ lvim.plugins = {
         },
         cmd = { "CoAuthor" },
     },
+    {
+        "chrisgrieser/nvim-origami",
+        event = "BufReadPost",
+        opts = {},
+    },
 }
 
 -- I know how to use the mouse, thanks
