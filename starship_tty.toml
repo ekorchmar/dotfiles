@@ -44,6 +44,11 @@ style = "fg:111 bg:239"
 format = '[($all_status$ahead_behind )]($style)'
 
 # Languages
+[conda]
+symbol = "conda"
+style = "bg:236"
+format = '[[ $symbol $environment ](fg:111 bg:236)]($style)'
+
 [nodejs]
 symbol = "js"
 style = "bg:236"

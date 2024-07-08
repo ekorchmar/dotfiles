@@ -13,6 +13,7 @@ $git_status\
 $nodejs\
 $rust\
 $golang\
+$conda\
 $python\
 $rlang\
 $lua\
@@ -59,6 +60,11 @@ style = "fg:#7aa2f7 bg:#3b4261"
 format = '[($all_status$ahead_behind )]($style)'
 
 # Languages
+[conda]
+symbol = "󱔎"
+style = "bg:#292e42"
+format = '[[ $symbol $environment ](fg:#7aa2f7 bg:#292e42)]($style)'
+
 [nodejs]
 symbol = ""
 style = "bg:#292e42"
