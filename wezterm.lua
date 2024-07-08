@@ -175,15 +175,15 @@ config.keys = {
             act.ClearScrollback("ScrollbackAndViewport"),
         }),
     },
-    -- Ctrl + Shift + Ö to increase font size
+    -- Ctrl + Shift + Ä to increase font size
     {
-        key = "Ö",
+        key = "Ä",
         mods = "CTRL|SHIFT",
         action = act.IncreaseFontSize,
     },
-    -- Ctrl + Shift + Ä to decrease font size
+    -- Ctrl + Shift + Ö to decrease font size
     {
-        key = "Ä",
+        key = "Ö",
         mods = "CTRL|SHIFT",
         action = act.DecreaseFontSize,
     },
