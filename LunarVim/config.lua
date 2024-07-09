@@ -97,7 +97,7 @@ lvim.plugins = {
     {
         "jiaoshijie/undotree",
         dependencies = "nvim-lua/plenary.nvim",
-        config = true,
+        opts = {},
         keys = { -- load the plugin only when using it's keybinding:
             { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
         },
@@ -105,43 +105,39 @@ lvim.plugins = {
     {
         "bbjornstad/pretty-fold.nvim",
         event = "BufEnter",
-        config = function()
-            require("pretty-fold").setup({
-                keep_indentation = false,
-                fill_char = "━",
-                sections = {
-                    left = {
-                        "━ ",
-                        function()
-                            return string.rep(">", vim.v.foldlevel)
-                        end,
-                        " ━┫",
-                        "content",
-                        "┣━━━┫ ",
-                        "number_of_folded_lines",
-                        " ┣━",
-                    },
-                    right = {},
+        opts = {
+            keep_indentation = false,
+            fill_char = "━",
+            sections = {
+                left = {
+                    "━ ",
+                    function()
+                        return string.rep(">", vim.v.foldlevel)
+                    end,
+                    " ━┫",
+                    "content",
+                    "┣━━━┫ ",
+                    "number_of_folded_lines",
+                    " ┣━",
                 },
-            })
-        end,
+                right = {},
+            },
+        },
     },
     {
         "NvChad/nvim-colorizer.lua",
         event = "BufEnter",
-        config = function()
-            require("colorizer").setup({
-                filetypes = {
-                    "*",
-                    css = { rgb_fn = true },
-                    scss = { rgb_fn = true },
-                    html = { rgb_fn = true },
-                },
-                user_default_options = {
-                    names = false,
-                },
-            })
-        end,
+        opts = {
+            filetypes = {
+                "*",
+                css = { rgb_fn = true },
+                scss = { rgb_fn = true },
+                html = { rgb_fn = true },
+            },
+            user_default_options = {
+                names = false,
+            },
+        },
     },
     {
         "unblevable/quick-scope",
@@ -150,9 +146,7 @@ lvim.plugins = {
     {
         "folke/todo-comments.nvim",
         event = "BufEnter",
-        config = function()
-            require("todo-comments").setup()
-        end,
+        opts = {},
     },
     {
         "vim-scripts/abnf",
@@ -162,55 +156,49 @@ lvim.plugins = {
     {
         "MeanderingProgrammer/markdown.nvim",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
-        config = function()
-            require("render-markdown").setup({
-                headings = {
-                    "󰲡 ",
-                    "#󰲣 ",
-                    "##󰲥 ",
-                    "###󰲧 ",
-                    "####󰲩 ",
-                    "#####󰲫 ",
+        opts = {
+            headings = {
+                "󰲡 ",
+                "#󰲣 ",
+                "##󰲥 ",
+                "###󰲧 ",
+                "####󰲩 ",
+                "#####󰲫 ",
+            },
+            -- Disable heading coloring
+            highlights = {
+                heading = {
+                    backgrounds = {},
+                    foregrounds = { "@punctuation.special.markdown" },
                 },
-                -- Disable heading coloring
-                highlights = {
-                    heading = {
-                        backgrounds = {},
-                        foregrounds = { "@punctuation.special.markdown" },
-                    },
-                },
-            })
-        end,
+            },
+        },
         ft = "markdown",
     },
     {
         "stevearc/oil.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            require("oil").setup({
-                columns = { "permissions", "size", "mtime", "icon" },
-                view_options = {
-                    show_hidden = true,
-                },
-                constrain_cursor = "name",
-            })
-        end,
+        opts = {
+            columns = { "permissions", "size", "mtime", "icon" },
+            view_options = {
+                show_hidden = true,
+            },
+            constrain_cursor = "name",
+        },
     },
     {
         -- Breaks markdown rendering which links some hl to colorcolumn
         enabled = false,
         "Bekaboo/deadcolumn.nvim",
         event = "BufEnter",
-        config = function()
-            require("deadcolumn").setup({
-                modes = function(_)
-                    return true
-                end,
-                blending = {
-                    hlgroup = { "SignColumn", "bg" },
-                },
-            })
-        end,
+        opts = {
+            modes = function(_)
+                return true
+            end,
+            blending = {
+                hlgroup = { "SignColumn", "bg" },
+            },
+        },
     },
     {
         "2KAbhishek/nerdy.nvim",
@@ -236,11 +224,7 @@ lvim.plugins = {
             "nvim-treesitter/nvim-treesitter",
             "MunifTanjim/nui.nvim",
         },
-        config = function()
-            require("regexplainer").setup({
-                auto = true,
-            })
-        end,
+        opts = { auto = true },
     },
     {
         "dstein64/vim-startuptime",
@@ -307,8 +291,7 @@ lvim.plugins = {
                     vim.g.neovide_fullscreen = true
                 end
 
-                -- Reshape ZenMode window & backdrop
-                require("zen-mode.view").fix_layout(true)
+                lvim.builtin.breadcrumbs.active = false
             end,
             on_close = function()
                 -- require("lualine").hide { unhide = true }
@@ -318,6 +301,8 @@ lvim.plugins = {
                 if NEOVIDE and vim.g.neovide_fullscreen then
                     vim.g.neovide_fullscreen = false
                 end
+
+                lvim.builtin.breadcrumbs.active = true
             end,
         },
     },
