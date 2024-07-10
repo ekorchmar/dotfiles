@@ -2,7 +2,7 @@
 
 format = """\
 $cmd_duration\
-$status[$os $username$hostname $shell$shlvl](bg:#c0caf5 fg:#1f2335)\
+$status[$os $username$hostname $shell $shlvl](bg:#c0caf5 fg:#1f2335)\
 [](bg:#7aa2f7 fg:#c0caf5)\
 $directory\
 [](fg:#7aa2f7 bg:#3b4261)\
@@ -151,10 +151,11 @@ Android = ""
 
 [shell]
 disabled=false
+format="[$indicator]($style)"
 style="bg:#c0caf5 fg:#1f2335"
 bash_indicator=""
-zsh_indicator="󱨂"
-powershell_indicator="󰨊"
+zsh_indicator=""
+powershell_indicator=""
 fish_indicator="󰈺"
 cmd_indicator=""
 
