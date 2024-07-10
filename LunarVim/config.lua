@@ -374,6 +374,7 @@ lvim.plugins = {
         event = "BufReadPost",
         opts = {},
     },
+    "mong8se/actually.nvim",
 }
 
 -- I know how to use the mouse, thanks
