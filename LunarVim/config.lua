@@ -15,7 +15,6 @@ lvim.builtin.treesitter.ensure_installed = {
     "latex",
     "embedded_template",
 }
-lvim.builtin.treesitter.ignore_install = { "comment" }
 
 vim.g.shiftwidth = 4
 vim.opt.autochdir = true
@@ -425,6 +424,7 @@ nor.g.g = { toggle_terminal("lazygit"), "Lazygit" }
 nor["w"] = {}
 nor["T"] = {}
 nor["f"] = {}
+nor["lr"] = { vim.lsp.buf.rename, "Rename symbol" }
 nor["p"] = {}
 -- Redefine some default menus
 nor["c"] = {
