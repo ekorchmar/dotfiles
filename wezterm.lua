@@ -5,11 +5,26 @@ local act = wezterm.action
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
+-- Windows specific settings
+if string.find(wezterm.target_triple, "windows") then
+    -- Opacity
+    -- Waiting for KDE blur support...
+    config.window_background_opacity = 0.6
+    config.win32_system_backdrop = "Acrylic"
+    config.default_prog = { "pwsh", "-NoLogo" }
+    -- Native decorations
+    config.tab_bar_at_bottom = false
+    config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+    TAB_SEP = wezterm.nerdfonts.ple_lower_left_triangle
+else
+    config.tab_bar_at_bottom = true
+    TAB_SEP = wezterm.nerdfonts.ple_upper_left_triangle
+end
+
 -- Color scheme
 config.color_scheme = "Purple Rain"
 
 -- Tab bar
-config.tab_bar_at_bottom = true
 config.enable_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = false
 config.use_fancy_tab_bar = false
@@ -19,28 +34,64 @@ config.tab_max_width = 40
 config.colors = {
     tab_bar = {
         background = "#20074a",
-        active_tab = {
-            bg_color = "#1a1b26",
+        new_tab = {
+            bg_color = "#20074a",
             fg_color = "#a9b1d6",
-            intensity = "Normal",
         },
-        inactive_tab = {
-            bg_color = "#282e42",
-            fg_color = "#79a2f7",
-            intensity = "Normal",
+        new_tab_hover = {
+            bg_color = "#a9b1d6",
+            fg_color = "#20074a",
+            italic = false,
         },
         inactive_tab_hover = {
-            bg_color = "#1a1b26",
+            bg_color = "#20074a",
             fg_color = "#a9b1d6",
-            intensity = "Normal",
-        },
-        new_tab = {
-            bg_color = "#1a1b26",
-            fg_color = "#545c7e",
-            intensity = "Half",
-        },
+            italic = false,
+        }
     },
 }
+
+-- Tab title formatting
+local function tab_title(tab_info)
+    local title = tab_info.tab_title
+    -- if the tab title is explicitly set, take that
+    if not title or #title == 0 then
+        title = tab_info.active_pane.title
+    end
+
+    -- Remove .exe from the end
+    title = title:gsub("%.[eE][xX][eE]$", "")
+
+    return title
+end
+
+wezterm.on(
+    "format-tab-title",
+    function(tab, tabs, panes, config_, hover, max_width)
+        local title = tab_title(tab)
+        if tab.is_active then
+            BG = "#3b3052"
+            FG = "#ccccee"
+            PC = (#panes > 1) and "[" .. #panes .. "] " or " "
+        else
+            BG = "#20074a"
+            FG = "#a9b1d6"
+            PC = " "
+        end
+
+        return {
+            { Background = { Color = BG } },
+            { Foreground = { Color = FG } },
+            -- Insert a space for first tab only
+            { Text = (tab.tab_index == 0) and " " or "" },
+            { Text = (tab.tab_index + 1) .. " " .. title },
+            -- Pane count
+            { Text = PC },
+            { Background = { Color = "#20074a" } },
+            { Foreground = { Color = BG } },
+            { Text = TAB_SEP },
+        }
+    end)
 
 -- Font
 config.font = wezterm.font("FiraCode Nerd Font")
@@ -59,18 +110,6 @@ config.command_palette_bg_color = "#1a1b26"
 config.command_palette_fg_color = "#a9b1d6"
 config.command_palette_rows = 8
 config.command_palette_font_size = 16
-
--- Windows specific settings
-if string.find(wezterm.target_triple, "windows") then
-    -- Opacity
-    -- Waiting for KDE blur support...
-    config.window_background_opacity = 0.6
-    config.win32_system_backdrop = "Acrylic"
-    config.default_prog = { "pwsh", "-NoLogo" }
-    -- Native decorations
-    config.tab_bar_at_bottom = false
-    config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
-end
 
 -- Key bindings
 config.disable_default_key_bindings = true
