@@ -96,7 +96,7 @@ lvim.plugins = {
     {
         "jiaoshijie/undotree",
         dependencies = "nvim-lua/plenary.nvim",
-        opts = {},
+        config = true,
         keys = { -- load the plugin only when using it's keybinding:
             { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
         },
@@ -369,7 +369,7 @@ lvim.plugins = {
         event = "BufReadPost",
         opts = {},
     },
-    "mong8se/actually.nvim",
+    -- "mong8se/actually.nvim", -- breaks undotree
 }
 
 -- I know how to use the mouse, thanks

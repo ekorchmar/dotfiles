@@ -17,11 +17,27 @@ if string.find(wezterm.target_triple, "windows") then
     config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
     TAB_SEP = wezterm.nerdfonts.ple_lower_left_triangle
     PRE_TAB_SEP = wezterm.nerdfonts.ple_lower_right_triangle
+
+    -- Tab colors
+    TAB_BAR_BG_COLOR = "#20074a"
+    TAB_BAR_FG_COLOR = "#a9b1d6"
+    TAB_BG_COLOR_ACTIVE = "#3b3052"
+    TAB_FG_COLOR_ACTIVE = "#ccccee"
 else
     config.tab_bar_at_bottom = true
     TAB_SEP = wezterm.nerdfonts.ple_upper_left_triangle
     PRE_TAB_SEP = wezterm.nerdfonts.ple_upper_right_triangle
+
+    -- Tab colors
+    TAB_BAR_BG_COLOR = "#1c0738"
+    TAB_BAR_FG_COLOR = "#a9b1d6"
+    TAB_BG_COLOR_ACTIVE = "#20074a"
+    TAB_FG_COLOR_ACTIVE = "#ccccee"
 end
+SCROLLBAR_THUMB_COLOR = "#232433"
+
+COMMAND_BG_COLOR = "#1a1b26"
+COMMAND_FG_COLOR = "#a9b1d6"
 
 -- Color scheme
 config.color_scheme = "Purple Rain"
@@ -35,21 +51,21 @@ config.tab_max_width = 40
 -- Tab bar colors
 config.colors = {
     tab_bar = {
-        background = "#20074a",
+        background = TAB_BAR_BG_COLOR,
         new_tab = {
-            bg_color = "#20074a",
-            fg_color = "#a9b1d6",
+            bg_color = TAB_BAR_BG_COLOR,
+            fg_color = TAB_BAR_FG_COLOR,
         },
         new_tab_hover = {
-            bg_color = "#a9b1d6",
-            fg_color = "#20074a",
+            bg_color = TAB_BAR_FG_COLOR,
+            fg_color = TAB_BAR_BG_COLOR,
             italic = false,
         },
         inactive_tab_hover = {
-            bg_color = "#20074a",
-            fg_color = "#a9b1d6",
+            bg_color = TAB_BAR_BG_COLOR,
+            fg_color = TAB_BAR_FG_COLOR,
             italic = false,
-        }
+        },
     },
 }
 
@@ -85,12 +101,12 @@ wezterm.on(
 
         local title = tab_title(tab)
         if tab.is_active then
-            BG = "#3b3052"
-            FG = "#ccccee"
+            BG = TAB_BG_COLOR_ACTIVE
+            FG = TAB_FG_COLOR_ACTIVE
             PC = (#panes > 1) and "[" .. #panes .. "] " or ""
         else
-            BG = "#20074a"
-            FG = "#a9b1d6"
+            BG = TAB_BAR_BG_COLOR
+            FG = TAB_BAR_FG_COLOR
             PC = ""
         end
 
@@ -103,11 +119,15 @@ wezterm.on(
             { Attribute = { Italic = false } },
             { Attribute = { Intensity = hover and "Bold" or "Normal" } },
             -- Draw a pre-tab separator for active and first tabs
-            { Background = { Color = tab.is_active and "#20074a" or BG } },
+            {
+                Background = {
+                    Color = tab.is_active and TAB_BAR_BG_COLOR or BG,
+                },
+            },
             { Foreground = { Color = BG } },
             {
-                Text = (tab.is_active or tab.tab_index == 0)
-                    and PRE_TAB_SEP or ""
+                Text = (tab.is_active or tab.tab_index == 0) and PRE_TAB_SEP
+                    or "",
             },
             -- Draw number and title
             { Background = { Color = BG } },
@@ -115,15 +135,16 @@ wezterm.on(
             { Text = (tab.tab_index + 1) .. " " .. title },
             -- Pane count
             { Text = PC },
-            { Background = { Color = "#20074a" } },
+            { Background = { Color = TAB_BAR_BG_COLOR } },
             { Foreground = { Color = BG } },
             -- Draw end separator only if the next tab is not active
             {
                 Text = NEXT_TAB and (not NEXT_TAB.is_active and TAB_SEP or "")
-                    or TAB_SEP
+                    or TAB_SEP,
             },
         }
-    end)
+    end
+)
 
 -- Font
 config.font = wezterm.font("FiraCode Nerd Font")
@@ -132,14 +153,14 @@ config.font_size = 14
 
 -- Scroll bar
 config.enable_scroll_bar = true
-config.colors.scrollbar_thumb = "#232433"
+config.colors.scrollbar_thumb = SCROLLBAR_THUMB_COLOR
 
 -- Graphics acceleration
 config.front_end = "WebGpu"
 
 -- Command palette
-config.command_palette_bg_color = "#1a1b26"
-config.command_palette_fg_color = "#a9b1d6"
+config.command_palette_bg_color = COMMAND_BG_COLOR
+config.command_palette_fg_color = COMMAND_FG_COLOR
 config.command_palette_rows = 8
 config.command_palette_font_size = 16
 
