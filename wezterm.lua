@@ -16,9 +16,11 @@ if string.find(wezterm.target_triple, "windows") then
     config.tab_bar_at_bottom = false
     config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
     TAB_SEP = wezterm.nerdfonts.ple_lower_left_triangle
+    PRE_TAB_SEP = wezterm.nerdfonts.ple_lower_right_triangle
 else
     config.tab_bar_at_bottom = true
     TAB_SEP = wezterm.nerdfonts.ple_upper_left_triangle
+    PRE_TAB_SEP = wezterm.nerdfonts.ple_upper_right_triangle
 end
 
 -- Color scheme
@@ -60,7 +62,9 @@ local function tab_title(tab_info)
     end
 
     -- Remove .exe from the end
-    title = title:gsub("%.[eE][xX][eE]$", "")
+    if string.find(wezterm.target_triple, "windows") then
+        title = title:gsub("%.[eE][xX][eE]$", "")
+    end
 
     return title
 end
@@ -68,28 +72,56 @@ end
 wezterm.on(
     "format-tab-title",
     function(tab, tabs, panes, config_, hover, max_width)
+        _ = { config_, max_width }
+
+        -- Get next tab
+        NEXT_TAB = nil
+        for _, t in ipairs(tabs) do
+            if t.tab_index == tab.tab_index + 1 then
+                NEXT_TAB = t
+                break
+            end
+        end
+
         local title = tab_title(tab)
         if tab.is_active then
             BG = "#3b3052"
             FG = "#ccccee"
-            PC = (#panes > 1) and "[" .. #panes .. "] " or " "
+            PC = (#panes > 1) and "[" .. #panes .. "] " or ""
         else
             BG = "#20074a"
             FG = "#a9b1d6"
-            PC = " "
+            PC = ""
+        end
+
+        -- Truncate title if it's too long
+        if #title > 20 then
+            title = title:sub(1, 19) .. "…"
         end
 
         return {
+            { Attribute = { Italic = false } },
+            { Attribute = { Intensity = hover and "Bold" or "Normal" } },
+            -- Draw a pre-tab separator for active and first tabs
+            { Background = { Color = tab.is_active and "#20074a" or BG } },
+            { Foreground = { Color = BG } },
+            {
+                Text = (tab.is_active or tab.tab_index == 0)
+                    and PRE_TAB_SEP or ""
+            },
+            -- Draw number and title
             { Background = { Color = BG } },
             { Foreground = { Color = FG } },
-            -- Insert a space for first tab only
-            { Text = (tab.tab_index == 0) and " " or "" },
             { Text = (tab.tab_index + 1) .. " " .. title },
             -- Pane count
             { Text = PC },
             { Background = { Color = "#20074a" } },
             { Foreground = { Color = BG } },
-            { Text = TAB_SEP },
+            -- Draw end separator only if the next tab is not active
+            {
+                Text = NEXT_TAB and (not NEXT_TAB.is_active and TAB_SEP or "")
+                    or TAB_SEP
+            },
         }
     end)
 

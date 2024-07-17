@@ -279,9 +279,6 @@ lvim.plugins = {
                 neovide = { enabled = true },
             },
             on_open = function()
-                -- Currently broken:
-                -- https://github.com/nvim-lualine/lualine.nvim/issues/1066
-                -- require("lualine").hide()
                 vim.opt.laststatus = 0
                 vim.opt.cmdheight = 0
 
@@ -293,7 +290,6 @@ lvim.plugins = {
                 lvim.builtin.breadcrumbs.active = false
             end,
             on_close = function()
-                -- require("lualine").hide { unhide = true }
                 vim.opt.laststatus = 3
                 vim.opt.cmdheight = 2
 
