@@ -233,6 +233,14 @@ config.keys = {
         action = act.ResetFontSize,
     },
 }
+-- Alt + number for corresponding tab
+for i = 1, 9 do
+    table.insert(config.keys, {
+        key = tostring(i),
+        mods = "ALT",
+        action = act.ActivateTab(i - 1),
+    })
+end
 
 -- Mouse bindings
 config.mouse_bindings = {
