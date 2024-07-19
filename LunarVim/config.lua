@@ -377,6 +377,11 @@ lvim.plugins = {
             backends = { "lsp", "treesitter", "markdown", "man" },
             layout = { min_width = 28 },
             show_guides = true,
+            highlight_on_hover = true,
+            autojump = true,
+            manage_folds = "auto",
+            link_folds_to_tree = true,
+            link_tree_to_folds = true,
             guides = {
                 mid_item = "├ ",
                 last_item = "└ ",
@@ -394,6 +399,10 @@ lvim.plugins = {
                 ["]]"] = false,
             },
         },
+    },
+    {
+        "stevearc/stickybuf.nvim",
+        opts = {},
     },
 }
 
