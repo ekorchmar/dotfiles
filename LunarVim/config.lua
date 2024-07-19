@@ -370,6 +370,31 @@ lvim.plugins = {
         opts = {},
     },
     -- "mong8se/actually.nvim", -- breaks undotree
+    {
+        "stevearc/aerial.nvim",
+        cmd = { "AerialToggle" },
+        opts = {
+            backends = { "lsp", "treesitter", "markdown", "man" },
+            layout = { min_width = 28 },
+            show_guides = true,
+            guides = {
+                mid_item = "├ ",
+                last_item = "└ ",
+                nested_top = "│ ",
+                whitespace = "  ",
+            },
+            keymaps = {
+                ["[y"] = "actions.prev",
+                ["]y"] = "actions.next",
+                ["[Y"] = "actions.prev_up",
+                ["]Y"] = "actions.next_up",
+                ["{"] = false,
+                ["}"] = false,
+                ["[["] = false,
+                ["]]"] = false,
+            },
+        },
+    },
 }
 
 -- I know how to use the mouse, thanks
@@ -421,6 +446,7 @@ nor["w"] = {}
 nor["T"] = {}
 nor["f"] = {}
 nor["lr"] = { vim.lsp.buf.rename, "Rename symbol" }
+nor["lA"] = { "<cmd>AerialToggle<cr>", "Symbol tree outline" }
 nor["p"] = {}
 -- Redefine some default menus
 nor["c"] = {
