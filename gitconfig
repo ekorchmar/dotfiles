@@ -37,6 +37,7 @@
 [rerere]
   enabled = true
 [diff]
+  external = difft
   tool = nvimdiff
   guitool = nvimdiff
 [merge]
@@ -51,3 +52,5 @@
 [mergetool "nvimdiff"]
   cmd = "lvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
   layout = LOCAL,MERGED,REMOTE
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
