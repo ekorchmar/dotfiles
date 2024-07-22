@@ -285,6 +285,14 @@ config.keys = {
         mods = "CTRL|SHIFT",
         action = act.ResetFontSize,
     },
+    -- Ctrl + Shift + Q to enter pane selection mode
+    {
+        key = "Q",
+        mods = "CTRL|SHIFT",
+        action = act.PaneSelect {
+            alphabet="qwertz"
+        }
+    },
 }
 -- Alt + number for corresponding tab
 for i = 1, 9 do
