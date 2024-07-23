@@ -14,6 +14,7 @@ A place for me to store configs for the software I use. Configs are not recommen
 10. [Lazygit](#Lazygit)
 11. [git](#git)
 12. [fastfetch](#fastfetch)
+13. [direnv](#direnv)
 
 ## lvim
 Although I used to have a much longer and comprehensive [.vimrc](https://gist.github.com/ekorchmar/04735e1e280e37899d26b6cc552dd052), I have since switched to LunarVim, to have a managed default and not to have to worry about much. This is the content of my `~/.config/lvim/config.lua` file.
@@ -51,4 +52,7 @@ Just a few useful aliases and good defaults.
 
 ## fastfetch
 The most important part of my dotfiles, holding everything together. Expects a file `~/Pictures/Arch.png` to exist and for Kitty graphics to be supported.
+
+## direnv
+Default to enable detecting `.env` files and enforcing strict mode.
 

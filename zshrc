@@ -368,3 +368,4 @@ eval "$(zoxide init zsh)"
 eval $(thefuck --alias)
 alias f='fuck'
 
+eval "$(direnv hook zsh)"
