@@ -165,11 +165,9 @@ lvim.plugins = {
                 "#####󰲫 ",
             },
             -- Disable heading coloring
-            highlights = {
-                heading = {
-                    backgrounds = {},
-                    foregrounds = { "@punctuation.special.markdown" },
-                },
+            heading = {
+                backgrounds = {},
+                foregrounds = { "@punctuation.special.markdown" },
             },
         },
         ft = "markdown",
