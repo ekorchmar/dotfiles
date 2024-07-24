@@ -40,3 +40,7 @@ keybinding:
     nextTab: 'ä'
     prevTab: 'ö'
 
+# Difftastic as external diff tool
+git:
+  paging:
+    externalDiffCommand: difft --color=always
