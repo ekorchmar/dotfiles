@@ -4,6 +4,7 @@ format = """
 $cmd_duration\
 $status[$os $username$hostname $shell$shlvl](bg:153 fg:235)\
 $directory\
+$direnv\
 $git_branch\
 $git_commit\
 $git_status\
@@ -28,6 +29,15 @@ truncation_length = 3
 truncation_symbol = ".../"
 read_only = "X"
 read_only_style = "bg:111 red"
+
+[direnv]
+disabled = false
+format = '[$symbol$allowed]($style)'
+style = "fg:#1f2335 bg:#7aa2f7"
+detect_files = [".envrc", ".env"]
+allowed_msg = "+"
+not_allowed_msg = "?"
+denied_msg = "-"
 
 [git_branch]
 symbol = "git"

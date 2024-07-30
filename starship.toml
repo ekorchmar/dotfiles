@@ -5,6 +5,7 @@ $cmd_duration\
 $status[$os $username$hostname $shell $shlvl](bg:#c0caf5 fg:#1f2335)\
 [](bg:#7aa2f7 fg:#c0caf5)\
 $directory\
+$direnv\
 [](fg:#7aa2f7 bg:#3b4261)\
 $git_branch\
 $git_commit\
@@ -44,6 +45,16 @@ truncation_symbol = "…/"
 home_symbol = "~"
 read_only = " "
 read_only_style = "bg:#7aa2f7 fg:#1f2335"
+
+[direnv]
+disabled = false
+symbol = " "
+format = '[ $symbol$allowed ]($style)'
+style = "fg:#1f2335 bg:#7aa2f7"
+detect_files = [".envrc", ".env"]
+allowed_msg = ""
+not_allowed_msg = ""
+denied_msg = ""
 
 [git_branch]
 symbol = ""
