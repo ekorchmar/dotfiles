@@ -158,6 +158,7 @@ zsh_indicator=""
 powershell_indicator=""
 fish_indicator="󰈺"
 cmd_indicator=""
+tcsh_indicator=""
 
 [shlvl]
 disabled=false
