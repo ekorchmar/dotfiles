@@ -194,24 +194,7 @@ function open () {
 }
 
 # Update all the things
-function dopamine () {
-    echo "<===UPDATING PACMAN===>"
-    paru -Syu
-    paru -Fy
-    TO_UNINSTALL=$(paru -Qdtq)
-    if [ "$TO_UNINSTALL" != "" ]; then
-        paru -Rsn $(paru -Qdtq)
-    fi
-
-    echo "<===UPDATING FLATPAK===>"
-    flatpak update
-
-    echo "<===UPDATING FWUPD===>"
-    sudo fwupdmgr update
-
-    # echo "<===UPDATING RUST===>"
-    # rustup update
-}
+alias dopamine='topgrade'
 
 # Serve current directory as a static website
 alias pyhttp='python -m http.server --directory . & xdg-open http://localhost:8000'
