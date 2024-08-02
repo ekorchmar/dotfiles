@@ -97,9 +97,9 @@ style = "bg:#292e42"
 format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
 
 [python]
-symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($virtualenv $version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+symbol = " "
+style = "bg:#292e42 fg:#7aa2f7 "
+format = '[ ${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 
 [rlang]
 symbol = ""
@@ -115,7 +115,17 @@ format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
 symbol = ""
 style = "bg:#292e42"
 format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
-detect_files = ['pom.xml', 'build.gradle.kts', 'build.sbt', '.java-version', 'deps.edn', 'project.clj', 'build.boot', '.sdkmanrc', 'build.xml']
+detect_files = [
+  'pom.xml',
+  'build.gradle.kts',
+  'build.sbt',
+  '.java-version',
+  'deps.edn',
+  'project.clj',
+  'build.boot',
+  '.sdkmanrc',
+  'build.xml',
+]
 
 [c]
 symbol = ""
@@ -135,22 +145,22 @@ format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
 
 # Standart prompt elements
 [username]
-show_always=true
-style_user="bg:#c0caf5 fg:#1f2335 bold"
-style_root="bg:#c0caf5 fg:#db3a3a bold"
+show_always = true
+style_user = "bg:#c0caf5 fg:#1f2335 bold"
+style_root = "bg:#c0caf5 fg:#db3a3a bold"
 format = '[$user]($style)'
 aliases = { "" = "Unknown" }
 
 [hostname]
-ssh_only=false
-ssh_symbol=""
-style="bg:#c0caf5 fg:#1f2335"
-format="@[$ssh_symbol$hostname]($style)"
+ssh_only = false
+ssh_symbol = ""
+style = "bg:#c0caf5 fg:#1f2335"
+format = "@[$ssh_symbol$hostname]($style)"
 
 [os]
 format = '[ $symbol ]($style)'
-style="bg:#c0caf5 fg:#1f2335"
-disabled=true
+style = "bg:#c0caf5 fg:#1f2335"
+disabled = true
 
 [os.symbols]
 Windows = ""
@@ -161,46 +171,46 @@ Arch = ""
 Android = ""
 
 [shell]
-disabled=false
-format="[$indicator]($style)"
-style="bg:#c0caf5 fg:#1f2335"
-bash_indicator=""
-zsh_indicator=""
-powershell_indicator=""
-fish_indicator="󰈺"
-cmd_indicator=""
-tcsh_indicator=""
+disabled = false
+format = "[$indicator]($style)"
+style = "bg:#c0caf5 fg:#1f2335"
+bash_indicator = ""
+zsh_indicator = ""
+powershell_indicator = ""
+fish_indicator = "󰈺"
+cmd_indicator = ""
+tcsh_indicator = ""
 
 [shlvl]
-disabled=false
-style="bg:#c0caf5 fg:#1f2335"
-format='[ $shlvl]($style)'
+disabled = false
+style = "bg:#c0caf5 fg:#1f2335"
+format = '[ $shlvl]($style)'
 
 [character]
-format=" $symbol[: ](bold white)"
-success_symbol="[󰣐 ](bold #ff79c6)"
-error_symbol="[󰋔 ](bold #db3a3a)"
-vimcmd_symbol="[󰧑 ](bold #ad8ee6)"
-vimcmd_replace_one_symbol="[󰋇 ](bold #e0af68)"
-vimcmd_replace_symbol="[ ](bold #e0af68)"
-vimcmd_visual_symbol="[ ](bold #9ece6a)"
+format = " $symbol[: ](bold white)"
+success_symbol = "[󰣐 ](bold #ff79c6)"
+error_symbol = "[󰋔 ](bold #db3a3a)"
+vimcmd_symbol = "[󰧑 ](bold #ad8ee6)"
+vimcmd_replace_one_symbol = "[󰋇 ](bold #e0af68)"
+vimcmd_replace_symbol = "[ ](bold #e0af68)"
+vimcmd_visual_symbol = "[ ](bold #9ece6a)"
 
 [status]
-disabled=false
-format="""\
+disabled = false
+format = """\
 [ $symbol \
 $status$signal_number \
 $common_meaning$signal_name ]\
 ($style)\
 [](bold bg:#c0caf5 fg:#db3a3a)\
 """
-symbol=""
-not_executable_symbol=""
-not_found_symbol=""
-sigint_symbol=""
-signal_symbol=""
-map_symbol=true
-style="bold bg:#db3a3a fg:#c0caf5"
+symbol = ""
+not_executable_symbol = ""
+not_found_symbol = ""
+sigint_symbol = ""
+signal_symbol = ""
+map_symbol = true
+style = "bold bg:#db3a3a fg:#c0caf5"
 
 [cmd_duration]
 disabled = true
@@ -211,33 +221,32 @@ min_time = 5_000
 # Physical world
 [battery]
 format = '[$symbol $percentage]($style)'
-full_symbol="󰁹"
-charging_symbol="󰂄"
-discharging_symbol="󱟞"
-empty_symbol="󰂎"
-unknown_symbol="󰂑"
+full_symbol = "󰁹"
+charging_symbol = "󰂄"
+discharging_symbol = "󱟞"
+empty_symbol = "󰂎"
+unknown_symbol = "󰂑"
 
 [[battery.display]]
 threshold = 10
-style="bg:#1f2335 fg:#db3a3a"
-discharging_symbol="󰂎"
-charging_symbol="󰢟"
+style = "bg:#1f2335 fg:#db3a3a"
+discharging_symbol = "󰂎"
+charging_symbol = "󰢟"
 
 [[battery.display]]
 threshold = 30
-style="bg:#1f2335 fg:#e0af68"
-discharging_symbol="󱊡"
-charging_symbol="󱊤"
+style = "bg:#1f2335 fg:#e0af68"
+discharging_symbol = "󱊡"
+charging_symbol = "󱊤"
 
 [[battery.display]]
 threshold = 55
-style="bg:#1f2335 fg:#73daca"
-discharging_symbol="󱊢"
-charging_symbol="󱊥"
+style = "bg:#1f2335 fg:#73daca"
+discharging_symbol = "󱊢"
+charging_symbol = "󱊥"
 
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "bg:#1f2335"
 format = '[[  $time ](fg:#73DACA bg:#1f2335)]($style)'
-

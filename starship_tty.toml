@@ -98,7 +98,17 @@ format = '[[ $symbol ($version) ](fg:111 bg:236)]($style)'
 symbol = "jav"
 style = "bg:236"
 format = '[[ $symbol ($version) ](fg:111 bg:236)]($style)'
-detect_files = ['pom.xml', 'build.gradle.kts', 'build.sbt', '.java-version', 'deps.edn', 'project.clj', 'build.boot', '.sdkmanrc', 'build.xml']
+detect_files = [
+  'pom.xml',
+  'build.gradle.kts',
+  'build.sbt',
+  '.java-version',
+  'deps.edn',
+  'project.clj',
+  'build.boot',
+  '.sdkmanrc',
+  'build.xml',
+]
 
 [c]
 symbol = "c"
@@ -118,21 +128,21 @@ format = '[[ $symbol ($version) ](fg:111 bg:236)]($style)'
 
 # Standart prompt elements
 [username]
-show_always=true
-style_user="bg:153 fg:235 bold"
-style_root="bg:153 fg:167 bold"
+show_always = true
+style_user = "bg:153 fg:235 bold"
+style_root = "bg:153 fg:167 bold"
 format = '[$user]($style)'
 
 [hostname]
-ssh_only=false
-ssh_symbol=""
-style="bg:153 fg:235"
-format="@[$ssh_symbol$hostname]($style)"
+ssh_only = false
+ssh_symbol = ""
+style = "bg:153 fg:235"
+format = "@[$ssh_symbol$hostname]($style)"
 
 [os]
 format = '[ $symbol ]($style)'
-style="bg:153 fg:235"
-disabled=true
+style = "bg:153 fg:235"
+disabled = true
 
 [os.symbols]
 Windows = "windows"
@@ -142,44 +152,44 @@ Macos = "macos"
 Arch = "arch"
 
 [shell]
-disabled=true
-style="bg:153 fg:235"
-bash_indicator="bash"
-zsh_indicator="zsh"
-powershell_indicator="pwsh"
-fish_indicator="fish"
-cmd_indicator="cmd"
-tcsh_indicator="tcsh"
+disabled = true
+style = "bg:153 fg:235"
+bash_indicator = "bash"
+zsh_indicator = "zsh"
+powershell_indicator = "pwsh"
+fish_indicator = "fish"
+cmd_indicator = "cmd"
+tcsh_indicator = "tcsh"
 
 [shlvl]
-disabled=false
-style="bg:153 fg:235"
-format='[/$shlvl]($style)'
+disabled = false
+style = "bg:153 fg:235"
+format = '[/$shlvl]($style)'
 
 [character]
-format=" $symbol[: ](bold white)"
-success_symbol='[\$ ](bold 212)'
-error_symbol='[\$ ](bold 167)'
-vimcmd_symbol="[N ](bold 140)"
-vimcmd_replace_one_symbol="[R1](bold 179)"
-vimcmd_replace_symbol="[R ](bold 179)"
-vimcmd_visual_symbol="[V ](bold 149)"
+format = " $symbol[: ](bold white)"
+success_symbol = '[\$ ](bold 212)'
+error_symbol = '[\$ ](bold 167)'
+vimcmd_symbol = "[N ](bold 140)"
+vimcmd_replace_one_symbol = "[R1](bold 179)"
+vimcmd_replace_symbol = "[R ](bold 179)"
+vimcmd_visual_symbol = "[V ](bold 149)"
 
 [status]
-disabled=false
-format="""\
+disabled = false
+format = """\
 [ $symbol \
 $status$signal_number \
 $common_meaning$signal_name ]\
 ($style)\
 """
-symbol="!"
-not_executable_symbol="-"
-not_found_symbol="?"
-sigint_symbol="C"
-signal_symbol="X"
-map_symbol=true
-style="fg:111 bg:167"
+symbol = "!"
+not_executable_symbol = "-"
+not_found_symbol = "?"
+sigint_symbol = "C"
+signal_symbol = "X"
+map_symbol = true
+style = "fg:111 bg:167"
 
 [cmd_duration]
 disabled = true
@@ -193,19 +203,18 @@ format = '[$percentage]($style)'
 
 [[battery.display]]
 threshold = 10
-style="bg:235 fg:167"
+style = "bg:235 fg:167"
 
 [[battery.display]]
 threshold = 30
-style="bg:235 fg:179"
+style = "bg:235 fg:179"
 
 [[battery.display]]
 threshold = 55
-style="bg:235 fg:80"
+style = "bg:235 fg:80"
 
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "bg:235"
 format = '[[ $time ](fg:80 bg:235)]($style)'
-

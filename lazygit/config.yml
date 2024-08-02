@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
 
 gui:
-# UI styling
+  # UI styling
   theme:
     activeBorderColor:
       - blue
@@ -13,15 +13,15 @@ gui:
   animateExplosion: false
   # Will have no effect until the next release
   spinner:
-    frames: ['', '', '', '', '', '']
+    frames: ["", "", "", "", "", ""]
     rate: 100
 
-# Messages and infos
+  # Messages and infos
   showRandomTip: false
 
-# Style my commits
+  # Style my commits
   authorColors:
-    'Eduard Korchmar': '#6e42d2'
+    "Eduard Korchmar": "#6e42d2"
 
 # Updates are handled by the package manager
 update:
@@ -29,16 +29,16 @@ update:
 
 # Use console nvim for editing
 os:
-  editPreset: 'nvim'
+  editPreset: "nvim"
   editInTerminal: true
-  edit: 'lvim {{filename}}'
-  editAtLine: 'lvim {{filename}} -c {{line}}'
+  edit: "lvim {{filename}}"
+  editAtLine: "lvim {{filename}} -c {{line}}"
 
 # Ö and Ä for tabs (more accessible on German keyboards)
 keybinding:
   universal:
-    nextTab: 'ä'
-    prevTab: 'ö'
+    nextTab: "ä"
+    prevTab: "ö"
 
 # Difftastic as external diff tool
 git:

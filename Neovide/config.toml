@@ -3,6 +3,5 @@ neovim-bin = "/home/ekorchmar/.local/bin/lvim"
 fork = true
 
 [font]
-normal = "FiraCode Nerd Font"  # Use system font instead of bundled
+normal = "FiraCode Nerd Font" # Use system font instead of bundled
 size = 14.0
-

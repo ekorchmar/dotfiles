@@ -1,5 +1,9 @@
 repos:
-- repo: https://github.com/JohnnyMorganz/StyLua
-  rev: v0.20.0
-  hooks:
-    - id: stylua # or stylua-system / stylua-github
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v0.20.0
+    hooks:
+      - id: stylua # or stylua-system / stylua-github
+  - repo: https://github.com/spinergie/pre-commit-dprint
+    rev: v0.45.0 # Use the sha / tag you want to point at
+    hooks:
+      - id: dprint
