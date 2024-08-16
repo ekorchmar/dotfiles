@@ -7,6 +7,8 @@ local config = wezterm.config_builder()
 
 -- Windows specific settings
 if string.find(wezterm.target_triple, "windows") then
+    -- Color scheme
+    config.color_scheme = "Tokyo Night"
     -- Opacity
     -- Waiting for KDE blur support...
     config.window_background_opacity = 0.6
@@ -24,6 +26,8 @@ if string.find(wezterm.target_triple, "windows") then
     TAB_BG_COLOR_ACTIVE = "#3b3052"
     TAB_FG_COLOR_ACTIVE = "#ccccee"
 else
+    -- Color scheme
+    config.color_scheme = "Purple Rain"
     config.tab_bar_at_bottom = true
     TAB_SEP = wezterm.nerdfonts.ple_upper_left_triangle
     PRE_TAB_SEP = wezterm.nerdfonts.ple_upper_right_triangle
@@ -39,8 +43,6 @@ SCROLLBAR_THUMB_COLOR = "#232433"
 COMMAND_BG_COLOR = "#1a1b26"
 COMMAND_FG_COLOR = "#a9b1d6"
 
--- Color scheme
-config.color_scheme = "Purple Rain"
 
 -- Tab bar
 config.enable_tab_bar = true

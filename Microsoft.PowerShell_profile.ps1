@@ -1,5 +1,5 @@
 Import-Module posh-git
-t$ENV:STARSHIP_CONFIG = "$HOME\git\dotfiles\starship.toml"
+$ENV:STARSHIP_CONFIG = "$HOME\git\dotfiles\starship.toml"
 $ENV:COLORTERM = "truecolor"
 $ENV:FZF_DEFAULT_OPTS=@"
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
@@ -16,7 +16,7 @@ Set-Alias ls "eza"
 Invoke-Expression (& { (zoxide init powershell --cmd cd | Out-String) })
 $ENV:_ZO_ECHO = "1"
 
-Set-PSReadLineOption -EditMode Vi
+Set-PSReadLineOption -EditMode Emacs
 Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
