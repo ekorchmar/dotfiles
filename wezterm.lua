@@ -27,7 +27,7 @@ if string.find(wezterm.target_triple, "windows") then
     TAB_FG_COLOR_ACTIVE = "#ccccee"
 else
     -- Color scheme
-    config.color_scheme = "Purple Rain"
+    config.color_scheme = "Tokyo Night"
     config.tab_bar_at_bottom = true
     TAB_SEP = wezterm.nerdfonts.ple_upper_left_triangle
     PRE_TAB_SEP = wezterm.nerdfonts.ple_upper_right_triangle
@@ -35,14 +35,13 @@ else
     -- Tab colors
     TAB_BAR_BG_COLOR = "#1c0738"
     TAB_BAR_FG_COLOR = "#a9b1d6"
-    TAB_BG_COLOR_ACTIVE = "#20074a"
+    TAB_BG_COLOR_ACTIVE = "#191a25"
     TAB_FG_COLOR_ACTIVE = "#ccccee"
 end
 SCROLLBAR_THUMB_COLOR = "#232433"
 
 COMMAND_BG_COLOR = "#1a1b26"
 COMMAND_FG_COLOR = "#a9b1d6"
-
 
 -- Tab bar
 config.enable_tab_bar = true
@@ -291,9 +290,9 @@ config.keys = {
     {
         key = "Q",
         mods = "CTRL|SHIFT",
-        action = act.PaneSelect {
-            alphabet="qwertz"
-        }
+        action = act.PaneSelect({
+            alphabet = "qwertz",
+        }),
     },
 }
 -- Alt + number for corresponding tab
