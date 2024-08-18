@@ -44,3 +44,9 @@ keybinding:
 git:
   paging:
     externalDiffCommand: difft --color=always
+
+# Smoother UX
+promptToReturnFromSubprocess: false
+notARepository: prompt
+disableStartupPopups: true
+confirmOnQuit: false
