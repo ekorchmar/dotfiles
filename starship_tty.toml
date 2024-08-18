@@ -2,7 +2,7 @@
 
 format = """
 $cmd_duration\
-$status[$os $username$hostname $shell$shlvl](bg:153 fg:235)\
+$status[$os $username$hostname $shell$shlvl$jobs](bg:153 fg:235)\
 $directory\
 $direnv\
 $git_branch\
@@ -33,7 +33,7 @@ read_only_style = "bg:111 red"
 [direnv]
 disabled = false
 format = '[$symbol$allowed]($style)'
-style = "fg:#1f2335 bg:#7aa2f7"
+style = "fg:239 bg:111"
 detect_files = [".envrc", ".env"]
 allowed_msg = "+"
 not_allowed_msg = "?"
@@ -165,6 +165,11 @@ tcsh_indicator = "tcsh"
 disabled = false
 style = "bg:153 fg:235"
 format = '[/$shlvl]($style)'
+
+[jobs]
+symbol = "fg"
+style = "bg:153 fg:235"
+format = '[$symbol $number]($style)'
 
 [character]
 format = " $symbol[: ](bold white)"

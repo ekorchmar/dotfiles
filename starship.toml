@@ -2,7 +2,7 @@
 
 format = """\
 $cmd_duration\
-$status[$os $username$hostname $shell $shlvl](bg:#c0caf5 fg:#1f2335)\
+$status[$os $username$hostname $shell $shlvl$jobs](bg:#c0caf5 fg:#1f2335)\
 [](bg:#7aa2f7 fg:#c0caf5)\
 $directory\
 $direnv\
@@ -185,6 +185,11 @@ tcsh_indicator = ""
 disabled = false
 style = "bg:#c0caf5 fg:#1f2335"
 format = '[ $shlvl]($style)'
+
+[jobs]
+symbol = "󱂬"
+style = "bg:#c0caf5 fg:#1f2335"
+format = '[$symbol $number]($style)'
 
 [character]
 format = " $symbol[: ](bold white)"

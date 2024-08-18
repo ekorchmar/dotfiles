@@ -201,7 +201,7 @@ lvim.plugins = {
     },
     {
         -- Breaks markdown rendering which links some hl to colorcolumn
-        enabled = true,
+        enabled = false,
         "Bekaboo/deadcolumn.nvim",
         event = "BufEnter",
         opts = {
