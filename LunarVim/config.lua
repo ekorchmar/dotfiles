@@ -810,6 +810,13 @@ vim.filetype.add({
     },
 })
 
+-- .envrc is shell
+vim.filetype.add({
+    extension = {
+        envrc = "bash",
+    },
+})
+
 -- conf only if file starts with { and ends with }
 -- TODO: use vim.filetype.add() instead
 vim.api.nvim_create_autocmd("BufEnter", {
