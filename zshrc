@@ -199,20 +199,6 @@ alias dopamine='topgrade'
 # Serve current directory as a static website
 alias pyhttp='python -m http.server --directory . & xdg-open http://localhost:8000'
 
-# Add Dirstack functionality
-# Disabled: breaks in Neovim
-# autoload -Uz add-zsh-hook
-
-# DIRSTACKFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dirs"
-# if [[ -f "$DIRSTACKFILE" ]] && (( ${#dirstack} == 0 )); then
-#     dirstack=("${(@f)"$(< "$DIRSTACKFILE")"}")
-#     [[ -d "${dirstack[1]}" ]] && cd -- "${dirstack[1]}"
-# fi
-# chpwd_dirstack() {
-#     print -l -- "$PWD" "${(u)dirstack[@]}" > "$DIRSTACKFILE"
-# }
-# add-zsh-hook -Uz chpwd chpwd_dirstack
-
 # DIRSTACKSIZE='20'
 
 setopt AUTO_PUSHD PUSHD_SILENT PUSHD_TO_HOME CD_SILENT
@@ -225,21 +211,6 @@ setopt PUSHD_MINUS
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-# eval "$__conda_setup"
-# else
-# if [ -f "/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-# . "/opt/miniconda3/etc/profile.d/conda.sh"
-# else
-# export PATH="/opt/miniconda3/bin:$PATH"
-# fi
-# fi
-# unset __conda_setup
-# <<< conda initialize <<<
 
 # =============================================================================
 #
