@@ -218,19 +218,6 @@ lvim.plugins = {
         dependencies = { "stevearc/dressing.nvim" },
     },
     {
-        "petertriho/nvim-scrollbar",
-        cond = not NEOVIDE,
-        dependencies = { "lewis6991/gitsigns.nvim" },
-        event = "BufEnter",
-        config = function()
-            require("scrollbar").setup({
-                show_in_active_only = true,
-                hide_if_all_visible = true,
-            })
-            require("scrollbar.handlers.gitsigns").setup()
-        end,
-    },
-    {
         "bennypowers/nvim-regexplainer",
         event = "BufEnter",
         dependencies = {
@@ -262,11 +249,9 @@ lvim.plugins = {
         end,
     },
     {
-        "folke/zen-mode.nvim",
-        dependencies = {
-            "folke/twilight.nvim",
-        },
+        "ekorchmar/zen-mode.nvim",
         cmd = "ZenMode",
+        branch = "konsole",
         opts = {
             window = {
                 backdrop = 0.6,
@@ -291,6 +276,7 @@ lvim.plugins = {
             plugins = {
                 wezterm = { enabled = true, font = "+2" },
                 neovide = { enabled = true },
+                konsole = { enabled = true, profile = true },
             },
             on_open = function()
                 vim.opt.laststatus = 0
@@ -314,11 +300,6 @@ lvim.plugins = {
                 lvim.builtin.breadcrumbs.active = true
             end,
         },
-    },
-    {
-        "folke/twilight.nvim",
-        lazy = true,
-        opts = { context = 14 },
     },
     "vim-scripts/RemoveDups.VIM",
     "vim-scripts/ReplaceWithRegister",
