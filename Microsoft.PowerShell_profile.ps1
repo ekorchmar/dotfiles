@@ -7,6 +7,8 @@ $ENV:FZF_DEFAULT_OPTS=@"
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
 "@
 
+$env:HOME = "$env:HOMEPATH"
+
 Invoke-Expression (&starship init powershell)
 
 Set-Alias lvim "$HOME\.local\bin\lvim.ps1"
@@ -250,3 +252,6 @@ filter __gh_escapeStringWithSpecialChars {
 }
 
 Register-ArgumentCompleter -CommandName 'gh' -ScriptBlock $__ghCompleterBlock
+
+Invoke-Expression "$(direnv hook pwsh)"
+
