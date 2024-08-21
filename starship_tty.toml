@@ -183,8 +183,7 @@ vimcmd_visual_symbol = "[V ](bold 149)"
 [status]
 disabled = false
 format = """\
-[ $symbol \
-$status$signal_number \
+[ $symbol( $status)( $signal_number) \
 $common_meaning$signal_name ]\
 ($style)\
 """

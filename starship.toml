@@ -203,8 +203,7 @@ vimcmd_visual_symbol = "[ ](bold #9ece6a)"
 [status]
 disabled = false
 format = """\
-[ $symbol \
-$status$signal_number \
+[ $symbol( $status)( $signal_number) \
 $common_meaning$signal_name ]\
 ($style)\
 [](bold bg:#c0caf5 fg:#db3a3a)\
