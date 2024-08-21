@@ -11,7 +11,6 @@ $env:HOME = "$env:HOMEPATH"
 
 Invoke-Expression (&starship init powershell)
 
-Set-Alias lvim "$HOME\.local\bin\lvim.ps1"
 Set-Alias cat "bat"
 Set-Alias ls "eza"
 
@@ -254,4 +253,3 @@ filter __gh_escapeStringWithSpecialChars {
 Register-ArgumentCompleter -CommandName 'gh' -ScriptBlock $__ghCompleterBlock
 
 Invoke-Expression "$(direnv hook pwsh)"
-
