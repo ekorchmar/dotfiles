@@ -313,7 +313,11 @@ config.keys = {
         key = "R",
         mods = "CTRL|SHIFT",
         action = act.PromptInputLine({
-            description = "Enter new name for this tab:",
+            description = wezterm.format({
+                { Attribute = { Intensity = "Bold" } },
+                { Foreground = { AnsiColor = "Fuchsia" } },
+                { Text = "Enter new name for this tab:" },
+            }),
             action = wezterm.action_callback(function(window, _, line)
                 if line then
                     window:active_tab():set_title(line)
@@ -394,6 +398,9 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
     end
     window:set_config_overrides(overrides)
 end)
+
+-- Admit to be WezTerm
+config.term = "wezterm"
 
 -- and finally, return the configuration to wezterm
 return config
