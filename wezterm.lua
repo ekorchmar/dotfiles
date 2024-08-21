@@ -294,6 +294,28 @@ config.keys = {
             alphabet = "qwertz",
         }),
     },
+    -- Ctrl + Shift + Space to detach pane into a new window
+    {
+        key = "Space",
+        mods = "CTRL|SHIFT",
+        action = wezterm.action_callback(function(_, pane)
+            _ = pane:move_to_new_window()
+        end),
+    },
+    -- Ctrl + Shift + R to rename the tab
+    {
+        key = "R",
+        mods = "CTRL|SHIFT",
+        action = act.PromptInputLine {
+            description = 'Enter new name for tab',
+            action = wezterm.action_callback(
+                function(window, _, line)
+                    if line then
+                        window:active_tab():set_title(line)
+                    end
+                end),
+        },
+    },
 }
 -- Alt + number for corresponding tab
 for i = 1, 9 do
