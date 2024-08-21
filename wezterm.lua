@@ -235,6 +235,12 @@ config.keys = {
         mods = "CTRL|SHIFT",
         action = act.SpawnTab("DefaultDomain"),
     },
+    -- Ctrl + Shift + Z to open a new tab with menu
+    {
+        key = "z",
+        mods = "CTRL|SHIFT",
+        action = act.ShowLauncher,
+    },
     -- Ctrl + Shift + P for command palette
     {
         key = "p",
@@ -306,15 +312,14 @@ config.keys = {
     {
         key = "R",
         mods = "CTRL|SHIFT",
-        action = act.PromptInputLine {
-            description = 'Enter new name for tab',
-            action = wezterm.action_callback(
-                function(window, _, line)
-                    if line then
-                        window:active_tab():set_title(line)
-                    end
-                end),
-        },
+        action = act.PromptInputLine({
+            description = "Enter new name for this tab:",
+            action = wezterm.action_callback(function(window, _, line)
+                if line then
+                    window:active_tab():set_title(line)
+                end
+            end),
+        }),
     },
 }
 -- Alt + number for corresponding tab
