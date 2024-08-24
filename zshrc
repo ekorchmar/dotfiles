@@ -323,3 +323,7 @@ eval $(thefuck --alias)
 alias f='fuck'
 
 eval "$(direnv hook zsh)"
+
+# Fix delete
+bindkey "^[[3~" delete-char
+
