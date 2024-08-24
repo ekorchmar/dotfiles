@@ -17,6 +17,7 @@ A place for me to store configs for the software I use. Configs are not recommen
 11. [git](#git)
 12. [fastfetch](#fastfetch)
 13. [direnv](#direnv)
+14. [glow](#glow)
 
 ## lvim
 
@@ -70,3 +71,7 @@ The most important part of my dotfiles, holding everything together. Expects a f
 ## direnv
 
 Default to enable detecting `.env` files and enforcing strict mode.
+
+## glow
+
+Specifies a custom theme for `glow` markdown viewer and wider column count.
