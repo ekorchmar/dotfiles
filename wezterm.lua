@@ -37,6 +37,9 @@ else
     TAB_BAR_FG_COLOR = "#a9b1d6"
     TAB_BG_COLOR_ACTIVE = "#191a25"
     TAB_FG_COLOR_ACTIVE = "#ccccee"
+
+    -- Admit to be WezTerm
+    config.term = "wezterm"
 end
 SCROLLBAR_THUMB_COLOR = "#232433"
 
@@ -398,9 +401,6 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
     end
     window:set_config_overrides(overrides)
 end)
-
--- Admit to be WezTerm
-config.term = "wezterm"
 
 -- and finally, return the configuration to wezterm
 return config
