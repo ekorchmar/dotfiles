@@ -27,7 +27,7 @@ vim.opt.foldmethod = "expr"
 vim.opt.relativenumber = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.virtualedit = "block,onemore"
+vim.opt.virtualedit = "block"
 
 -- Listchars
 local listchars = {
@@ -399,6 +399,7 @@ lvim.plugins = {
         "stevearc/stickybuf.nvim",
         opts = {},
     },
+    "MTDL9/vim-log-highlighting",
 }
 
 -- I know how to use the mouse, thanks
@@ -817,6 +818,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.filetype.add({
     extension = {
         ejs = "html",
+    },
+})
+
+-- log is log
+vim.filetype.add({
+    extension = {
+        log = "log",
     },
 })
 
