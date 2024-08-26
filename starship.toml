@@ -23,9 +23,8 @@ $c\
 $julia\
 $cmake\
 [](fg:#292e42 bg:#1f2335)\
-$time$battery\
-[ ](fg:#1f2335)\
-\n$character"""
+$battery$time\
+$line_break$character"""
 
 # Directory and git
 [directory]
@@ -253,4 +252,4 @@ charging_symbol = "󱊥"
 disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "bg:#1f2335"
-format = '[[  $time ](fg:#73DACA bg:#1f2335)]($style)'
+format = '[[  $time ](fg:#73DACA bg:#1f2335)]($style)[](fg:#1f2335)'

@@ -9,8 +9,6 @@ $ENV:FZF_DEFAULT_OPTS=@"
 
 $env:HOME = "$env:HOMEPATH"
 
-Invoke-Expression (&starship init powershell)
-
 Set-Alias cat "bat"
 Set-Alias ls "eza"
 
@@ -253,3 +251,9 @@ filter __gh_escapeStringWithSpecialChars {
 Register-ArgumentCompleter -CommandName 'gh' -ScriptBlock $__ghCompleterBlock
 
 Invoke-Expression "$(direnv hook pwsh)"
+
+function Invoke-Starship-TransientFunction {
+  &starship module character
+}
+Invoke-Expression (&starship init powershell)
+Enable-TransientPrompt
