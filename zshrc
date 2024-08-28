@@ -146,7 +146,7 @@ if [[ -z $ANDROID_DATA ]]; then
     # Some env variables for common programs
     export EDITOR=lvim
     export VISUAL=neovide
-    export BROWSER=firefox
+    export BROWSER=zen-browser
     export TERMINAL=wezterm
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
     export MANROFFOPT="-c"
