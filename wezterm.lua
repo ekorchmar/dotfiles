@@ -5,10 +5,10 @@ local act = wezterm.action
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
+config.color_scheme = "Tokyo Night"
 -- Windows specific settings
 if string.find(wezterm.target_triple, "windows") then
     -- Color scheme
-    config.color_scheme = "Tokyo Night"
     -- Opacity
     -- Waiting for KDE blur support...
     config.window_background_opacity = 0.6
@@ -27,7 +27,6 @@ if string.find(wezterm.target_triple, "windows") then
     TAB_FG_COLOR_ACTIVE = "#ccccee"
 else
     -- Color scheme
-    config.color_scheme = "Tokyo Night"
     config.tab_bar_at_bottom = true
     TAB_SEP = wezterm.nerdfonts.ple_upper_left_triangle
     PRE_TAB_SEP = wezterm.nerdfonts.ple_upper_right_triangle
@@ -37,9 +36,6 @@ else
     TAB_BAR_FG_COLOR = "#a9b1d6"
     TAB_BG_COLOR_ACTIVE = "#191a25"
     TAB_FG_COLOR_ACTIVE = "#ccccee"
-
-    -- Admit to be WezTerm
-    config.term = "wezterm"
 end
 SCROLLBAR_THUMB_COLOR = "#232433"
 
@@ -401,6 +397,52 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
     end
     window:set_config_overrides(overrides)
 end)
+
+-- Admit to be WezTerm
+config.term = "wezterm"
+
+-- Inactive window style for non-Windows
+function table.copy(t)
+    local u = {}
+    for k, v in pairs(t) do
+        u[k] = v
+    end
+    return setmetatable(u, getmetatable(t))
+end
+
+ACTIVE_CONFIG = table.copy(config)
+if not string.find(wezterm.target_triple, "windows") then
+    wezterm.on("update-status", function(window, _)
+        local overrides = table.copy(window:get_config_overrides() or {})
+        local tab_bar_bg_color = nil
+        if window:is_focused() then
+            tab_bar_bg_color = "#1c0738"
+        else
+            tab_bar_bg_color = "#424242"
+        end
+        overrides.colors = {
+            tab_bar = {
+                background = tab_bar_bg_color,
+                new_tab = {
+                    bg_color = tab_bar_bg_color,
+                    fg_color = TAB_BAR_FG_COLOR,
+                },
+                new_tab_hover = {
+                    bg_color = TAB_BAR_FG_COLOR,
+                    fg_color = tab_bar_bg_color,
+                    italic = false,
+                },
+                inactive_tab_hover = {
+                    bg_color = tab_bar_bg_color,
+                    fg_color = TAB_BAR_FG_COLOR,
+                    italic = false,
+                },
+            },
+        }
+        window:set_config_overrides(overrides)
+        print(tab_bar_bg_color)
+    end)
+end
 
 -- and finally, return the configuration to wezterm
 return config
