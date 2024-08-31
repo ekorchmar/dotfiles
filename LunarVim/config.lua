@@ -400,6 +400,12 @@ lvim.plugins = {
         opts = {},
     },
     "MTDL9/vim-log-highlighting",
+    {
+        "zeioth/garbage-day.nvim",
+        dependencies = "neovim/nvim-lspconfig",
+        event = "VeryLazy",
+        opts = {},
+    },
 }
 
 -- I know how to use the mouse, thanks
