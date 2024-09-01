@@ -21,10 +21,12 @@ if string.find(wezterm.target_triple, "windows") then
     PRE_TAB_SEP = wezterm.nerdfonts.ple_lower_right_triangle
 
     -- Tab colors
-    TAB_BAR_BG_COLOR = "#20074a"
-    TAB_BAR_FG_COLOR = "#a9b1d6"
-    TAB_BG_COLOR_ACTIVE = "#3b3052"
-    TAB_FG_COLOR_ACTIVE = "#ccccee"
+    COLORS = {
+        tab_bg = "#20074a",
+        tab_fg = "#a9b1d6",
+        tab_bg_active = "#3b3052",
+        tab_fg_active = "#ccccee",
+    }
 else
     -- Color scheme
     config.tab_bar_at_bottom = true
@@ -32,15 +34,17 @@ else
     PRE_TAB_SEP = wezterm.nerdfonts.ple_upper_right_triangle
 
     -- Tab colors
-    TAB_BAR_BG_COLOR = "#1c0738"
-    TAB_BAR_FG_COLOR = "#a9b1d6"
-    TAB_BG_COLOR_ACTIVE = "#191a25"
-    TAB_FG_COLOR_ACTIVE = "#ccccee"
+    COLORS = {
+        tab_bg = "#1c0738",
+        tab_fg = "#a9b1d6",
+        tab_bg_active = "#191a25",
+        tab_fg_active = "#ccccee",
+    }
 end
-SCROLLBAR_THUMB_COLOR = "#232433"
+COLORS["thumb"] = "#232433"
 
-COMMAND_BG_COLOR = "#1a1b26"
-COMMAND_FG_COLOR = "#a9b1d6"
+COLORS["cmd_bg"] = "#1a1b26"
+COLORS["cmd_fg"] = "#a9b1d6"
 
 -- Tab bar
 config.enable_tab_bar = true
@@ -51,19 +55,19 @@ config.tab_max_width = 40
 -- Tab bar colors
 config.colors = {
     tab_bar = {
-        background = TAB_BAR_BG_COLOR,
+        background = COLORS.tab_bg,
         new_tab = {
-            bg_color = TAB_BAR_BG_COLOR,
-            fg_color = TAB_BAR_FG_COLOR,
+            bg_color = COLORS.tab_bg,
+            fg_color = COLORS.tab_fg,
         },
         new_tab_hover = {
-            bg_color = TAB_BAR_FG_COLOR,
-            fg_color = TAB_BAR_BG_COLOR,
+            bg_color = COLORS.tab_fg,
+            fg_color = COLORS.tab_bg,
             italic = false,
         },
         inactive_tab_hover = {
-            bg_color = TAB_BAR_BG_COLOR,
-            fg_color = TAB_BAR_FG_COLOR,
+            bg_color = COLORS.tab_bg,
+            fg_color = COLORS.tab_fg,
             italic = false,
         },
     },
@@ -101,12 +105,12 @@ wezterm.on(
 
         local title = tab_title(tab)
         if tab.is_active then
-            BG = TAB_BG_COLOR_ACTIVE
-            FG = TAB_FG_COLOR_ACTIVE
+            BG = COLORS.tab_bg_active
+            FG = COLORS.tab_fg_active
             PC = (#panes > 1) and "[" .. #panes .. "] " or ""
         else
-            BG = TAB_BAR_BG_COLOR
-            FG = TAB_BAR_FG_COLOR
+            BG = COLORS.tab_bg
+            FG = COLORS.tab_fg
             PC = ""
         end
 
@@ -121,7 +125,7 @@ wezterm.on(
             -- Draw a pre-tab separator for active and first tabs
             {
                 Background = {
-                    Color = tab.is_active and TAB_BAR_BG_COLOR or BG,
+                    Color = tab.is_active and COLORS.tab_bg or BG,
                 },
             },
             { Foreground = { Color = BG } },
@@ -135,7 +139,7 @@ wezterm.on(
             { Text = (tab.tab_index + 1) .. " " .. title },
             -- Pane count
             { Text = PC },
-            { Background = { Color = TAB_BAR_BG_COLOR } },
+            { Background = { Color = COLORS.tab_bg } },
             { Foreground = { Color = BG } },
             -- Draw end separator only if the next tab is not active
             {
@@ -153,14 +157,14 @@ config.font_size = 14
 
 -- Scroll bar
 config.enable_scroll_bar = true
-config.colors.scrollbar_thumb = SCROLLBAR_THUMB_COLOR
+config.colors.scrollbar_thumb = COLORS.thumb
 
 -- Graphics acceleration
 config.front_end = "WebGpu"
 
 -- Command palette
-config.command_palette_bg_color = COMMAND_BG_COLOR
-config.command_palette_fg_color = COMMAND_FG_COLOR
+config.command_palette_bg_color = COLORS.cmd_bg
+config.command_palette_fg_color = COLORS.cmd_fg
 config.command_palette_rows = 8
 config.command_palette_font_size = 16
 
@@ -402,45 +406,34 @@ end)
 config.term = "wezterm"
 
 -- Inactive window style for non-Windows
-function table.copy(t)
-    local u = {}
-    for k, v in pairs(t) do
-        u[k] = v
-    end
-    return setmetatable(u, getmetatable(t))
-end
-
-ACTIVE_CONFIG = table.copy(config)
 if not string.find(wezterm.target_triple, "windows") then
-    wezterm.on("update-status", function(window, _)
-        local overrides = table.copy(window:get_config_overrides() or {})
-        local tab_bar_bg_color = nil
+    wezterm.on("window-focus-changed", function(window, _)
+        local overrides = window:get_config_overrides() or {}
         if window:is_focused() then
-            tab_bar_bg_color = "#1c0738"
+            COLORS.tab_bg = "#1c0738"
         else
-            tab_bar_bg_color = "#424242"
+            COLORS.tab_bg = "#424242"
         end
         overrides.colors = {
             tab_bar = {
-                background = tab_bar_bg_color,
+                background = COLORS.tab_bg,
                 new_tab = {
-                    bg_color = tab_bar_bg_color,
-                    fg_color = TAB_BAR_FG_COLOR,
+                    bg_color = COLORS.tab_bg,
+                    fg_color = COLORS.tab_fg,
                 },
                 new_tab_hover = {
-                    bg_color = TAB_BAR_FG_COLOR,
-                    fg_color = tab_bar_bg_color,
+                    bg_color = COLORS.tab_fg,
+                    fg_color = COLORS.tab_bg,
                     italic = false,
                 },
                 inactive_tab_hover = {
-                    bg_color = tab_bar_bg_color,
-                    fg_color = TAB_BAR_FG_COLOR,
+                    bg_color = COLORS.tab_bg,
+                    fg_color = COLORS.tab_fg,
                     italic = false,
                 },
             },
         }
         window:set_config_overrides(overrides)
-        print(tab_bar_bg_color)
     end)
 end
 
