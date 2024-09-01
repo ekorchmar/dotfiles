@@ -437,5 +437,14 @@ if not string.find(wezterm.target_triple, "windows") then
     end)
 end
 
+wezterm.on("bell", function(window, pane)
+    if window:is_focused() then
+        -- No bell for focused windows
+        return
+    end
+    local message = 'Bell in pane "' .. pane:get_title() .. '"'
+    window:toast_notification("BEEP BOOP", message)
+end)
+
 -- and finally, return the configuration to wezterm
 return config
