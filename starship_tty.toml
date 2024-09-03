@@ -187,11 +187,11 @@ format = """\
 $common_meaning$signal_name ]\
 ($style)\
 """
-symbol = "!"
+symbol = "X"
 not_executable_symbol = "-"
 not_found_symbol = "?"
 sigint_symbol = "C"
-signal_symbol = "X"
+signal_symbol = "!"
 map_symbol = true
 style = "fg:235 bg:179"
 

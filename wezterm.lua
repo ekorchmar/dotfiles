@@ -446,5 +446,7 @@ wezterm.on("bell", function(window, pane)
     window:toast_notification("BEEP BOOP", message)
 end)
 
+config.custom_block_glyphs = false
+
 -- and finally, return the configuration to wezterm
 return config

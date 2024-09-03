@@ -207,11 +207,11 @@ $common_meaning$signal_name ]\
 ($style)\
 [](bold bg:#c0caf5 fg:#f4bd71)\
 """
-symbol = ""
+symbol = ""
 not_executable_symbol = ""
 not_found_symbol = ""
 sigint_symbol = ""
-signal_symbol = ""
+signal_symbol = ""
 map_symbol = true
 style = "bold bg:#f4bd71 fg:#1f2335"
 
