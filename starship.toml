@@ -205,7 +205,7 @@ format = """\
 [ $symbol( $status)( $signal_number) \
 $common_meaning$signal_name ]\
 ($style)\
-[](bold bg:#c0caf5 fg:#db3a3a)\
+[](bold bg:#c0caf5 fg:#f4bd71)\
 """
 symbol = ""
 not_executable_symbol = ""
@@ -213,7 +213,7 @@ not_found_symbol = ""
 sigint_symbol = ""
 signal_symbol = ""
 map_symbol = true
-style = "bold bg:#db3a3a fg:#c0caf5"
+style = "bold bg:#f4bd71 fg:#1f2335"
 
 [cmd_duration]
 disabled = true

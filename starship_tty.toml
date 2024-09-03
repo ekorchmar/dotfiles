@@ -193,7 +193,7 @@ not_found_symbol = "?"
 sigint_symbol = "C"
 signal_symbol = "X"
 map_symbol = true
-style = "fg:111 bg:167"
+style = "fg:235 bg:179"
 
 [cmd_duration]
 disabled = true

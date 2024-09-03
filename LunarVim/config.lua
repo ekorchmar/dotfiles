@@ -406,6 +406,10 @@ lvim.plugins = {
         event = "VeryLazy",
         opts = {},
     },
+    {
+        "mawkler/modicator.nvim",
+        opts = {},
+    },
 }
 
 -- I know how to use the mouse, thanks
