@@ -401,12 +401,6 @@ lvim.plugins = {
     },
     "MTDL9/vim-log-highlighting",
     {
-        "zeioth/garbage-day.nvim",
-        dependencies = "neovim/nvim-lspconfig",
-        event = "VeryLazy",
-        opts = {},
-    },
-    {
         "mawkler/modicator.nvim",
         opts = {},
     },
