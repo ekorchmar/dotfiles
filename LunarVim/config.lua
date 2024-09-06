@@ -274,7 +274,7 @@ lvim.plugins = {
                 },
             },
             plugins = {
-                wezterm = { enabled = true, font = "+2" },
+                wezterm = { enabled = true, font = "+0" },
                 neovide = { enabled = true },
                 konsole = { enabled = true, profile = true },
             },
