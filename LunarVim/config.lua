@@ -915,3 +915,11 @@ local function filter_tsserver_diag(_, result, ctx, config)
     vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
 end
 vim.lsp.handlers["textDocument/publishDiagnostics"] = filter_tsserver_diag
+
+-- Remove "o" from fo-table
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    callback = function()
+        vim.opt_local.formatoptions:remove({ "r", "o" })
+    end,
+})
