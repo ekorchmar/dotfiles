@@ -434,6 +434,8 @@ if not string.find(wezterm.target_triple, "windows") then
             },
         }
         window:set_config_overrides(overrides)
+        -- Force redraw of tab bar
+        wezterm.emit("format-tab-title")
     end)
 end
 
