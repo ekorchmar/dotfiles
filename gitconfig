@@ -1,7 +1,9 @@
 [core]
   editor = lvim
-  pager = bat
+  pager = delta
   autocrlf = input
+[intactive]
+  diffFilter = delta --color-only
 [credential "https://github.com"]
   helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
@@ -37,6 +39,7 @@
 [rerere]
   enabled = true
 [diff]
+  colorMoved = default
   external = difft
   tool = nvimdiff
   guitool = nvimdiff
@@ -54,3 +57,5 @@
   layout = LOCAL,MERGED,REMOTE
 [difftool "difftastic"]
   cmd = difft "$LOCAL" "$REMOTE"
+[delta]
+  navigate = true
