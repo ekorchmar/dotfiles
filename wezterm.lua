@@ -402,9 +402,6 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
     window:set_config_overrides(overrides)
 end)
 
--- Admit to be WezTerm
-config.term = "wezterm"
-
 -- Inactive window style for non-Windows
 if not string.find(wezterm.target_triple, "windows") then
     wezterm.on("window-focus-changed", function(window, _)
