@@ -203,6 +203,7 @@ min_time = 5_000
 
 # Physical world
 [battery]
+disabled = true
 format = '[$percentage]($style)'
 
 [[battery.display]]

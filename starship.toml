@@ -223,6 +223,7 @@ min_time = 5_000
 
 # Physical world
 [battery]
+disabled = true
 format = '[$symbol $percentage]($style)'
 full_symbol = "󰁹"
 charging_symbol = "󰂄"
