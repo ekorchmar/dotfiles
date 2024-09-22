@@ -321,12 +321,19 @@ config.keys = {
                 { Foreground = { AnsiColor = "Fuchsia" } },
                 { Text = "Enter new name for this tab:" },
             }),
+            -- initial_value = "Tab: ",
             action = wezterm.action_callback(function(window, _, line)
                 if line then
                     window:active_tab():set_title(line)
                 end
             end),
         }),
+    },
+    -- Ctrl + Shift + O to start REPL
+    {
+        key = "O",
+        mods = "CTRL|SHIFT",
+        action = act.ShowDebugOverlay,
     },
 }
 -- Alt + number for corresponding tab
