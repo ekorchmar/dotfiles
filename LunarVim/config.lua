@@ -404,6 +404,18 @@ lvim.plugins = {
         "mawkler/modicator.nvim",
         opts = {},
     },
+    {
+        "kaarmu/typst.vim",
+        ft = "typst",
+    },
+    {
+        "chomosuke/typst-preview.nvim",
+        ft = "typst",
+        version = "0.3.*",
+        build = function()
+            require("typst-preview").update()
+        end,
+    },
 }
 
 -- I know how to use the mouse, thanks
@@ -464,6 +476,7 @@ nor["c"] = {
     l = { "<cmd>Lazy<cr>", "Lazy (manage installed plugins)" },
     m = { "<cmd>Mason<cr>", "Mason (manage LSP)" },
     t = { "<cmd>StartupTime<cr>", "Startup time profile" },
+    y = { "<cmd>TypstPreview<cr>", "Typst preview in browser" },
     M = { "<cmd>MarkdownPreview<cr>", "Markdown preview in browser" },
     P = { "<cmd>VenvSelect<cr>", "Select Python venv" },
     S = { "<cmd>SudoWrite<cr>", "Save with sudo" },
