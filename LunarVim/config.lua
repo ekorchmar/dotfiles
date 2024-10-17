@@ -196,8 +196,15 @@ lvim.plugins = {
             view_options = {
                 show_hidden = true,
             },
+            win_options = {
+                signcolumn = "yes:2",
+            },
             constrain_cursor = "name",
         },
+    },
+    {
+        "refractalize/oil-git-status.nvim",
+        config = true,
     },
     {
         -- Breaks markdown rendering which links some hl to colorcolumn
