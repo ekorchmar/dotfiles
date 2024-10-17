@@ -20,6 +20,9 @@ if string.find(wezterm.target_triple, "windows") then
     TAB_SEP = wezterm.nerdfonts.ple_lower_left_triangle
     PRE_TAB_SEP = wezterm.nerdfonts.ple_lower_right_triangle
 
+    -- Disable SSH interception
+    config.mux_enable_ssh_agent = false
+
     -- Tab colors
     COLORS = {
         tab_bg = "#20074a",
