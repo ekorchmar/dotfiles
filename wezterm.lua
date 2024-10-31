@@ -4,6 +4,8 @@ local act = wezterm.action
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
+local tabline =
+    wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
 
 config.color_scheme = "Tokyo Night"
 -- Windows specific settings
@@ -456,6 +458,10 @@ wezterm.on("bell", function(window, pane)
 end)
 
 config.custom_block_glyphs = false
+
+-- Apply the tabline
+tabline.setup()
+tabline.apply_to_config(config)
 
 -- and finally, return the configuration to wezterm
 return config
