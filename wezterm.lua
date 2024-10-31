@@ -4,10 +4,9 @@ local act = wezterm.action
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-local tabline =
-    wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
 
 config.color_scheme = "Tokyo Night"
+
 -- Windows specific settings
 if string.find(wezterm.target_triple, "windows") then
     -- Color scheme
@@ -17,143 +16,62 @@ if string.find(wezterm.target_triple, "windows") then
     config.win32_system_backdrop = "Acrylic"
     config.default_prog = { "pwsh", "-NoLogo" }
     -- Native decorations
-    config.tab_bar_at_bottom = false
     config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
-    TAB_SEP = wezterm.nerdfonts.ple_lower_left_triangle
-    PRE_TAB_SEP = wezterm.nerdfonts.ple_lower_right_triangle
 
     -- Disable SSH interception
     config.mux_enable_ssh_agent = false
-
-    -- Tab colors
-    COLORS = {
-        tab_bg = "#20074a",
-        tab_fg = "#a9b1d6",
-        tab_bg_active = "#3b3052",
-        tab_fg_active = "#ccccee",
-    }
-else
-    -- Color scheme
-    config.tab_bar_at_bottom = true
-    TAB_SEP = wezterm.nerdfonts.ple_upper_left_triangle
-    PRE_TAB_SEP = wezterm.nerdfonts.ple_upper_right_triangle
-
-    -- Tab colors
-    COLORS = {
-        tab_bg = "#1c0738",
-        tab_fg = "#a9b1d6",
-        tab_bg_active = "#191a25",
-        tab_fg_active = "#ccccee",
-    }
 end
-COLORS["thumb"] = "#232433"
 
-COLORS["cmd_bg"] = "#1a1b26"
-COLORS["cmd_fg"] = "#a9b1d6"
+-- Apply the tabline
+local tabline =
+    wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+tabline.setup({
+    options = {
+        section_separators = {
+            left = wezterm.nerdfonts.ple_upper_left_triangle,
+            right = wezterm.nerdfonts.ple_upper_right_triangle,
+        },
+        tab_separators = {
+            left = wezterm.nerdfonts.ple_lower_left_triangle,
+            right = wezterm.nerdfonts.ple_lower_right_triangle,
+        },
+    },
+    sections = {
+        tabline_a = { "mode" },
+        tabline_b = {},
+        tabline_c = {},
+        tab_active = {
+            "index",
+            { "cwd", padding = 0 },
+            ": ",
+            { "process", padding = 0 },
+        },
+        tabline_x = {},
+        tabline_y = { "battery" },
+        tabline_z = { "datetime" },
+    },
+})
+tabline.apply_to_config(config)
+
+-- Restore decorations
+if string.find(wezterm.target_triple, "windows") then
+    config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+else
+    config.window_decorations = "TITLE | RESIZE"
+end
+
+local color_overrides = {}
+color_overrides["thumb"] = "#232433"
+
+color_overrides["cmd_bg"] = "#1a1b26"
+color_overrides["cmd_fg"] = "#a9b1d6"
 
 -- Tab bar
 config.enable_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = false
 config.use_fancy_tab_bar = false
 config.tab_max_width = 40
-
--- Tab bar colors
-config.colors = {
-    tab_bar = {
-        background = COLORS.tab_bg,
-        new_tab = {
-            bg_color = COLORS.tab_bg,
-            fg_color = COLORS.tab_fg,
-        },
-        new_tab_hover = {
-            bg_color = COLORS.tab_fg,
-            fg_color = COLORS.tab_bg,
-            italic = false,
-        },
-        inactive_tab_hover = {
-            bg_color = COLORS.tab_bg,
-            fg_color = COLORS.tab_fg,
-            italic = false,
-        },
-    },
-}
-
--- Tab title formatting
-local function tab_title(tab_info)
-    local title = tab_info.tab_title
-    -- if the tab title is explicitly set, take that
-    if not title or #title == 0 then
-        title = tab_info.active_pane.title
-    end
-
-    -- Remove .exe from the end
-    if string.find(wezterm.target_triple, "windows") then
-        title = title:gsub("%.[eE][xX][eE]$", "")
-    end
-
-    return title
-end
-
-wezterm.on(
-    "format-tab-title",
-    function(tab, tabs, panes, config_, hover, max_width)
-        _ = { config_, max_width }
-
-        -- Get next tab
-        NEXT_TAB = nil
-        for _, t in ipairs(tabs) do
-            if t.tab_index == tab.tab_index + 1 then
-                NEXT_TAB = t
-                break
-            end
-        end
-
-        local title = tab_title(tab)
-        if tab.is_active then
-            BG = COLORS.tab_bg_active
-            FG = COLORS.tab_fg_active
-            PC = (#panes > 1) and "[" .. #panes .. "] " or ""
-        else
-            BG = COLORS.tab_bg
-            FG = COLORS.tab_fg
-            PC = ""
-        end
-
-        -- Truncate title if it's too long
-        if #title > 20 then
-            title = title:sub(1, 19) .. "…"
-        end
-
-        return {
-            { Attribute = { Italic = false } },
-            { Attribute = { Intensity = hover and "Bold" or "Normal" } },
-            -- Draw a pre-tab separator for active and first tabs
-            {
-                Background = {
-                    Color = tab.is_active and COLORS.tab_bg or BG,
-                },
-            },
-            { Foreground = { Color = BG } },
-            {
-                Text = (tab.is_active or tab.tab_index == 0) and PRE_TAB_SEP
-                    or "",
-            },
-            -- Draw number and title
-            { Background = { Color = BG } },
-            { Foreground = { Color = FG } },
-            { Text = (tab.tab_index + 1) .. " " .. title },
-            -- Pane count
-            { Text = PC },
-            { Background = { Color = COLORS.tab_bg } },
-            { Foreground = { Color = BG } },
-            -- Draw end separator only if the next tab is not active
-            {
-                Text = NEXT_TAB and (not NEXT_TAB.is_active and TAB_SEP or "")
-                    or TAB_SEP,
-            },
-        }
-    end
-)
+config.colors = {}
 
 -- Font
 config.font = wezterm.font("FiraCode Nerd Font")
@@ -162,14 +80,14 @@ config.font_size = 14
 
 -- Scroll bar
 config.enable_scroll_bar = true
-config.colors.scrollbar_thumb = COLORS.thumb
+config.colors.scrollbar_thumb = color_overrides.thumb
 
 -- Graphics acceleration
 config.front_end = "WebGpu"
 
 -- Command palette
-config.command_palette_bg_color = COLORS.cmd_bg
-config.command_palette_fg_color = COLORS.cmd_fg
+config.command_palette_bg_color = color_overrides.cmd_bg
+config.command_palette_fg_color = color_overrides.cmd_fg
 config.command_palette_rows = 8
 config.command_palette_font_size = 16
 
@@ -414,40 +332,6 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
     window:set_config_overrides(overrides)
 end)
 
--- Inactive window style for non-Windows
-if not string.find(wezterm.target_triple, "windows") then
-    wezterm.on("window-focus-changed", function(window, _)
-        local overrides = window:get_config_overrides() or {}
-        if window:is_focused() then
-            COLORS.tab_bg = "#1c0738"
-        else
-            COLORS.tab_bg = "#424242"
-        end
-        overrides.colors = {
-            tab_bar = {
-                background = COLORS.tab_bg,
-                new_tab = {
-                    bg_color = COLORS.tab_bg,
-                    fg_color = COLORS.tab_fg,
-                },
-                new_tab_hover = {
-                    bg_color = COLORS.tab_fg,
-                    fg_color = COLORS.tab_bg,
-                    italic = false,
-                },
-                inactive_tab_hover = {
-                    bg_color = COLORS.tab_bg,
-                    fg_color = COLORS.tab_fg,
-                    italic = false,
-                },
-            },
-        }
-        window:set_config_overrides(overrides)
-        -- Force redraw of tab bar
-        wezterm.emit("format-tab-title")
-    end)
-end
-
 wezterm.on("bell", function(window, pane)
     if window:is_focused() then
         -- No bell for focused windows
@@ -458,12 +342,6 @@ wezterm.on("bell", function(window, pane)
 end)
 
 config.custom_block_glyphs = false
-
--- Apply the tabline
-tabline.setup()
-tabline.apply_to_config(config)
--- Restore some defaults
-config.window_decorations = "TITLE | RESIZE"
 
 -- and finally, return the configuration to wezterm
 return config
