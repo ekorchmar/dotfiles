@@ -462,6 +462,8 @@ config.custom_block_glyphs = false
 -- Apply the tabline
 tabline.setup()
 tabline.apply_to_config(config)
+-- Restore some defaults
+config.window_decorations = "TITLE | RESIZE"
 
 -- and finally, return the configuration to wezterm
 return config
