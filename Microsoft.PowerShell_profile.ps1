@@ -250,7 +250,8 @@ filter __gh_escapeStringWithSpecialChars {
 
 Register-ArgumentCompleter -CommandName 'gh' -ScriptBlock $__ghCompleterBlock
 
-Invoke-Expression "$(direnv hook pwsh)"
+# Broken
+# Invoke-Expression "$(direnv hook pwsh)"
 
 function Invoke-Starship-TransientFunction {
   &starship module character
@@ -262,3 +263,6 @@ Enable-TransientPrompt
 
 Import-Module -Name Microsoft.WinGet.CommandNotFound
 #f45873b3-b655-43a6-b217-97c00aa0db58
+
+$env:CDMKIT_HOME = "$HOME\cdmkit"
+$env:HOME = $env:USERPROFILE
