@@ -20,6 +20,14 @@ if string.find(wezterm.target_triple, "windows") then
 
     -- Disable SSH interception
     config.mux_enable_ssh_agent = false
+
+    -- Add git bash to the launch menu
+    config.launch_menu = {
+        {
+            label = "Git Bash",
+            args = { "C:\\Program Files\\Git\\bin\\bash.exe" },
+        },
+    }
 end
 
 -- Apply the tabline
