@@ -423,6 +423,12 @@ lvim.plugins = {
             require("typst-preview").update()
         end,
     },
+    {
+        "goerz/jupytext.vim",
+        config = function()
+            vim.g.jupytext_fmt = "py"
+        end,
+    },
 }
 
 -- I know how to use the mouse, thanks
@@ -812,42 +818,13 @@ vim.filetype.add({
 -- Check if JSON for .conf and .etlconf
 vim.filetype.add({
     extension = {
-        etlconf = "json",
-    },
-})
-
--- .envrc is shell
-vim.filetype.add({
-    extension = {
+        etlconf = "yaml",
+        conf = "yaml",
+        -- .envrc is shell
         envrc = "bash",
-    },
-})
-
--- conf only if file starts with { and ends with }
--- TODO: use vim.filetype.add() instead
-vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "*.conf",
-    callback = function()
-        local line = vim.fn.getline(1)
-        if line:find("^%s*{") then -- starts with {
-            line = vim.fn.getline("$")
-            if line:find("^%s*}") then -- ends with }
-                vim.bo.filetype = "json"
-            end
-        end
-    end,
-})
-
--- EJS is HTML
-vim.filetype.add({
-    extension = {
+        -- EJS is HTML
         ejs = "html",
-    },
-})
-
--- log is log
-vim.filetype.add({
-    extension = {
+        -- log is log
         log = "log",
     },
 })
