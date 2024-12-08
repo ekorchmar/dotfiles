@@ -68,17 +68,37 @@ end
 
 function Toggle_colorcolumn()
     local colorcolumn = vim.api.nvim_get_option_value("colorcolumn", {})
+    local textwidth = vim.api.nvim_get_option_value("textwidth", {})
+    if textwidth ~= 0 then
+        print("Unsetting textwidth")
+        vim.opt.textwidth = 0
+    end
     if colorcolumn == "" then
         print("80 columns")
         vim.opt.colorcolumn = "81"
+    elseif colorcolumn == "81" then
+        vim.opt.colorcolumn = "121"
+        print("120 columns")
     else
-        if colorcolumn == "81" then
-            vim.opt.colorcolumn = "121"
-            print("120 columns")
-        else
-            vim.opt.colorcolumn = ""
-            print("  columns")
-        end
+        vim.opt.colorcolumn = ""
+        print("  columns")
+    end
+end
+
+function Toggle_textwidth()
+    local current_colorcolumn = vim.api.nvim_get_option_value("colorcolumn", {})
+    if current_colorcolumn == "" then
+        print("Unsetting textwidth, as colorcolumn is not set")
+        vim.opt.textwidth = 0
+        return
+    end
+    local current_textwidth = vim.api.nvim_get_option_value("textwidth", {})
+    if current_textwidth ~= tonumber(current_colorcolumn) - 1 then
+        vim.opt.textwidth = tonumber(current_colorcolumn) - 1
+        print("Setting textwidth to " .. (current_colorcolumn - 1))
+    else
+        vim.opt.textwidth = 0
+        print("Unsetting textwidth")
     end
 end
 
@@ -542,6 +562,7 @@ nor["q"] = {
         end,
         "Toggle virtualedit",
     },
+    w = { Toggle_textwidth, "Toggle textwidth" },
     C = {
         function()
             local has_col = vim.api.nvim_get_option_value("cursorcolumn", {})
@@ -762,12 +783,21 @@ if WINDOWS then
     }
 end
 
--- Set wrap for markdown, html, xml and text; also remove Colorcolumn
+-- Set wrap for markdown and like
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "markdown", "html", "xml", "text", "abnf" },
     callback = function()
         vim.opt_local.wrap = true
         vim.opt_local.colorcolumn = "121"
+        vim.opt_local.textwidth = 120
+    end,
+})
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "yaml", "typst" },
+    callback = function()
+        vim.opt_local.wrap = true
+        vim.opt_local.colorcolumn = "81"
+        vim.opt_local.textwidth = 80
     end,
 })
 
