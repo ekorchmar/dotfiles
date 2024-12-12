@@ -11,13 +11,12 @@ A place for me to store configs for the software I use. Configs are not recommen
 5. [starship](#starship)
 6. [konsole](#konsole)
 7. [bat](#bat)
-8. [neovide](#neovide)
-9. [Powershell](#Powershell)
-10. [Lazygit](#Lazygit)
-11. [git](#git)
-12. [fastfetch](#fastfetch)
-13. [direnv](#direnv)
-14. [glow](#glow)
+8. [Powershell](#Powershell)
+9. [Lazygit](#Lazygit)
+10. [git](#git)
+11. [fastfetch](#fastfetch)
+12. [direnv](#direnv)
+13. [glow](#glow)
 
 ## lvim
 
@@ -47,10 +46,6 @@ This is handcrafted Konsole/Yakuake color scheme, based on [Tokyo Night](https:/
 ## bat
 
 Makes it a little cleaner from the default. Also uses Dracula for lack of other themes.
-
-## neovide
-
-Just defaults to LunarVim rather than the default Neovim.
 
 ## Powershell
 
