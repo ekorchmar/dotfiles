@@ -142,7 +142,7 @@ alias :w='echo "👌"'
 # If not on Android:
 if [[ -z $ANDROID_DATA ]]; then
     alias yoink='paru -Syu'
-    alias yeet='paru -Rscu'
+    alias yeet='paru -Rnscu'
     # Neovim everywhere
     alias nano=lvim
     alias vi=lvim
