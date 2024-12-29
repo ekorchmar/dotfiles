@@ -397,6 +397,7 @@ lvim.plugins = {
         cmd = { "AerialToggle" },
         opts = {
             backends = { "lsp", "treesitter", "markdown", "man" },
+            filter_kind = false,
             layout = { min_width = 28 },
             show_guides = true,
             highlight_on_hover = true,
