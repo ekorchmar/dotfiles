@@ -30,14 +30,6 @@ if string.find(wezterm.target_triple, "windows") then
     }
 end
 
--- Window padding
-config.window_padding = {
-    left = 4,
-    right = 4,
-    top = 0,
-    bottom = 0,
-}
-
 -- Apply the tabline
 local tabline =
     wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
@@ -68,6 +60,14 @@ tabline.setup({
     },
 })
 tabline.apply_to_config(config)
+
+-- Window padding
+config.window_padding = {
+    left = 4,
+    right = 4,
+    top = 0,
+    bottom = 0,
+}
 
 -- Restore decorations
 if string.find(wezterm.target_triple, "windows") then
