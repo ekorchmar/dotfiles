@@ -3,8 +3,10 @@
 gui:
   # UI styling
   theme:
-    activeBorderColor:
+    inactiveBorderColor:
       - blue
+    activeBorderColor:
+      - cyan
       - bold
     selectedLineBgColor:
       - blue
