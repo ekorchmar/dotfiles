@@ -348,6 +348,18 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
     window:set_config_overrides(overrides)
 end)
 
+-- Bell notification
+-- Disable audio
+config.audible_bell = "Disabled"
+-- Flash the pane
+config.visual_bell = {
+    fade_in_function = "EaseIn",
+    fade_in_duration_ms = 150,
+    fade_out_function = "EaseOut",
+    fade_out_duration_ms = 150,
+}
+config.colors.visual_bell = "#202020"
+
 wezterm.on("bell", function(window, pane)
     if window:is_focused() then
         -- No bell for focused windows
