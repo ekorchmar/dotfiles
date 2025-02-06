@@ -247,6 +247,7 @@ lvim.plugins = {
     {
         "bennypowers/nvim-regexplainer",
         event = "BufEnter",
+        config = true,
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
             "MunifTanjim/nui.nvim",
@@ -449,6 +450,11 @@ lvim.plugins = {
         config = function()
             vim.g.jupytext_fmt = "py"
         end,
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        event = "BufRead",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
     },
 }
 
