@@ -1,7 +1,8 @@
 -- Constants for this run
 NEOVIDE = vim.g.neovide
 WINDOWS = vim.loop.os_uname().sysname == "Windows_NT"
-COPILOT_ENABLED = true
+-- Some organizations may not allow Copilot
+COPILOT_ENABLED = os.getenv("DISABLE_COPILOT") == nil
 
 -- Tree-sitter settings to remove annoying comment highlighting
 lvim.builtin.treesitter.ensure_installed = {
@@ -42,16 +43,6 @@ local listchars = {
 vim.opt.list = true
 vim.opt.listchars = listchars
 vim.opt.showbreak = "↪"
-
-function Toggle_copilot()
-    if COPILOT_ENABLED then
-        vim.cmd("Copilot disable")
-        COPILOT_ENABLED = false
-    else
-        vim.cmd("Copilot enable")
-        COPILOT_ENABLED = true
-    end
-end
 
 function Toggle_eol_chars()
     if listchars.eol == "↲" then
@@ -116,12 +107,8 @@ end
 lvim.plugins = {
     {
         "github/copilot.vim",
+        enabled = COPILOT_ENABLED,
         build = ":Copilot auth",
-        init = function()
-            if not COPILOT_ENABLED then
-                vim.cmd("Copilot disable")
-            end
-        end,
     },
     "tpope/vim-surround",
     "tpope/vim-sleuth",
@@ -523,7 +510,6 @@ nor["c"] = {
 }
 nor["q"] = {
     name = "Quick options",
-    a = { Toggle_copilot, "Toggle GitHub copilot" },
     b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle inline blame" },
     c = { "<cmd>windo set scrollbind<cr>", "Scrollbind all windows" },
     d = { "<cmd>windo diffthis<cr>", "Diff all windows" },
