@@ -1,5 +1,4 @@
 -- Constants for this run
-NEOVIDE = vim.g.neovide
 WINDOWS = vim.loop.os_uname().sysname == "Windows_NT"
 -- Some organizations may not allow Copilot
 COPILOT_ENABLED = os.getenv("DISABLE_COPILOT") == nil
@@ -93,16 +92,13 @@ function Toggle_textwidth()
     end
 end
 
-if not NEOVIDE then
-    -- Does not respect signcolumn background autocommands
-    -- lvim.transparent_window = true
-    vim.api.nvim_create_autocmd("ColorScheme", {
-        pattern = "*",
-        callback = function()
-            vim.cmd("highlight Normal guibg=none ctermbg=none")
-        end,
-    })
-end
+-- lvim.transparent_window = true
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+        vim.cmd("highlight Normal guibg=none ctermbg=none")
+    end,
+})
 
 lvim.plugins = {
     {
@@ -290,27 +286,17 @@ lvim.plugins = {
             },
             plugins = {
                 wezterm = { enabled = true, font = "+0" },
-                neovide = { enabled = true },
                 konsole = { enabled = true, profile = true },
             },
             on_open = function()
                 vim.opt.laststatus = 0
                 vim.opt.cmdheight = 0
 
-                -- For neovide: go full screen
-                if NEOVIDE and not vim.g.neovide_fullscreen then
-                    vim.g.neovide_fullscreen = true
-                end
-
                 lvim.builtin.breadcrumbs.active = false
             end,
             on_close = function()
                 vim.opt.laststatus = 3
                 vim.opt.cmdheight = 2
-
-                if NEOVIDE and vim.g.neovide_fullscreen then
-                    vim.g.neovide_fullscreen = false
-                end
 
                 lvim.builtin.breadcrumbs.active = true
             end,
@@ -613,124 +599,6 @@ lvim.builtin.which_key.setup.presets = {
     z = true, -- bindings for folds, spelling and others prefixed with z
     g = true, -- bindings for prefixed with g
 }
-
--- GUI settings
-if vim.fn.has("gui_running") == 1 then
-    vim.cmd("set guifont=FiraCode\\ Nerd\\ Font:h13")
-
-    if NEOVIDE then
-        vim.g.neovide_hide_mouse_when_typing = 1
-        vim.g.neovide_cursor_animate_in_insert_mode = false
-        vim.g.neovide_cursor_animate_command_line = true
-        vim.g.neovide_scroll_animation_length = 0.1
-        vim.g.neovide_scroll_animation_far_lines = 0
-        vim.g.neovide_scale_factor = 1.0
-
-        vim.o.winblend = 20
-        vim.o.pumblend = 20
-
-        -- Normal Ctrl+C and Ctrl+V
-        vim.keymap.set("c", "<C-v>", "<C-V> <C-R>+")
-        vim.keymap.set("v", "<C-c>", '"+y')
-        vim.keymap.set("v", "<C-v>", '"+p<CR>')
-        vim.keymap.set("v", "<C-x>", '"+d')
-        vim.keymap.set("i", "<C-v>", "<C-R>+")
-        -- Ctrl-Shift-C and Ctrl-Shift-V specifically for clipboard
-        -- Only GUI allows double modifier keys
-        vim.keymap.set("v", "<C-S-v>", '"+p<CR>')
-        vim.keymap.set("v", "<C-S-c>", '"+y')
-        vim.keymap.set("i", "<C-S-v>", "<C-R>+")
-        vim.keymap.set("n", "<C-S-v>", '"+p<CR>')
-
-        function Increase_font_size()
-            vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
-        end
-
-        function Decrease_font_size()
-            vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 0.9
-        end
-
-        function Toggle_animation()
-            if vim.g.neovide_animation_length == 0 then
-                vim.g.neovide_animation_length = 0.3
-                vim.g.neovide_cursor_animate_command_line = true
-                vim.g.neovide_scroll_animation_length = 0.1
-                vim.g.neovide_position_animation_length = 0.15
-                vim.g.neovide_cursor_animation_length = 0.06
-                vim.print("Neovide animation enabled")
-            else
-                vim.g.neovide_animation_length = 0
-                vim.g.neovide_cursor_animate_command_line = false
-                vim.g.neovide_scroll_animation_length = 0
-                vim.g.neovide_position_animation_length = 0
-                vim.g.neovide_cursor_animation_length = 0
-                vim.print("Neovide animation disabled")
-            end
-        end
-
-        -- Set transparency and background color (title bar color)
-        vim.g.neovide_transparency = 1
-        -- Add keybinds to change transparency
-        Change_transparency = function(delta)
-            local new_t = vim.g.neovide_transparency + delta
-            vim.g.neovide_transparency = math.min(1, math.max(0, new_t))
-        end
-
-        -- Add which-key mappings and submenu
-        nor["G"] = {
-            name = "GUI (Neovide)",
-            i = { Increase_font_size, "Increase font size" },
-            d = { Decrease_font_size, "Decrease font size" },
-            o = {
-                function()
-                    vim.g.neovide_transparency = 1
-                end,
-                "Opaque window",
-            },
-            t = {
-                function()
-                    vim.g.neovide_transparency = 0.8
-                end,
-                "Transparent window (0.8)",
-            },
-            a = { Toggle_animation, "Toggle animation" },
-        }
-    else
-        -- Assume QT
-        vim.s.fontsize = 13
-
-        local function reset_font()
-            vim.o.guifont = "FiraCode Nerd Font:h" .. vim.s.fontsize
-        end
-
-        function Increase_font_size()
-            vim.s.fontsize = vim.s.fontsize + 2
-            reset_font()
-        end
-
-        function Decrease_font_size()
-            vim.s.fontsize = vim.s.fontsize - 2
-            reset_font()
-        end
-    end
-
-    vim.keymap.set(
-        { "n", "v", "i", "o" },
-        "<C-ScrollWheelUp>",
-        Increase_font_size
-    )
-    vim.keymap.set(
-        { "n", "v", "i", "o" },
-        "<C-ScrollWheelDown>",
-        Decrease_font_size
-    )
-    vim.keymap.set({ "n", "v", "o" }, "<M-ScrollWheelUp>", function()
-        Change_transparency(0.05)
-    end)
-    vim.keymap.set({ "n", "v", "o" }, "<M-ScrollWheelDown>", function()
-        Change_transparency(-0.05)
-    end)
-end
 
 -- Lualine to show mode name
 lvim.builtin.lualine.sections.lualine_a = {
