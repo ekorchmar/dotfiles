@@ -429,7 +429,32 @@ lvim.plugins = {
         event = "BufRead",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
     },
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        opts = {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+            bigfile = { enabled = true },
+            dashboard = { enabled = false },
+            explorer = { enabled = false },
+            indent = { enabled = false },
+            input = { enabled = true },
+            picker = { enabled = false },
+            notifier = { enabled = true },
+            quickfile = { enabled = true },
+            scope = { enabled = false },
+            scroll = { enabled = false },
+            statuscolumn = { enabled = false },
+            words = { enabled = true },
+        },
+    },
 }
+
+-- Snacks options
+vim.g.snacks_animate = false
 
 -- I know how to use the mouse, thanks
 vim.cmd.aunmenu({ "PopUp.How-to\\ disable\\ mouse" })
@@ -460,6 +485,8 @@ local nor = lvim.builtin.which_key.mappings
 nor["bq"] = { "<cmd>BufferKill<cr>", "Close current buffer" }
 nor["bo"] = { "<cmd>BufferLineCloseOther<cr>", "Close other buffers" }
 nor["ga"] = { "<cmd>CoAuthor<cr>", "Add a co-author to a commit message" }
+nor["gg"] = { require("snacks").lazygit.open, "Lazygit" }
+nor["gO"] = { require("snacks").gitbrowse.open, "Open remote in browser" }
 nor["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 nor["sn"] = {
     function()
@@ -475,7 +502,6 @@ nor["u"] = { "<cmd>lua require('undotree').toggle()<cr>", "Undo Tree" }
 nor["z"] = { "<cmd>ZenMode<cr>", "Zen mode" }
 nor["-"] = { "<cmd>Oil<cr>", "View parent as buffer" }
 -- Remove unneeded and duplicating menus
-nor.g.g = { toggle_terminal("lazygit"), "Lazygit" }
 nor["w"] = {}
 nor["T"] = {}
 nor["f"] = {}
@@ -561,16 +587,22 @@ nor["q"] = {
         "Toggle cursorline/column",
     },
 }
-nor["t"] = {
-    name = "Terminal",
-    d = { toggle_terminal("lazydocker"), "Lazydocker" },
-    g = { toggle_terminal("lazygit"), "Lazygit" },
-    i = { toggle_terminal("ipython"), "Python REPL (IPython)" },
-    l = { toggle_terminal("lua"), "Lua REPL" },
-    n = { toggle_terminal("node"), "Node REPL" },
-    p = { toggle_terminal("python"), "Python REPL (cPython)" },
-    t = { toggle_terminal(), "Default shell" },
-}
+
+if WINDOWS then
+    -- Terminals are only useful on Windows, because Ctrl+Z is not a thing
+    nor["t"] = {
+        name = "Terminal",
+        d = { toggle_terminal("lazydocker"), "Lazydocker" },
+        g = { require("snacks").lazygit.open, "Lazygit" },
+        i = { toggle_terminal("ipython"), "Python REPL (IPython)" },
+        n = { toggle_terminal("node"), "Node REPL" },
+        p = { toggle_terminal("python"), "Python REPL (cPython)" },
+        t = { toggle_terminal(), "Default shell" },
+    }
+else
+    -- Unbind
+    nor["t"] = nil
+end
 
 -- Which key mappings (visual mode)
 local vis = lvim.builtin.which_key.vmappings
