@@ -30,6 +30,37 @@ if string.find(wezterm.target_triple, "windows") then
     }
 end
 
+local function no_default(name, tab)
+    -- Use any custom name
+    if name ~= "default" then
+        return name
+    end
+
+    -- get the foreground process name if available
+    local process_name
+    if tab.active_pane and tab.active_pane.foreground_process_name then
+        process_name = tab.active_pane.foreground_process_name
+        process_name = process_name:match("([^/\\]+)[/\\]?$") or process_name
+    end
+
+    if process_name == "" or process_name == "wslhost.exe" then
+        process_name = (tab.tab_title and #tab.tab_title > 0) and tab.tab_title
+            or tab.active_pane.title
+    end
+
+    -- if the tab active pane contains a non-local domain, use the domain name
+    if process_name == "wezterm" then
+        process_name = tab.active_pane.domain_name ~= "local"
+                and tab.active_pane.domain_name
+            or "wezterm"
+    end
+
+    -- If process name ends with .exe, remove it
+    process_name = process_name:gsub("%.exe$", "")
+
+    return process_name
+end
+
 -- Apply the tabline
 local tabline =
     wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
@@ -49,10 +80,34 @@ tabline.setup({
         tabline_b = {},
         tabline_c = {},
         tab_active = {
-            "index",
-            { "cwd", padding = 0 },
-            ": ",
-            { "process", padding = 0 },
+            { "index", padding = 0 },
+            ":",
+            {
+                "process",
+                padding = { left = 1, right = 0 },
+                icons_only = true,
+            },
+            {
+                "tab",
+                padding = { left = 0, right = 0 },
+                icons_enabled = false,
+                fmt = no_default,
+            },
+        },
+        tab_inactive = {
+            { "index", padding = 0 },
+            ":",
+            {
+                "process",
+                padding = { left = 1, right = 0 },
+                icons_only = true,
+            },
+            {
+                "tab",
+                padding = { left = 0, right = 0 },
+                icons_enabled = false,
+                fmt = no_default,
+            },
         },
         tabline_x = {},
         tabline_y = { "battery" },
