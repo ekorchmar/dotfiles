@@ -2,6 +2,8 @@
 WINDOWS = vim.loop.os_uname().sysname == "Windows_NT"
 -- Some organizations may not allow Copilot
 COPILOT_ENABLED = os.getenv("DISABLE_COPILOT") == nil
+-- WezTerm for smart splits (and more?)
+WEZTERM = os.getenv("WEZTERM_PANE") ~= nil
 
 -- Tree-sitter settings to remove annoying comment highlighting
 lvim.builtin.treesitter.ensure_installed = {
@@ -456,6 +458,12 @@ lvim.plugins = {
         event = "BufRead",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
     },
+    {
+        "mrjones2014/smart-splits.nvim",
+        -- Only enable on WezTerm
+        enabled = WEZTERM,
+        opts = {},
+    },
 }
 
 -- Snacks options
@@ -490,7 +498,7 @@ local nor = lvim.builtin.which_key.mappings
 nor["bq"] = { "<cmd>BufferKill<cr>", "Close current buffer" }
 nor["bo"] = { "<cmd>BufferLineCloseOther<cr>", "Close other buffers" }
 nor["ga"] = { "<cmd>CoAuthor<cr>", "Add a co-author to a commit message" }
-nor["gg"] = { require("snacks").lazygit.open, "Lazygit" }
+nor["gg"] = {} -- Lazygit is in terminal menu
 nor["gO"] = { require("snacks").gitbrowse.open, "Open remote in browser" }
 nor["sd"] = { "<cmd>TodoTelescope<cr>", "TODO comments" }
 nor["sn"] = {
@@ -592,6 +600,12 @@ nor["q"] = {
         "Toggle cursorline/column",
     },
 }
+
+-- Manage window movement by smart-splits
+lvim.keys.normal_mode["<C-h>"] = require("smart-splits").move_cursor_left
+lvim.keys.normal_mode["<C-j>"] = require("smart-splits").move_cursor_down
+lvim.keys.normal_mode["<C-k>"] = require("smart-splits").move_cursor_up
+lvim.keys.normal_mode["<C-l>"] = require("smart-splits").move_cursor_right
 
 if WINDOWS then
     -- Terminals are only useful on Windows, because Ctrl+Z is not a thing

@@ -4,7 +4,6 @@ local act = wezterm.action
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-
 config.color_scheme = "Tokyo Night"
 
 -- Windows specific settings
@@ -114,6 +113,7 @@ tabline.setup({
         tabline_z = { "datetime" },
     },
 })
+
 tabline.apply_to_config(config)
 
 -- Window padding
@@ -425,6 +425,12 @@ wezterm.on("bell", function(window, pane)
 end)
 
 config.custom_block_glyphs = false
+
+-- Smart splits with neovim
+-- Need to be here after the key bindings
+local smart_splits =
+    wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
+smart_splits.apply_to_config(config)
 
 -- and finally, return the configuration to wezterm
 return config
