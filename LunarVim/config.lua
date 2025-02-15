@@ -45,7 +45,7 @@ vim.opt.list = true
 vim.opt.listchars = listchars
 vim.opt.showbreak = "↪"
 
-function Toggle_eol_chars()
+local function toggle_eol_chars()
     if listchars.eol == "↲" then
         listchars.eol = "¶"
         vim.opt.listchars = listchars
@@ -58,39 +58,50 @@ function Toggle_eol_chars()
     end
 end
 
-function Toggle_colorcolumn()
+local function toggle_colorcolumn()
     local colorcolumn = vim.api.nvim_get_option_value("colorcolumn", {})
     local textwidth = vim.api.nvim_get_option_value("textwidth", {})
     if textwidth ~= 0 then
-        print("Unsetting textwidth")
+        vim.notify("Unsetting textwidth")
         vim.opt.textwidth = 0
     end
     if colorcolumn == "" then
-        print("80 columns")
+        vim.notify("80 columns")
         vim.opt.colorcolumn = "81"
     elseif colorcolumn == "81" then
         vim.opt.colorcolumn = "121"
-        print("120 columns")
+        vim.notify("120 columns")
     else
         vim.opt.colorcolumn = ""
-        print("  columns")
+        vim.notify("  columns")
     end
 end
 
-function Toggle_textwidth()
+local function toggle_textwidth()
     local current_colorcolumn = vim.api.nvim_get_option_value("colorcolumn", {})
     if current_colorcolumn == "" then
-        print("Unsetting textwidth, as colorcolumn is not set")
+        vim.notify("Unsetting textwidth, as colorcolumn is not set")
         vim.opt.textwidth = 0
         return
     end
     local current_textwidth = vim.api.nvim_get_option_value("textwidth", {})
     if current_textwidth ~= tonumber(current_colorcolumn) - 1 then
         vim.opt.textwidth = tonumber(current_colorcolumn) - 1
-        print("Setting textwidth to " .. (current_colorcolumn - 1))
+        vim.notify("Setting textwidth to " .. (current_colorcolumn - 1))
     else
         vim.opt.textwidth = 0
-        print("Unsetting textwidth")
+        vim.notify("Unsetting textwidth")
+    end
+end
+
+local function toggle_rainbow_delimiters()
+    local rainbow = require("rainbow-delimiters")
+    if rainbow.is_enabled() then
+        vim.notify("Disabling rainbow delimiters")
+        rainbow.disable()
+    else
+        vim.notify("Enabling rainbow delimiters")
+        rainbow.enable()
     end
 end
 
@@ -538,25 +549,25 @@ nor["q"] = {
     b = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle inline blame" },
     c = { "<cmd>windo set scrollbind<cr>", "Scrollbind all windows" },
     d = { "<cmd>windo diffthis<cr>", "Diff all windows" },
-    e = { Toggle_eol_chars, "Toggle EOL ↲/¶/None" },
-    o = { Toggle_colorcolumn, "Toggle colorcolumn" },
+    e = { toggle_eol_chars, "Toggle EOL ↲/¶/None" },
+    o = { toggle_colorcolumn, "Toggle colorcolumn" },
     p = {
         function()
-            print(
-                vim.api.nvim_get_option_value("paste", {}) and "Normal"
-                    or "Paste"
-            )
-            vim.opt.paste = not vim.api.nvim_get_option_value("paste", {})
+            local enabled = vim.api.nvim_get_option_value("paste", {})
+            vim.notify(enabled and "Normal input mode" or "Paste input mode")
         end,
         "Toggle paste mode",
     },
+    r = { toggle_rainbow_delimiters, "Toggle rainbow delimiters" },
     s = {
         function()
-            print(
-                vim.api.nvim_get_option_value("spell", {}) and "nospell"
-                    or "spell"
-            )
-            vim.opt.spell = not vim.api.nvim_get_option_value("spell", {})
+            local enabled = vim.api.nvim_get_option_value("spell", {})
+            if enabled then
+                vim.notify("Disbaling spelchek. Good lcuk!", "warn")
+            else
+                vim.notify("Enabling spellcheck", "info")
+            end
+            vim.opt.spell = not enabled
         end,
         "Toggle spell check",
     },
@@ -568,33 +579,33 @@ nor["q"] = {
         function()
             local ve = vim.api.nvim_get_option_value("virtualedit", {})
             if ve == "block,onemore" then
-                print("Block")
+                vim.notify("Only block mode virtualedit")
                 vim.opt.virtualedit = "block"
             elseif ve == "block" then
-                print("All")
+                vim.notify("All modes virtualedit")
                 vim.opt.virtualedit = "all"
             else -- all
-                print("Onemore")
+                vim.notify("Virtual EOL")
                 vim.opt.virtualedit = "block,onemore"
             end
         end,
         "Toggle virtualedit",
     },
-    w = { Toggle_textwidth, "Toggle textwidth" },
+    w = { toggle_textwidth, "Toggle textwidth" },
     C = {
         function()
             local has_col = vim.api.nvim_get_option_value("cursorcolumn", {})
             local has_lin = vim.api.nvim_get_option_value("cursorline", {})
             if not has_col and not has_lin then
                 vim.opt.cursorline = true
-                print("cursorline")
+                vim.notify("Enabled cursorline")
             elseif has_lin and not has_col then
                 vim.opt.cursorcolumn = true
-                print("cursorcolumn")
+                vim.notify("Enabled cursorcolumn")
             else
                 vim.opt.cursorline = false
                 vim.opt.cursorcolumn = false
-                print("none")
+                vim.notify("Enabled neither")
             end
         end,
         "Toggle cursorline/column",
