@@ -451,6 +451,11 @@ lvim.plugins = {
             words = { enabled = true },
         },
     },
+    {
+        "hiphish/rainbow-delimiters.nvim",
+        event = "BufRead",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+    },
 }
 
 -- Snacks options
