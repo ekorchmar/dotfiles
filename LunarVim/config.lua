@@ -481,8 +481,8 @@ lvim.plugins = {
 vim.g.snacks_animate = false
 
 -- I know how to use the mouse, thanks
-vim.cmd.aunmenu({ "PopUp.How-to\\ disable\\ mouse" })
-vim.cmd.aunmenu({ "PopUp.-1-" })
+vim.cmd.aunmenu({ [[PopUp.How-to\ disable\ mouse]] })
+vim.cmd.aunmenu({ [[PopUp.-1-]] })
 
 -- Custom terminal
 lvim.builtin.terminal.size = 80
@@ -610,6 +610,10 @@ nor["q"] = {
         end,
         "Toggle cursorline/column",
     },
+}
+nor["H"] = {
+    require("snacks").notifier.show_history,
+    "Show notification history",
 }
 
 -- Manage window movement by smart-splits
