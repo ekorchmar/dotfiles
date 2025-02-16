@@ -31,6 +31,9 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.virtualedit = "block"
 
+-- Migrate to indentline v3
+lvim.builtin.indentlines.active = false
+
 -- Listchars
 local listchars = {
     tab = ">-",
@@ -324,7 +327,7 @@ lvim.plugins = {
             "MarkdownPreview",
             "MarkdownPreviewStop",
         },
-        build = "!cd app && npm install",
+        build = "!\\cd app && npm install",
         init = function()
             vim.g.mkdp_filetypes = { "markdown" }
             vim.g.mkdp_page_title = "${name}"
@@ -467,13 +470,67 @@ lvim.plugins = {
     {
         "hiphish/rainbow-delimiters.nvim",
         event = "BufRead",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "lukas-reineke/indent-blankline.nvim",
+        },
+        init = function()
+            local highlight = {
+                "RainbowRed",
+                "RainbowYellow",
+                "RainbowBlue",
+                "RainbowOrange",
+                "RainbowGreen",
+                "RainbowViolet",
+                "RainbowCyan",
+            }
+            local hooks = require("ibl.hooks")
+            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+                vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+                vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+                vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+                vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+                vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+                vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+                vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+            end)
+            vim.g.rainbow_delimiters = { highlight = highlight }
+            require("ibl").setup({ scope = { highlight = highlight } })
+            hooks.register(
+                hooks.type.SCOPE_HIGHLIGHT,
+                hooks.builtin.scope_highlight_from_extmark
+            )
+        end,
     },
     {
         "mrjones2014/smart-splits.nvim",
         -- Only enable on WezTerm
         enabled = WEZTERM,
         opts = {},
+    },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        enabled = true,
+        main = "ibl",
+        config = function()
+            -- NOOP
+        end,
+        opts = {
+            exclude = {
+                buftypes = { "terminal", "nofile" },
+                filetypes = {
+                    "help",
+                    "startify",
+                    "dashboard",
+                    "lazy",
+                    "neogitstatus",
+                    "NvimTree",
+                    "Trouble",
+                    "text",
+                },
+            },
+            indent = { char = lvim.icons.ui.LineLeft },
+        },
     },
 }
 
