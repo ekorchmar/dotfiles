@@ -266,3 +266,14 @@ Import-Module -Name Microsoft.WinGet.CommandNotFound
 
 $env:CDMKIT_HOME = "$HOME\cdmkit"
 $env:HOME = $env:USERPROFILE
+
+# Yazi CWD setting alias
+function yy {
+    $tmp = [System.IO.Path]::GetTempFileName()
+    yazi $args --cwd-file="$tmp"
+    $cwd = Get-Content -Path $tmp -Encoding UTF8
+    if (-not [String]::IsNullOrEmpty($cwd) -and $cwd -ne $PWD.Path) {
+        Set-Location -LiteralPath ([System.IO.Path]::GetFullPath($cwd))
+    }
+    Remove-Item -Path $tmp
+}
