@@ -68,7 +68,7 @@ export FZF_DEFAULT_OPTS=" \
 export R_LIBS_USER=${XDG_DATA_HOME:-$HOME/.local/share}/R/%p-library/%v
 
 # Fixes Wezterm
-export XCURSOR_THEME=Dracula-cursors:32
+export XCURSOR_THEME=Breeze
 
 #fzf integration
 eval "$(fzf --zsh)"
