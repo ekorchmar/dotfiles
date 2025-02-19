@@ -504,8 +504,6 @@ lvim.plugins = {
     },
     {
         "mrjones2014/smart-splits.nvim",
-        -- Only enable on WezTerm
-        enabled = WEZTERM,
         opts = {},
     },
     {
