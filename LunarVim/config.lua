@@ -686,6 +686,7 @@ if WINDOWS then
         i = { toggle_terminal("ipython"), "Python REPL (IPython)" },
         n = { toggle_terminal("node"), "Node REPL" },
         p = { toggle_terminal("python"), "Python REPL (cPython)" },
+        r = { toggle_terminal("r"), "R REPL" },
         t = { toggle_terminal(), "Default shell" },
     }
 else
