@@ -131,11 +131,15 @@ alias cat='bat'
 export BAT_THEME="Dracula"
 
 # Mnemonics
+alias c='clear'
 alias l='eza -la --icons --git --group-directories-first -h'
+alias lzg=lazygit
+alias lzd=lazydocker
 
 # Vim workflow
 alias :q='exit'
 alias :wq='exit'
+alias :wqa='exit'
 alias :qa='exit'
 alias :w='echo "👌"'
 
