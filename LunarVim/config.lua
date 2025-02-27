@@ -119,7 +119,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 lvim.plugins = {
     {
         "github/copilot.vim",
-        enabled = COPILOT_ENABLED,
+        cond = COPILOT_ENABLED,
         build = ":Copilot auth",
     },
     "tpope/vim-surround",
@@ -530,6 +530,15 @@ lvim.plugins = {
             indent = { char = lvim.icons.ui.LineLeft },
         },
     },
+    {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        cond = COPILOT_ENABLED,
+        dependencies = {
+            { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+            { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+        },
+        opts = {},
+    },
 }
 
 -- Snacks options
@@ -670,6 +679,10 @@ nor["H"] = {
     require("snacks").notifier.show_history,
     "Show notification history",
 }
+
+if COPILOT_ENABLED then
+    nor["c"]["C"] = { "<cmd>CopilotChat<cr>", "Copilot chat" }
+end
 
 -- Manage window movement by smart-splits
 lvim.keys.normal_mode["<C-h>"] = require("smart-splits").move_cursor_left
