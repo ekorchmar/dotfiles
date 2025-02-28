@@ -17,8 +17,13 @@ A place for me to store configs for the software I use. Configs are not recommen
 11. [fastfetch](#fastfetch)
 12. [direnv](#direnv)
 13. [glow](#glow)
+14. [yazi](#yazi)
 
 ## lvim
+
+> [!WARNING]
+> LunarVim is deprecated by upstream. Switch to AstroNvim is happening soon. Current config will cause error messages
+> and deprecation warnings.
 
 Although I used to have a much longer and comprehensive [.vimrc](https://gist.github.com/ekorchmar/04735e1e280e37899d26b6cc552dd052), I have since switched to LunarVim, to have a managed default and not to have to worry about much. This is the content of my `~/.config/lvim/config.lua` file.
 
@@ -28,11 +33,11 @@ This is my `.zshrc` file. It is a bit of a mess, because it is mostly filled by 
 
 ## wezterm
 
-Nothing special here, just konsole-style shortcuts I was used to.
+Custom style, OS-specific settings and Nvim splits integration.
 
 ## firefox
 
-Custom CSS to remove as much clutter from the UI as possible.
+Custom CSS to remove as much clutter from the UI as possible. Relies on tree style tabs extension.
 
 ## starship
 
@@ -61,7 +66,8 @@ Just a few useful aliases and good defaults.
 
 ## fastfetch
 
-The most important part of my dotfiles, holding everything together. Expects a file `~/Pictures/Arch.png` to exist and for Kitty graphics to be supported.
+The most important part of my dotfiles, holding everything together. Expects a file `~/Pictures/Arch.png` to exist and for
+Kitty graphics to be supported.
 
 ## direnv
 
@@ -70,3 +76,7 @@ Default to enable detecting `.env` files and enforcing strict mode.
 ## glow
 
 Specifies a custom theme for `glow` markdown viewer and wider column count.
+
+## yazi
+
+Plugins and configs for Yazi, CLI filesystem explorer.
