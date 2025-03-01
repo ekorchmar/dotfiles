@@ -539,6 +539,10 @@ lvim.plugins = {
         },
         opts = {},
     },
+    {
+        "pdurbin/vim-tsv",
+        ft = "tsv",
+    },
 }
 
 -- Snacks options
