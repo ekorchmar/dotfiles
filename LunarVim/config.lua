@@ -950,3 +950,9 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.formatoptions:remove({ "r", "o" })
     end,
 })
+
+-- Nvim-tree
+local nvimtree = lvim.builtin.nvimtree
+nvimtree.renderer.add_trailing = true
+nvimtree.renderer.highlight_git = "icon"
+nvimtree.hijack_directories = false
