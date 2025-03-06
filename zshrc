@@ -62,7 +62,9 @@ export FZF_DEFAULT_OPTS=" \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
 --color=selected-bg:#45475a \
---multi"
+--multi
+--prompt=\"󰣐 : \"
+"
 
 # Prevent R from creating a library in the home directory
 export R_LIBS_USER=${XDG_DATA_HOME:-$HOME/.local/share}/R/%p-library/%v
@@ -147,11 +149,15 @@ alias :w='echo "👌"'
 if [[ -z $ANDROID_DATA ]]; then
     alias yoink='paru -Syu'
     alias yeet='paru -Rnscu'
+
     # Neovim everywhere
     alias nano=lvim
     alias vi=lvim
     alias vim=lvim
     alias nvim=lvim
+
+    # Start nvim with Telescope search
+    alias nf='nvim $(fzf -1 --style full)'
 
     # Some env variables for common programs
     export EDITOR=lvim
