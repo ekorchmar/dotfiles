@@ -156,8 +156,20 @@ if [[ -z $ANDROID_DATA ]]; then
     alias vim=lvim
     alias nvim=lvim
 
-    # Start nvim with Telescope search
-    alias nf='nvim $(fzf -1 --style full)'
+    # Start nvim with search
+    function nf() {
+        CMD='fd --type f --hidden --follow --exclude .git'
+        choice=$(FZF_DEFAULT_COMMAND=$CMD fzf \
+            --select-1  \
+            --style full \
+            --multi \
+            --preview 'bat --color=always --style=header,grid --line-range :500 {}' \
+            --query "$@"\
+            )
+        if [[ -n $choice ]]; then
+            lvim $choice
+        fi
+    }
 
     # Some env variables for common programs
     export EDITOR=lvim
