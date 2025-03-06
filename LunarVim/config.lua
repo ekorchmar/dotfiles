@@ -223,7 +223,34 @@ lvim.plugins = {
     },
     {
         "refractalize/oil-git-status.nvim",
-        config = true,
+        dependencies = { "stevearc/oil.nvim" },
+        opts = {
+            show_ignored = true, -- show files that match gitignore with !!
+            symbols = { -- customize the symbols that appear in the git status columns
+                index = {
+                    ["!"] = "",
+                    ["?"] = "",
+                    ["A"] = "",
+                    ["C"] = "",
+                    ["D"] = "",
+                    ["M"] = "",
+                    ["R"] = "",
+                    ["T"] = "󰊀",
+                    ["U"] = "",
+                },
+                working_tree = {
+                    ["!"] = "",
+                    ["?"] = "",
+                    ["A"] = "",
+                    ["C"] = "",
+                    ["D"] = "",
+                    ["M"] = "",
+                    ["R"] = "",
+                    ["T"] = "󰊀",
+                    ["U"] = "",
+                },
+            },
+        },
     },
     {
         -- Breaks markdown rendering which links some hl to colorcolumn
