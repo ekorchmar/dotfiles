@@ -173,7 +173,7 @@ if [[ -z $ANDROID_DATA ]]; then
 
     # Some env variables for common programs
     export EDITOR=lvim
-    export VISUAL=neovide
+    export VISUAL=lvim
     export BROWSER=zen-browser
     export TERMINAL=wezterm
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"

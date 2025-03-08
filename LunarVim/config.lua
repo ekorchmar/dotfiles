@@ -975,6 +975,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Nvim-tree
 local nvimtree = lvim.builtin.nvimtree
-nvimtree.renderer.add_trailing = true
-nvimtree.renderer.highlight_git = "icon"
-nvimtree.hijack_directories = false
+nvimtree.setup.renderer.add_trailing = true
+nvimtree.setup.renderer.highlight_git = "icon"
+nvimtree.setup.renderer.group_empty = true
+nvimtree.setup.hijack_directories = false
