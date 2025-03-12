@@ -137,6 +137,7 @@ alias c='clear'
 alias l='eza -la --icons --git --group-directories-first -h'
 alias lzg=lazygit
 alias lzd=lazydocker
+alias cg='cd $(git root)'
 
 # Vim workflow
 alias :q='exit'
