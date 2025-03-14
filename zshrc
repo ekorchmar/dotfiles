@@ -168,7 +168,8 @@ if [[ -z $ANDROID_DATA ]]; then
             --query "$@"\
             )
         if [[ -n $choice ]]; then
-            lvim $choice
+            # lvim $choice
+            NVR_CMD=lvim nvr $choice
         fi
     }
 
