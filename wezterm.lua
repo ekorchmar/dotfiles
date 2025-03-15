@@ -8,9 +8,7 @@ config.color_scheme = "Tokyo Night"
 
 -- Windows specific settings
 if string.find(wezterm.target_triple, "windows") then
-    -- Color scheme
     -- Opacity
-    -- Waiting for KDE blur support...
     config.window_background_opacity = 0.6
     config.win32_system_backdrop = "Acrylic"
     config.default_prog = { "pwsh", "-NoLogo" }
@@ -27,6 +25,8 @@ if string.find(wezterm.target_triple, "windows") then
             args = { "C:\\Program Files\\Git\\bin\\bash.exe" },
         },
     }
+else
+    config.window_background_opacity = 0.7
 end
 
 local function no_default(name, tab)
