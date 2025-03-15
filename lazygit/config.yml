@@ -25,6 +25,8 @@ gui:
   authorColors:
     "Eduard Korchmar": "#6e42d2"
 
+  switchTabsWithPanelJumpKeys: true
+
 # Updates are handled by the package manager
 update:
   method: never
@@ -33,6 +35,7 @@ update:
 os:
   editPreset: "nvim"
   editInTerminal: true
+  openDirInEditor: "lvim {{dir}}"
   edit: "lvim {{filename}}"
   editAtLine: "lvim {{filename}} -c {{line}}"
 
@@ -48,7 +51,6 @@ git:
     externalDiffCommand: difft --color=always
 
 # Smoother UX
-promptToReturnFromSubprocess: false
-notARepository: prompt
+notARepository: quit
 disableStartupPopups: true
 confirmOnQuit: false
