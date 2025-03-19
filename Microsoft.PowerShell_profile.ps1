@@ -12,9 +12,6 @@ $env:HOME = "$env:HOMEPATH"
 Set-Alias cat "bat"
 Set-Alias ls "eza"
 
-Invoke-Expression (& { (zoxide init powershell --cmd cd | Out-String) })
-$ENV:_ZO_ECHO = "1"
-
 Set-PSReadLineOption -EditMode Emacs
 Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
@@ -277,3 +274,7 @@ function yy {
     }
     Remove-Item -Path $tmp
 }
+
+Invoke-Expression (& { (zoxide init powershell --cmd cd | Out-String) })
+$ENV:_ZO_ECHO = "1"
+

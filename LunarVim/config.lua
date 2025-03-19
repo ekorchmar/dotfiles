@@ -998,16 +998,3 @@ nvimtree.setup.renderer.add_trailing = true
 nvimtree.setup.renderer.highlight_git = "icon"
 nvimtree.setup.renderer.group_empty = true
 nvimtree.setup.hijack_directories = false
-
--- Python debugger
-lvim.builtin.dap.configurations.python = {
-    {
-        type = "python",
-        request = "launch",
-        name = "Launch file",
-        program = "${file}",
-        pythonPath = function()
-            return vim.fn.exepath("python")
-        end,
-    },
-}
