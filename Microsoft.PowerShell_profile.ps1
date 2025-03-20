@@ -11,6 +11,8 @@ $env:HOME = "$env:HOMEPATH"
 
 Set-Alias cat "bat"
 Set-Alias ls "eza"
+Set-Alias lzg "lazygit"
+Set-Alias l "eza -la"
 
 Set-PSReadLineOption -EditMode Emacs
 Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
