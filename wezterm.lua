@@ -26,7 +26,7 @@ if string.find(wezterm.target_triple, "windows") then
         },
     }
 else
-    config.window_background_opacity = 0.7
+    config.window_background_opacity = 0.8
 end
 
 local function no_default(name, tab)
