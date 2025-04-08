@@ -464,10 +464,6 @@ lvim.plugins = {
         opts = {},
     },
     {
-        "kaarmu/typst.vim",
-        ft = "typst",
-    },
-    {
         "chomosuke/typst-preview.nvim",
         ft = "typst",
         version = "1.*",
