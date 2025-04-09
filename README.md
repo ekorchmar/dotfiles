@@ -13,11 +13,10 @@ A place for me to store configs for the software I use. Configs are not recommen
 7. [bat](#bat)
 8. [Powershell](#Powershell)
 9. [Lazygit](#Lazygit)
-10. [git](#git)
-11. [fastfetch](#fastfetch)
-12. [direnv](#direnv)
-13. [glow](#glow)
-14. [yazi](#yazi)
+10. [fastfetch](#fastfetch)
+11. [direnv](#direnv)
+12. [glow](#glow)
+13. [yazi](#yazi)
 
 ## lvim
 
@@ -59,10 +58,6 @@ Starship prompt & LunarVim alias.
 ## Lazygit
 
 Slightly bluer color scheme, slightly less visual clutter, Nerdfonts icons.
-
-## git
-
-Just a few useful aliases and good defaults.
 
 ## fastfetch
 
