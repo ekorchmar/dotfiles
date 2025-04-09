@@ -399,3 +399,8 @@ zle-line-init() {
 }
 
 zle -N zle-line-init
+
+# Ctrl+X Ctrl+E to edit command line in editor
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
