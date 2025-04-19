@@ -8,5 +8,10 @@ use = "yazi-rs/plugins:jump-to-char"
 rev = "b12a9ab"
 hash = "a670c03eb3760812e044a24f94cedc55"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "b12a9ab"
+hash = "f0c4b41b5d19a3144958383333eff6e7"
+
 [flavor]
 deps = []

@@ -7,4 +7,5 @@ prepend_keymap = [
   { on = "ö", run = "tab_switch -1 --relative", desc = "Previous tab" },
   { on = "ä", run = "tab_switch 1 --relative", desc = "Next tab" },
   { on = "f", run = "plugin jump-to-char", desc = "Jump to char" },
+  { on = "F", run = "plugin smart-filter", desc = "Smart filter" },
 ]
