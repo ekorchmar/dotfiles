@@ -11,12 +11,15 @@ $git_status\
 $nodejs\
 $rust\
 $golang\
+$conda\
 $python\
 $rlang\
 $lua\
 $java\
 $c\
+$cpp\
 $julia\
+$cmake
 $time$battery\
 \n$character"""
 
@@ -114,7 +117,11 @@ detect_files = [
 symbol = "c"
 style = "bg:236"
 format = '[[ $symbol ($version) ](fg:111 bg:236)]($style)'
-detect_extensions = ['c', 'h', 'cpp', 'hpp']
+
+[cpp]
+symbol = "cpp"
+style = "bg:236"
+format = '[[ $symbol ($version) ](fg:111 bg:236)]($style)'
 
 [cmake]
 symbol = "cmake"

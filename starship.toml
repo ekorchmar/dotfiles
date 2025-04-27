@@ -20,6 +20,7 @@ $rlang\
 $lua\
 $java\
 $c\
+$cpp\
 $julia\
 $cmake\
 [](fg:#292e42 bg:#1f2335)\
@@ -130,7 +131,11 @@ detect_files = [
 symbol = ""
 style = "bg:#292e42"
 format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
-detect_extensions = ['c', 'h', 'cpp', 'hpp']
+
+[cpp]
+symbol = ""
+style = "bg:#292e42"
+format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
 
 [cmake]
 symbol = ""
