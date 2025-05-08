@@ -152,10 +152,9 @@ if [[ -z $ANDROID_DATA ]]; then
     alias yeet='paru -Rnscu'
 
     # Neovim everywhere
-    alias nano=lvim
-    alias vi=lvim
-    alias vim=lvim
-    alias nvim=lvim
+    alias nano=nvim
+    alias vi=nvim
+    alias vim=nvim
 
     # Start nvim with search
     function nf() {
@@ -168,14 +167,13 @@ if [[ -z $ANDROID_DATA ]]; then
             --query "$@"\
             )
         if [[ -n $choice ]]; then
-            # lvim $choice
-            NVR_CMD=lvim nvr $choice
+            nvr "$choice"
         fi
     }
 
     # Some env variables for common programs
-    export EDITOR=lvim
-    export VISUAL=lvim
+    export EDITOR=nvim
+    export VISUAL=nvim
     export BROWSER=zen-browser
     export TERMINAL=wezterm
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
