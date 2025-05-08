@@ -35,9 +35,6 @@ update:
 os:
   editPreset: "nvim"
   editInTerminal: true
-  openDirInEditor: "lvim {{dir}}"
-  edit: "lvim {{filename}}"
-  editAtLine: "lvim {{filename}} -c {{line}}"
 
 # Ö and Ä for tabs (more accessible on German keyboards)
 keybinding:
