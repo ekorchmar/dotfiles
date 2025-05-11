@@ -10,6 +10,7 @@ config.color_scheme = "Tokyo Night"
 if string.find(wezterm.target_triple, "windows") then
     -- Opacity
     config.window_background_opacity = 0.6
+    config.text_background_opacity = 0.6
     config.win32_system_backdrop = "Acrylic"
     config.default_prog = { "pwsh", "-NoLogo" }
     -- Native decorations
@@ -27,6 +28,8 @@ if string.find(wezterm.target_triple, "windows") then
     }
 else
     config.window_background_opacity = 0.8
+    config.text_background_opacity = 0.8
+    -- config.kde_window_background_blur = true
 end
 
 local function no_default(name, tab)
