@@ -9,8 +9,8 @@ config.color_scheme = "Tokyo Night"
 -- Windows specific settings
 if string.find(wezterm.target_triple, "windows") then
     -- Opacity
-    config.window_background_opacity = 0.6
-    config.text_background_opacity = 0.6
+    config.window_background_opacity = 0.8
+    -- config.text_background_opacity = 0.8
     config.win32_system_backdrop = "Acrylic"
     config.default_prog = { "pwsh", "-NoLogo" }
     -- Native decorations
