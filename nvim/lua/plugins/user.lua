@@ -204,12 +204,6 @@ return {
     },
   },
 
-  -- Dynamic line number coloring
-  {
-    "mawkler/modicator.nvim",
-    opts = {},
-  },
-
   -- Prebuilt download link not always working
   {
     "saghen/blink.cmp",

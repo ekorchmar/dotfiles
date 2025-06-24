@@ -16,8 +16,8 @@ return {
       LSPLoading9 = "",
       LSPLoading10 = "",
     },
-  },
 
-  -- Do not override lazygit
-  lazygit = false,
+    -- Do not override lazygit
+    lazygit = false,
+  },
 }

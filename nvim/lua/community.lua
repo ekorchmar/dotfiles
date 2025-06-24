@@ -12,7 +12,7 @@ local spec = {
 
   "AstroNvim/astrocommunity",
 
-  { import = AC .. "bars-and-lines.lualine-nvim" },
+  { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
   { import = AC .. "colorscheme.tokyonight-nvim" },
   { import = AC .. "colorscheme.rose-pine" },
   { import = AC .. "docker.lazydocker" },
