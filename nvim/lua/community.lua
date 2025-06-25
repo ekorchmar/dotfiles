@@ -12,7 +12,6 @@ local spec = {
 
   "AstroNvim/astrocommunity",
 
-  { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
   { import = AC .. "colorscheme.tokyonight-nvim" },
   { import = AC .. "colorscheme.rose-pine" },
   { import = AC .. "docker.lazydocker" },
@@ -35,6 +34,7 @@ local spec = {
   { import = R .. "cache-colorscheme" },
   { import = R .. "astrolsp-no-insert-inlay-hints" },
   { import = R .. "heirline-vscode-winbar" },
+  { import = R .. "heirline-nvchad-statusline" },
 }
 
 -- Languages
