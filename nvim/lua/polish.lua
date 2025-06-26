@@ -27,5 +27,3 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.formatoptions:append({ "n", "2" })
     end,
 })
-
-vim.cmd[[colorscheme tokyonight]]
