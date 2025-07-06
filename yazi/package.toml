@@ -1,16 +1,16 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "e5f00e2"
-hash = "37ebed215c8742eada643fc2655b65e2"
+rev = "cbc4450"
+hash = "a57f09c9e61ffc850d8ea8c6fc1efb2c"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:jump-to-char"
-rev = "e5f00e2"
+rev = "cbc4450"
 hash = "d2f04875bbd4ed3dd5696e8c4b094fde"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
-rev = "e5f00e2"
+rev = "cbc4450"
 hash = "a9d553bd19a3cd7f4eab3abaac5d67ff"
 
 [flavor]
