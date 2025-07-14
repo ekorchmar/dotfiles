@@ -89,7 +89,13 @@ return {
     },
     opts = {},
   },
-
+  -- Neotree does not hijack the directory open
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      filesystem = { hijack_netrw_behavior = "disabled" },
+    },
+  },
   -- Oil
   {
     "stevearc/oil.nvim",
@@ -144,7 +150,7 @@ return {
               condition = function(self) return status.condition.buffer_matches({ filetype = "^oil$" }, self.bufnr) end,
               status.component.separated_path {
                 padding = { left = 2 },
-                max_depth = false,
+                max_depth = 0,
                 suffix = false,
                 path_func = function(self) return require("oil").get_current_dir(self.bufnr) end,
               },
@@ -156,6 +162,7 @@ return {
     opts = function()
       local get_icon = require("astroui").get_icon
       return {
+        default_file_explorer = true,
         view_options = {
           show_hidden = true,
         },

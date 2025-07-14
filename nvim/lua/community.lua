@@ -3,6 +3,7 @@
 -- This guarantees that the specs are processed before any user plugins.
 
 local AC = "astrocommunity."
+local C = AC .. "colorscheme."
 local P = AC .. "pack."
 local E = AC .. "editing-support."
 local R = AC .. "recipes."
@@ -12,11 +13,13 @@ local spec = {
 
   "AstroNvim/astrocommunity",
 
-  { import = AC .. "colorscheme.tokyonight-nvim" },
-  { import = AC .. "colorscheme.rose-pine" },
   { import = AC .. "docker.lazydocker" },
   { import = AC .. "recipes.vscode" },
   { import = AC .. "motion.nvim-surround" },
+
+  { import = C .. "tokyonight-nvim" },
+  { import = C .. "rose-pine" },
+  { import = C .. "catppuccin" },
 
   { import = P .. "rainbow-delimiter-indent-blankline" },
 
