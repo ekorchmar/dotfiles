@@ -1,4 +1,15 @@
 local COPILOT_ENABLED = os.getenv "DISABLE_COPILOT" == nil
+local default_oil_columns = {
+  "permissions",
+  "size",
+  "mtime",
+  {
+    "icon",
+    default_file = require("astroui").get_icon "DefaultFile",
+    directory = require("astroui").get_icon "FolderClosed",
+  },
+}
+local oil_detail_view = true
 
 ---@type LazySpec
 return {
@@ -100,7 +111,7 @@ return {
   {
     "stevearc/oil.nvim",
     -- cmd = "Oil",
-    lazy = false,  -- May need to happen as a default file explorer
+    lazy = false, -- May need to happen as a default file explorer
     dependencies = {
       {
         "AstroNvim/astrocore",
@@ -169,16 +180,20 @@ return {
         signcolumn = "yes:2",
       },
       constrain_cursor = "name",
-      columns = {
-        "permissions",
-        "size",
-        "mtime",
-        {
-          "icon",
-          default_file = require("astroui").get_icon "DefaultFile",
-          directory = require("astroui").get_icon "FolderClosed",
+      keymaps = {
+        ["gd"] = {
+          desc = "Toggle file detail view",
+          callback = function()
+            oil_detail_view = not oil_detail_view
+            if oil_detail_view then
+              require("oil").set_columns(default_oil_columns)
+            else
+              require("oil").set_columns(default_oil_columns[4])  -- only icon
+            end
+          end,
         },
       },
+      olumns = default_oil_columns,
     },
   },
   {
