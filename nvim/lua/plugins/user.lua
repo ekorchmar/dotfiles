@@ -99,7 +99,8 @@ return {
   -- Oil
   {
     "stevearc/oil.nvim",
-    cmd = "Oil",
+    -- cmd = "Oil",
+    lazy = false,  -- May need to happen as a default file explorer
     dependencies = {
       {
         "AstroNvim/astrocore",
