@@ -211,13 +211,14 @@ return {
       },
     },
   },
-
   -- Lorem ipsum generator
   {
     "derektata/lorem.nvim",
-    opts = {
-      debounce_ms = 300, -- default debounce time in milliseconds
-    },
+    config = function()
+      require("lorem").opts {
+        debounce_ms = 300, -- default debounce time in milliseconds
+      }
+    end,
   },
   -- Prebuilt download link not always working
   {
