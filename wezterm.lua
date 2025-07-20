@@ -235,6 +235,12 @@ config.keys = {
         mods = "CTRL|SHIFT",
         action = act.SpawnTab("DefaultDomain"),
     },
+    -- Ctrl + Shift + X to enter copy mode
+    {
+        key = "x",
+        mods = "CTRL|SHIFT",
+        action = act.ActivateCopyMode,
+    },
     -- Ctrl + Shift + Z to open a new tab with menu
     {
         key = "z",
@@ -332,6 +338,9 @@ config.keys = {
         mods = "CTRL|SHIFT",
         action = act.ShowDebugOverlay,
     },
+    -- Shift + PgDown / PgUp to scroll down / up
+    { key = "PageUp", mods = "SHIFT", action = act.ScrollByPage(-1) },
+    { key = "PageDown", mods = "SHIFT", action = act.ScrollByPage(1) },
 }
 -- Alt + number for corresponding tab
 for i = 1, 9 do
