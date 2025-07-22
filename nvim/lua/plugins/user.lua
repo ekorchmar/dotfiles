@@ -188,7 +188,7 @@ return {
             if oil_detail_view then
               require("oil").set_columns(default_oil_columns)
             else
-              require("oil").set_columns(default_oil_columns[4])  -- only icon
+              require("oil").set_columns(default_oil_columns[4]) -- only icon
             end
           end,
         },
@@ -235,17 +235,5 @@ return {
         debounce_ms = 300, -- default debounce time in milliseconds
       }
     end,
-  },
-  -- Prebuilt download link not always working
-  {
-    "saghen/blink.cmp",
-    build = "cargo build --release",
-    opts = {
-      fuzzy = {
-        prebuilt_binaries = {
-          download = false,
-        },
-      },
-    },
   },
 }
