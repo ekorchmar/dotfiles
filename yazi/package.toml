@@ -1,19 +1,19 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
 rev = "d1c8baa"
-hash = "63b6c222bf2103b3023389dde5e2ecfe"
+hash = "604aa5edd8a11f9290fcb6d42d4f4ee0"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:jump-to-char"
 rev = "d1c8baa"
-hash = "ce67445ebb1bf3d97b8e44f50904b2c5"
+hash = "d79e8d1b7bf233f5a70158d6885f3eb9"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
 rev = "d1c8baa"
-hash = "bcda8eeb3f4013bae156aecabfc745e8"
+hash = "d08dc3fe78ede4d7507b0b5fca7a35cc"
 
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"
 rev = "5f56364"
-hash = "c0bf69ad2c44005892d586e9693993c6"
+hash = "62e55d8e4af15456907631e6536eb994"
