@@ -17,36 +17,28 @@ gui:
   spinner:
     frames: ["", "", "", "", "", ""]
     rate: 100
-
   # Messages and infos
   showRandomTip: false
-
   # Style my commits
   authorColors:
     "Eduard Korchmar": "#6e42d2"
-
   switchTabsWithPanelJumpKeys: true
-
 # Updates are handled by the package manager
 update:
   method: never
-
 # Use console nvim for editing
 os:
   editPreset: "nvim"
   editInTerminal: true
-
 # Ö and Ä for tabs (more accessible on German keyboards)
 keybinding:
   universal:
     nextTab: "ä"
     prevTab: "ö"
-
 # Difftastic as external diff tool
 git:
-  paging:
-    externalDiffCommand: difft --color=always
-
+  pagers:
+    - externalDiffCommand: difft --color=always
 # Smoother UX
 notARepository: quit
 disableStartupPopups: true
