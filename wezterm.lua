@@ -83,7 +83,6 @@ tabline.setup({
         tabline_c = {},
         tab_active = {
             { "index", padding = 0 },
-            ":",
             {
                 "process",
                 padding = { left = 1, right = 0 },
@@ -98,7 +97,6 @@ tabline.setup({
         },
         tab_inactive = {
             { "index", padding = 0 },
-            ":",
             {
                 "process",
                 padding = { left = 1, right = 0 },
@@ -111,9 +109,9 @@ tabline.setup({
                 fmt = no_default,
             },
         },
-        tabline_x = {},
-        tabline_y = { "battery" },
-        tabline_z = { "datetime" },
+        tabline_x = { "ram" },
+        tabline_y = { "cpu" },
+        tabline_z = { "domain" },
     },
 })
 
