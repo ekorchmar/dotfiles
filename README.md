@@ -18,6 +18,7 @@ A place for me to store configs for the software I use. Configs are not recommen
 12. [glow](#glow)
 13. [yazi](#yazi)
 14. [Neovim](#Neovim)
+15. [foot](#foot)
 
 ## lvim
 
@@ -53,7 +54,7 @@ Makes it a little cleaner from the default. Also uses Dracula for lack of other 
 
 ## Powershell
 
-Starship prompt & LunarVim alias.
+Starship prompt.
 
 ## Lazygit
 
@@ -79,3 +80,7 @@ Plugins and configs for Yazi, CLI filesystem explorer.
 ## Neovim
 
 Custom config for Neovim, based on [AstroNvim](https://github.com/ekorchmar/astronvim-template).
+
+## foot
+
+Setup for Foot terminal emulator, to set up a minimalistic HUD-style user experience. Used in combination with KWin window scripts, not yet part of the dotfiles.
