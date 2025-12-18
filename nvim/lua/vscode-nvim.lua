@@ -1,5 +1,4 @@
-WINDOWS = vim.loop.os_uname().sysname == "Windows_NT"
-
+-- Only loaded when Neovim is started from VSCode
 vim.g.shiftwidth = 4
 vim.opt.autochdir = true
 vim.opt.cmdheight = 2
@@ -14,7 +13,7 @@ vim.opt.virtualedit = "block,onemore"
 vim.opt.wrap = false
 vim.clipboard = "unnamedplus"
 
-if WINDOWS then
+if vim.loop.os_uname().sysname == "Windows_NT" then
     -- Enable powershell as your default shell
     vim.opt.shell = "pwsh.exe -NoLogo"
     vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::"
