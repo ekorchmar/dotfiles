@@ -31,6 +31,7 @@ else
     -- config.text_background_opacity = 0.8
     -- config.kde_window_background_blur = true
 end
+config.macos_window_background_blur = 80
 
 local function no_default(name, tab)
     -- Use any custom name

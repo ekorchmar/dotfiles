@@ -100,7 +100,6 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 
 autoload -Uz compinit
 compinit
-source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -116,7 +115,7 @@ setopt hist_find_no_dups
 unsetopt nomatch
 
 # Starsip prompt
-source <(/usr/bin/starship init zsh --print-full-init)
+source <(starship init zsh --print-full-init)
 # If we are in TTY, use legacy color config
 if [[ $XDG_SESSION_TYPE == "tty" ]]; then
     export STARSHIP_CONFIG=~/.config/starship_tty.toml
@@ -182,34 +181,6 @@ if [[ -z $ANDROID_DATA ]]; then
     # My custom scripts
     path+=('/home/ekorchmar/.local/bin')
     export PATH
-
-    # Paru to search for missing command
-    function command_not_found_handler {
-        local purple='\e[1;35m' bright='\e[0;1m' green='\e[1;32m' reset='\e[0m'
-        printf 'zsh: command not found: %s\n' "$1"
-        local entries=(
-            ${(f)"$(/usr/bin/paru -F --machinereadable -- "/usr/bin/$1")"}
-        )
-        if (( ${#entries[@]} ))
-        then
-            printf "${bright}$1${reset} may be found in the following packages:\n"
-            local pkg
-            for entry in "${entries[@]}"
-            do
-                # (repo package version file)
-                local fields=(
-                    ${(0)entry}
-                )
-                if [[ "$pkg" != "${fields[2]}" ]]
-                then
-                    printf "${purple}%s/${bright}%s ${green}%s${reset}\n" "${fields[1]}" "${fields[2]}" "${fields[3]}"
-                fi
-                printf '    /%s\n' "${fields[4]}"
-                pkg="${fields[2]}"
-            done
-        fi
-        return 127
-}
 fi
 
 # I miss MacOS sometimes
@@ -240,8 +211,14 @@ setopt PUSHD_MINUS
 ## Explicit link resolution on cd
 setopt CHASE_LINKS
 
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    source /opt/local/share/nvm/init-nvm.sh
+else
+    source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # =============================================================================
 #
