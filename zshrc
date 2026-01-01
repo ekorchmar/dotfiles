@@ -379,3 +379,8 @@ zle -N zle-line-init
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
+
+# Foot prompt jumping
+precmd() {
+    print -Pn "\e]133;A\e\\"
+}
