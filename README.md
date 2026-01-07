@@ -19,6 +19,7 @@ A place for me to store configs for the software I use. Configs are not recommen
 13. [yazi](#yazi)
 14. [Neovim](#Neovim)
 15. [foot](#foot)
+16. [qutebrowser](#qutebrowser)
 
 ## lvim
 
@@ -84,3 +85,7 @@ Custom config for Neovim, based on [AstroNvim](https://github.com/ekorchmar/astr
 ## foot
 
 Setup for Foot terminal emulator, to set up a minimalistic HUD-style user experience. Used in combination with KWin window scripts, not yet part of the dotfiles.
+
+## qutebrowser
+
+Setup for qutebrowser with better defaults, transparency and Catppuccin Mocha theme.
