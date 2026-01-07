@@ -380,6 +380,11 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
+# Music's the odyssey
+# It's here for you, for me
+# Just listen, find the magic key
+bindkey " " magic-space
+
 # Foot prompt jumping
 precmd() {
     print -Pn "\e]133;A\e\\"

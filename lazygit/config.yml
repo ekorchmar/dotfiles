@@ -30,6 +30,8 @@ update:
 os:
   editPreset: "nvim"
   editInTerminal: true
+  # Edit directories with yazi
+  openDirInEditor: "yazi {{dir}}"
 # Ö and Ä for tabs (more accessible on German keyboards)
 keybinding:
   universal:
