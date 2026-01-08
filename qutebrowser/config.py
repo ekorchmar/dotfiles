@@ -150,7 +150,7 @@ c.completion.open_categories = [
 
 ## Automatically start playing `<video>` elements.
 ## Type: Bool
-# c.content.autoplay = True
+c.content.autoplay = True
 
 ## List of URLs to ABP-style adblocking rulesets.  Only used when Brave's
 ## ABP-style adblocker is used (see `content.blocking.method`).  You can
@@ -196,7 +196,7 @@ c.completion.open_categories = [
 ##   - no-3rdparty: Accept cookies from the same origin only. This is known to break some sites, such as GMail.
 ##   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain. On QtWebEngine, this is the same as no-3rdparty.
 ##   - never: Don't accept cookies at all.
-c.content.cookies.accept = "no-unknown-3rdparty"
+c.content.cookies.accept = "all"
 
 ## Store cookies.
 ## Type: Bool
@@ -456,6 +456,7 @@ c.spellcheck.languages = [
 ##   - never: Always hide the statusbar.
 ##   - in-mode: Show the statusbar when in modes other than normal mode.
 c.statusbar.show = "always"
+c.tabs.show = "switching"
 
 ## List of widgets displayed in the statusbar.
 ## Type: List of StatusbarWidget
@@ -470,7 +471,7 @@ c.statusbar.show = "always"
 ##   - progress: Progress bar for the current page loading.
 ##   - text:foo: Display the static text after the colon, `foo` in the example.
 ##   - clock: Display current time. The format can be changed by adding a format string via `clock:...`. For supported format strings, see https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes[the Python datetime documentation].
-# c.statusbar.widgets = ['keypress', 'search_match', 'url', 'scroll', 'history', 'tabs', 'progress']
+c.statusbar.widgets = ['keypress', 'search_match', 'scroll', 'history', 'progress']
 
 ## Position of the tab bar.
 ## Type: Position
@@ -495,7 +496,7 @@ c.tabs.select_on_remove = "last-used"
 ##   - left
 ##   - right
 ##   - center
-c.tabs.title.alignment = "center"
+c.tabs.title.alignment = "left"
 
 ## Position of ellipsis in truncated title of tabs.
 ## Type: ElidePosition
