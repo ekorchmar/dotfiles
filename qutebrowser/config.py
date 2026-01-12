@@ -32,6 +32,7 @@ if not os.path.exists(config.configdir / "theme.py"):
 
 if os.path.exists(config.configdir / "theme.py"):
     import theme  # pyright: ignore[reportMissingImports]
+
     theme.setup(c, "mocha", True)
 
 # Tabs to not to occupy full width
@@ -42,35 +43,33 @@ c.window.transparent = True
 panel_transparency = round(0xFF * 0.7)
 tab_transparency = round(0xFF * 0.85)
 
+
+def make_transparent(color_path: str, transparency: int) -> None:
+    color = QColor(config.get(color_path))
+    color.setAlpha(transparency)
+    color_str = "rgba(" + ",".join(map(str, color.getRgb())) + ")"
+    config.set(color_path, color_str)
+
+
 # Tab bar
 # All "selected" are implicitly opaque
-for color_path in [
-    "colors.tabs.bar.bg",
-    "colors.tabs.even.bg",
-    "colors.tabs.odd.bg",
-    "colors.tabs.pinned.even.bg",
-    "colors.tabs.pinned.odd.bg",
+for color_path_tail in [
+    "bar",
+    "even",
+    "odd",
+    "pinned.even",
+    "pinned.odd",
 ]:
-    color = QColor(config.get(color_path))
-    color.setAlpha(panel_transparency if "bar" in color_path else tab_transparency)
-    color_str = "rgba(" + ",".join(map(str, color.getRgb())) + ")"
-    config.set(color_path, color_str)
+    make_transparent(
+        f"colors.tabs.{color_path_tail}.bg",
+        panel_transparency if color_path_tail == "bar" else tab_transparency,
+    )
 
 # Status bar
-for mode in [
-    "caret",
-    "command",
-    "insert",
-    "normal",
-    "passthrough",
-    "private",
-]:
-    color = QColor(config.get(f"colors.statusbar.{mode}.bg"))
-    color.setAlpha(panel_transparency)
-    color_str = "rgba(" + ",".join(map(str, color.getRgb())) + ")"
-    config.set(color_path, color_str)
+for mode in ["caret", "command", "insert", "normal", "passthrough", "private"]:
+    make_transparent(f"colors.statusbar.{mode}.bg", panel_transparency)
 
-c.tabs.indicator.width = 0
+c.tabs.indicator.width = 2
 c.tabs.padding = {
     "top": 2,
     "bottom": 2,
@@ -82,6 +81,8 @@ c.tabs.padding = {
 ## aliases, while the values are the commands they map to.
 ## Type: Dict
 c.aliases = {
+    "o": "open",
+    "go": "open",
     "w": "session-save",
     "q": "tab-close",
     "qa": "close",
@@ -490,12 +491,12 @@ c.tabs.title.elide = "none"
 ## web page. * `{protocol}`: Protocol (http/https/...) of the current web
 ## page. * `{audio}`: Indicator for audio/mute status.
 ## Type: FormatString
-c.tabs.title.format = "{audio} {current_title}"
+c.tabs.title.format = "{audio} {current_title} {perc}"
 
 ## Format to use for the tab title for pinned tabs. The same placeholders
 ## like for `tabs.title.format` are defined.
 ## Type: FormatString
-c.tabs.title.format_pinned = ""
+c.tabs.title.format_pinned = "{audio}"
 
 
 ## Page to open if :open -t/-b/-w is used without URL. Use `about:blank`
@@ -540,7 +541,7 @@ c.url.searchengines = {
     "yt": "https://www.youtube.com/results?search_query={}",
     "w": "https://en.wikipedia.org/wiki/{}",
     "gm": "https://www.google.de/maps/search/{}",
-    "gh": "https://github.com/search?q={}"
+    "gh": "https://github.com/search?q={}",
 }
 
 ## Page(s) to open at the start.
@@ -600,7 +601,7 @@ c.zoom.default = "110%"
 # config.bind('<Ctrl-Shift-T>', 'undo')
 # config.bind('<Ctrl-Shift-Tab>', 'nop')
 # config.bind('<Ctrl-Shift-W>', 'close')
-config.bind('<Ctrl-T>', 'cmd-set-text -s :open -t')
+config.bind("<Ctrl-T>", "cmd-set-text -s :open -t")
 # config.bind('<Ctrl-Tab>', 'tab-focus last')
 # config.bind('<Ctrl-U>', 'scroll-page 0 -0.5')
 # config.bind('<Ctrl-V>', 'mode-enter passthrough')
@@ -620,7 +621,7 @@ config.bind('<Ctrl-T>', 'cmd-set-text -s :open -t')
 # config.bind('?', 'cmd-set-text ?')
 # config.bind('@', 'macro-run')
 # config.bind('B', 'cmd-set-text -s :quickmark-load -t')
-# config.bind('D', 'tab-close -o')
+config.bind("D", "tab-close")
 # config.bind('F', 'hint all tab')
 # config.bind('G', 'scroll-to-perc')
 # config.bind('H', 'back')
@@ -649,7 +650,8 @@ config.bind('<Ctrl-T>', 'cmd-set-text -s :open -t')
 # config.bind('b', 'cmd-set-text -s :quickmark-load')
 # config.bind('cd', 'download-clear')
 # config.bind('co', 'tab-only')
-# config.bind('d', 'tab-close')
+# Closing tab with a single button accidentally happens too often
+config.bind("d", "nop")
 # config.bind('f', 'hint')
 # config.bind('g$', 'tab-focus -1')
 # config.bind('g0', 'tab-focus 1')
@@ -874,3 +876,10 @@ config.bind("<Ctrl-X>", "cmd-edit", mode="command")
 config.bind("<Alt-Shift-A>", "config-cycle colors.webpage.darkmode.enabled")
 # Toggle spatial navigation with Alt-Shift-S
 config.bind("<Alt-Shift-S>", "config-cycle input.spatial_navigation")
+
+# Tab management shortcuts
+config.bind("<Shift-Right>", "tab-next", mode="normal")
+config.bind("<Shift-Left>", "tab-prev", mode="normal")
+config.bind("<Ctrl-Shift-Right>", "tab-move +", mode="normal")
+config.bind("<Ctrl-Shift-Left>", "tab-move -", mode="normal")
+config.bind("<Ctrl-Shift-Space>", "tab-give", mode="normal")
