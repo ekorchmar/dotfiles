@@ -29,7 +29,7 @@ if string.find(wezterm.target_triple, "windows") then
 else
     config.window_background_opacity = 0.8
     -- config.text_background_opacity = 0.8
-    -- config.kde_window_background_blur = true
+    config.kde_window_background_blur = true
 end
 config.macos_window_background_blur = 80
 
