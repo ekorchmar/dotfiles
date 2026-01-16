@@ -203,7 +203,7 @@ c.tabs.last_close = "blank"
 ##   - no-3rdparty: Accept cookies from the same origin only. This is known to break some sites, such as GMail.
 ##   - no-unknown-3rdparty: Accept cookies from the same origin only, unless a cookie is already set for the domain. On QtWebEngine, this is the same as no-3rdparty.
 ##   - never: Don't accept cookies at all.
-c.content.cookies.accept = "all"
+c.content.cookies.accept = "never"  # tCh to toggle per domain
 
 ## Store cookies.
 ## Type: Bool
@@ -214,16 +214,8 @@ c.content.cookies.accept = "all"
 ## Type: String
 # c.content.default_encoding = 'iso-8859-1'
 
-## Allow JavaScript to read from or write to the clipboard. With
-## QtWebEngine, writing the clipboard as response to a user interaction
-## is always allowed. On Qt < 6.8, the `ask` setting is equivalent to
-## `none` and permission needs to be granted manually via this setting.
-## Type: JSClipboardPermission
-## Valid values:
-##   - none: Disable access to clipboard.
-##   - access: Allow reading from and writing to the clipboard.
-##   - access-paste: Allow accessing the clipboard and pasting clipboard content.
-##   - ask: Prompt when requested (grants 'access-paste' permission).
+## Allow JavaScript
+c.content.javascript.enabled = False  # tSh to toggle per domain
 c.content.javascript.clipboard = "access"
 
 ## Allow locally loaded documents to access other local URLs.
@@ -233,7 +225,6 @@ c.content.javascript.clipboard = "access"
 ## Allow locally loaded documents to access remote URLs.
 ## Type: Bool
 # c.content.local_content_can_access_remote_urls = False
-# c.content.notifications.presenter = 'auto'
 
 ## Request websites to minimize non-essentials animations and motion.
 ## This results in the `prefers-reduced-motion` CSS media query to
@@ -649,6 +640,7 @@ config.bind("D", "tab-close")
 # config.bind('ad', 'download-cancel')
 # config.bind('b', 'cmd-set-text -s :quickmark-load')
 # config.bind('cd', 'download-clear')
+config.bind("cD", "download-delete")
 # config.bind('co', 'tab-only')
 # Closing tab with a single button accidentally happens too often
 config.bind("d", "nop")
