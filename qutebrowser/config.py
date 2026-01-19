@@ -44,11 +44,28 @@ panel_transparency = round(0xFF * 0.7)
 tab_transparency = round(0xFF * 0.85)
 
 
-def make_transparent(color_path: str, transparency: int) -> None:
-    color = QColor(config.get(color_path))
+def make_transparent(
+    color_path: str, transparency: int, color_overide: QColor | None = None
+) -> None:
+    color = color_overide or QColor(config.get(color_path))
     color.setAlpha(transparency)
     color_str = "rgba(" + ",".join(map(str, color.getRgb())) + ")"
     config.set(color_path, color_str)
+
+
+# Status bar above the tab bar
+c.statusbar.position = "top"
+c.statusbar.padding = {side: 5 for side in ["top", "bottom", "right", "left"]}
+
+# In normal mode, use tab bar background color as status bar background
+make_transparent(
+    "colors.statusbar.normal.bg",
+    panel_transparency,
+    QColor(config.get("colors.tabs.bar.bg")),
+)
+
+for mode in ["caret", "command", "insert", "passthrough", "private"]:
+    make_transparent(f"colors.statusbar.{mode}.bg", panel_transparency)
 
 
 # Tab bar
@@ -64,10 +81,6 @@ for color_path_tail in [
         f"colors.tabs.{color_path_tail}.bg",
         panel_transparency if color_path_tail == "bar" else tab_transparency,
     )
-
-# Status bar
-for mode in ["caret", "command", "insert", "normal", "passthrough", "private"]:
-    make_transparent(f"colors.statusbar.{mode}.bg", panel_transparency)
 
 c.tabs.indicator.width = 2
 c.tabs.padding = {
@@ -262,13 +275,6 @@ c.content.register_protocol_handler = False
 ##   - misc-mathml-darkmode
 # c.content.site_specific_quirks.skip = []
 
-## Where to show the downloaded files.
-## Type: VerticalPosition
-## Valid values:
-##   - top
-##   - bottom
-c.downloads.position = "bottom"
-
 ## Automatically abort insecure (HTTP) downloads originating from secure
 ## (HTTPS) pages. For per-domain settings, the relevant URL is the URL
 ## initiating the download, not the URL the download itself is coming
@@ -304,8 +310,10 @@ FS.handler = "external"
 FS.folder.command = CMD_PREPEND + ["yazi", "--cwd-file={}"]
 FS.multiple_files.command = CMD_PREPEND + ["yazi", "--chooser-file={}"]
 FS.single_file.command = CMD_PREPEND + ["yazi", "--chooser-file={}"]
+
 c.downloads.location.directory = "~/Downloads"
 c.downloads.position = "top"
+c.downloads.remove_finished = 30 * 1000  # 30 seconds
 
 ## Default font families to use. Whenever "default_family" is used in a
 ## font setting, it's replaced with the fonts listed here. If set to an
@@ -682,9 +690,17 @@ config.bind("<Ctrl-L>", "cmd-set-text :open {url:pretty}")
 # config.bind('sk', 'cmd-set-text -s :bind')
 # config.bind('sl', 'cmd-set-text -s :set -t')
 # config.bind('ss', 'cmd-set-text -s :set')
-# config.bind('tCH', 'config-cycle -p -u *://*.{url:host}/* content.cookies.accept all no-3rdparty never ;; reload')
-# config.bind('tCh', 'config-cycle -p -u *://{url:host}/* content.cookies.accept all no-3rdparty never ;; reload')
-# config.bind('tCu', 'config-cycle -p -u {url} content.cookies.accept all no-3rdparty never ;; reload')
+config.bind(
+    "tCH",
+    "config-cycle -p -u *://*.{url:host}/* content.cookies.accept all never ;; reload",
+)
+config.bind(
+    "tCh",
+    "config-cycle -p -u *://{url:host}/* content.cookies.accept all never ;; reload",
+)
+config.bind(
+    "tCu", "config-cycle -p -u {url} content.cookies.accept all never ;; reload"
+)
 # config.bind('tIH', 'config-cycle -p -u *://*.{url:host}/* content.images ;; reload')
 # config.bind('tIh', 'config-cycle -p -u *://{url:host}/* content.images ;; reload')
 # config.bind('tIu', 'config-cycle -p -u {url} content.images ;; reload')
@@ -694,9 +710,17 @@ config.bind("<Ctrl-L>", "cmd-set-text :open {url:pretty}")
 # config.bind('tSH', 'config-cycle -p -u *://*.{url:host}/* content.javascript.enabled ;; reload')
 # config.bind('tSh', 'config-cycle -p -u *://{url:host}/* content.javascript.enabled ;; reload')
 # config.bind('tSu', 'config-cycle -p -u {url} content.javascript.enabled ;; reload')
-# config.bind('tcH', 'config-cycle -p -t -u *://*.{url:host}/* content.cookies.accept all no-3rdparty never ;; reload')
-# config.bind('tch', 'config-cycle -p -t -u *://{url:host}/* content.cookies.accept all no-3rdparty never ;; reload')
-# config.bind('tcu', 'config-cycle -p -t -u {url} content.cookies.accept all no-3rdparty never ;; reload')
+config.bind(
+    "tcH",
+    "config-cycle -p -t -u *://*.{url:host}/* content.cookies.accept all never ;; reload",
+)
+config.bind(
+    "tch",
+    "config-cycle -p -t -u *://{url:host}/* content.cookies.accept all never ;; reload",
+)
+config.bind(
+    "tcu", "config-cycle -p -t -u {url} content.cookies.accept all never ;; reload"
+)
 # config.bind('th', 'back -t')
 # config.bind('tiH', 'config-cycle -p -t -u *://*.{url:host}/* content.images ;; reload')
 # config.bind('tih', 'config-cycle -p -t -u *://{url:host}/* content.images ;; reload')
@@ -865,9 +889,13 @@ config.bind("<Ctrl-X>", "cmd-edit", mode="command")
 # config.bind('y', 'prompt-accept yes', mode='yesno')
 
 # Toggle dark mode with Alt-Shift-A
-config.bind("<Alt-Shift-A>", "config-cycle colors.webpage.darkmode.enabled")
+# config.bind("<Alt-Shift-A>", "config-cycle colors.webpage.darkmode.enabled")
+config.bind(
+    "<Alt-Shift-A>",
+    "config-cycle -p -u *://*.{url:host}/* colors.webpage.darkmode.enabled ;; reload",
+)
 # Toggle spatial navigation with Alt-Shift-S
-config.bind("<Alt-Shift-S>", "config-cycle input.spatial_navigation")
+config.bind("<Alt-Shift-S>", "config-cycle -t input.spatial_navigation")
 
 # Tab management shortcuts
 config.bind("<Shift-Right>", "tab-next", mode="normal")
@@ -875,3 +903,16 @@ config.bind("<Shift-Left>", "tab-prev", mode="normal")
 config.bind("<Ctrl-Shift-Right>", "tab-move +", mode="normal")
 config.bind("<Ctrl-Shift-Left>", "tab-move -", mode="normal")
 config.bind("<Ctrl-Shift-Space>", "tab-give", mode="normal")
+
+# Shorthand to "trust" and "distrust" the current domain
+config_cmd_prefix = "set -u *://{url:host}/*"
+for chord, js_setting, cookie_setting in [
+    (",t", "true", "all"),
+    (",T", "false", "never"),
+]:
+    config.bind(
+        chord,
+        f"{config_cmd_prefix} content.javascript.enabled {js_setting} ;; "
+        f"{config_cmd_prefix} content.cookies.accept {cookie_setting} ;; "
+        "reload",
+    )
