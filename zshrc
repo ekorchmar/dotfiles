@@ -166,7 +166,7 @@ if [[ -z $ANDROID_DATA ]]; then
             --query "$@"\
             )
         if [[ -n $choice ]]; then
-            nvr "$choice"
+            nvr -s "$choice"
         fi
     }
 
