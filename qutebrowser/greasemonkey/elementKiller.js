@@ -1,7 +1,7 @@
 class Hunter {
-  constructor(name, url, selectorString, index) {
+  constructor(name, urlRegex, selectorString, index) {
     this.name = name;
-    this.url = url;
+    this.urlRegex = urlRegex;
     this.selectorString = selectorString;
     this.index = index;
   }
@@ -10,21 +10,28 @@ class Hunter {
 const hunters = [
   new Hunter(
     "Tai",
-    "https://labs.cognitiveclass.ai/v2/tools/jupyterlab",
+    /^https:\/\/labs.cognitiveclass.ai\/v2\/tools\/jupyterlab/,
     "nav>ul>li.relative",
     0,
   ),
 
   new Hunter(
     "Copilot in Outlook",
-    "https://outlook.office.com/mail/",
+    /^https:\/\/outlook.office.com\/mail\/.*/,
     "#CopilotCommandCenterButton",
+    0,
+  ),
+
+  new Hunter(
+    "Coach on Coursera",
+    /^https:\/\/www.coursera.org\/learn\/.*\/assignment-submission\/.*\/.*/,
+    'div[data-testid="page-body"]>div',
     0,
   ),
 ];
 
 for (const hunter of hunters) {
-  if (document.URL.startsWith(hunter.url)) {
+  if (window.document.URL.match(hunter.urlRegex)) {
     console.log(`Initiating ${hunter.name} elimination protocol...`);
     window.addEventListener("load", () => {
       const intervalId = setInterval(() => {
