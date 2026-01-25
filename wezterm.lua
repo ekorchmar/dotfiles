@@ -7,6 +7,7 @@ local config = wezterm.config_builder()
 config.color_scheme = "Tokyo Night"
 
 -- Windows specific settings
+config.window_background_opacity = 0.8
 if string.find(wezterm.target_triple, "windows") then
     -- Opacity
     config.window_background_opacity = 0.8
@@ -26,12 +27,11 @@ if string.find(wezterm.target_triple, "windows") then
             args = { "C:\\Program Files\\Git\\bin\\bash.exe" },
         },
     }
-else
-    config.window_background_opacity = 0.8
-    -- config.text_background_opacity = 0.8
+elseif string.find(wezterm.target_triple, "darwin") then
+    config.macos_window_background_blur = 20
+else  -- Linux
     config.kde_window_background_blur = true
 end
-config.macos_window_background_blur = 80
 
 local function no_default(name, tab)
     -- Use any custom name

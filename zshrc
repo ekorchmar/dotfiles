@@ -90,9 +90,6 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
-# preview directory's content with eza when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-# To make fzf-tab follow FZF_DEFAULT_OPTS.
 # NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 # switch group using `<` and `>`
@@ -124,7 +121,6 @@ fi
 bindkey -e
 
 # Replace builtins with better alternatives
-alias ls='eza'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias diff='diff --color=auto'
@@ -133,7 +129,6 @@ export BAT_THEME="Dracula"
 
 # Mnemonics
 alias c='clear'
-alias l='eza -la --icons --git --group-directories-first -h'
 alias lzg=lazygit
 alias lzd=lazydocker
 alias cg='cd $(git root)'
@@ -214,10 +209,17 @@ setopt CHASE_LINKS
 
 if [[ "$(uname)" == "Darwin" ]]; then
     source /opt/local/share/nvm/init-nvm.sh
+    alias l='ls -laGh'
 else
     source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.plugin.zsh
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+    # preview directory's content with eza when completing cd
+    zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+
+    alias ls='eza'
+    alias l='eza -la --icons --git --group-directories-first -h'
 fi
 
 # =============================================================================
