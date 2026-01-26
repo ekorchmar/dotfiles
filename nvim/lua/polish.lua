@@ -52,7 +52,7 @@ require("which-key").add {
         vim.cmd "hi Normal guibg=NONE ctermbg=NONE"
       end
     end,
-    { desc = "Toggle background" },
+    desc = "Toggle background transparency",
   },
 }
 --- Update remembered background on colorscheme change

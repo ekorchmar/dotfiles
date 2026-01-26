@@ -211,4 +211,62 @@ return {
       },
     },
   },
+  -- Follow symlinks automatically
+  {
+    "aymericbeaumet/vim-symlink",
+    lazy = false,
+  },
+  -- Wezterm integration for Zen mode
+  {
+    "folke/snacks.nvim",
+    opts = {
+      zen = {
+        wo = {
+          number = false,
+          relativenumber = false,
+          signcolumn = "no",
+          foldcolumn = "0",
+          winbar = "",
+          list = false,
+          showbreak = "NONE",
+        },
+        win = {
+          height = 0,
+          width = 0.9,
+          backdrop = {
+            transparent = true,
+            win = { wo = { winhighlight = "" } },
+          },
+        },
+        toggles = { dim = false, diagnostics = false, inlay_hints = false },
+        on_open = function(win)
+          -- disable snacks indent
+          vim.b[win.buf].snacks_indent_old = vim.b[win.buf].snacks_indent
+          vim.b[win.buf].snacks_indent = false
+          if vim.fn.exists "$WEZTERM_PANE" then
+            local stdout = vim.loop.new_tty(1, false)
+            if not stdout then return end
+            stdout:write(
+              ("\x1bPtmux;\x1b\x1b]1337;SetUserVar=%s=%s\b\x1b\\"):format(
+                "ZEN_MODE",
+                vim.fn.system({ "base64" }, tostring "+2")
+              )
+            )
+          end
+          vim.cmd "redraw"
+        end,
+        on_close = function(win)
+          vim.b[win.buf].snacks_indent = vim.b[win.buf].snacks_indent_old
+          if vim.fn.exists "$WEZTERM_PANE" then
+            local stdout = vim.loop.new_tty(1, false)
+            if not stdout then return end
+            stdout:write(
+              ("\x1bPtmux;\x1b\x1b]1337;SetUserVar=%s=%s\b\x1b\\"):format("ZEN_MODE", vim.fn.system({ "base64" }, "-1"))
+            )
+          end
+          vim.cmd "redraw"
+        end,
+      },
+    },
+  },
 }
