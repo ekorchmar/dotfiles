@@ -1,3 +1,5 @@
+from importlib import invalidate_caches, import_module
+from importlib.util import find_spec
 import os
 from urllib.request import urlopen
 from PyQt6.QtGui import QColor
@@ -22,12 +24,10 @@ if not os.path.exists(config.configdir / "theme.py"):
         with open(config.configdir / "theme.py", "a") as file:
             file.writelines(themehtml.read().decode("utf-8"))
 
-try:
-    import theme
+if find_spec("theme"):
+    invalidate_caches()
+    theme = import_module("theme")
     theme.setup(c, "mocha", True)
-except ImportError:
-    # Failed to load theme
-    pass
 
 # Tabs to not to occupy full width
 c.tabs.max_width = 300
@@ -161,7 +161,7 @@ CMD_PREPEND = [
 
 
 ## Editor (and arguments) to use for the `edit-*` commands
-#FIXME: does not work!
+# FIXME: does not work!
 c.editor.command = CMD_PREPEND + [
     "nvim",
     "-f",
@@ -268,7 +268,7 @@ c.url.start_pages = ["about:blank"]
 ##   - anchor
 # c.url.incdec_segments = ['path', 'query']
 
-## Search engines which can be used via the address bar.  
+## Search engines which can be used via the address bar.
 c.url.searchengines = {
     "DEFAULT": "https://duckduckgo.com/?q={}",
     "ddg": "https://duckduckgo.com/?q={}",
