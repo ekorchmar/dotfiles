@@ -383,32 +383,51 @@ config.mouse_bindings = {
 }
 
 -- Nvim Zen Mode
-FULLSCREEN_BEFORE_ZEN = false
+ZEN_FORCED_FULLSCREEN = nil
+local function zen_enter(window, pane, overrides)
+    window:toast_notification(
+        "Zen Mode",
+        "Zen mode activated by " .. pane:get_foreground_process_name(),
+        nil,
+        3000
+    )
+
+    local fullscreen_before_zen = window:get_dimensions().is_full_screen
+    if not fullscreen_before_zen then
+        window:perform_action(act.ToggleFullScreen, pane)
+    end
+    overrides.enable_tab_bar = false
+
+    ZEN_FORCED_FULLSCREEN = not fullscreen_before_zen
+end
+
 wezterm.on("user-var-changed", function(window, pane, name, value)
     local overrides = window:get_config_overrides() or {}
     if name == "ZEN_MODE" then
         local incremental = value:find("+")
         local number_value = tonumber(value)
         if incremental ~= nil then
+            -- Enabled with incremental font size
             while number_value > 0 do
                 window:perform_action(act.IncreaseFontSize, pane)
                 number_value = number_value - 1
             end
-            overrides.enable_tab_bar = false
-            FULLSCREEN_BEFORE_ZEN = window:get_dimensions().is_full_screen
-            if not FULLSCREEN_BEFORE_ZEN then
-                window:perform_action(act.ToggleFullScreen, pane)
-            end
+            zen_enter(window, pane, overrides)
         elseif number_value < 0 then
+            -- Disabled, reset font size
             window:perform_action(act.ResetFontSize, pane)
             overrides.font_size = nil
             overrides.enable_tab_bar = true
-            if not FULLSCREEN_BEFORE_ZEN then
+            if
+                ZEN_FORCED_FULLSCREEN and window:get_dimensions().is_full_screen
+            then
                 window:perform_action(act.ToggleFullScreen, pane)
             end
+            ZEN_FORCED_FULLSCREEN = nil
         else
+            -- Enabled with specific font size
             overrides.font_size = number_value
-            overrides.enable_tab_bar = false
+            zen_enter(window, pane, overrides)
         end
     end
     window:set_config_overrides(overrides)
@@ -432,7 +451,7 @@ wezterm.on("bell", function(window, pane)
         return
     end
     local message = 'Bell in pane "' .. pane:get_title() .. '"'
-    window:toast_notification("BEEP BOOP", message)
+    window:toast_notification("BEEP BOOP", message, nil, 5000)
 end)
 
 config.custom_block_glyphs = false
