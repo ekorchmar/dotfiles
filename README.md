@@ -30,7 +30,7 @@ Although I used to have a much longer and comprehensive [.vimrc](https://gist.gi
 
 ## zshrc
 
-This is my `.zshrc` file. It is a bit of a mess, because it is mostly filled by various initialization scripts from different software. Notably, syntax highlighting are still Dracula colored, because there are few other managed color themes for ZSH.
+This is my `.zshrc` file. It is mostly filled by various initialization scripts from different helpers.
 
 ## wezterm
 
@@ -51,11 +51,11 @@ This is handcrafted Konsole/Yakuake color scheme, based on [Tokyo Night](https:/
 
 ## bat
 
-Makes it a little cleaner from the default. Also uses Dracula for lack of other themes.
+Makes it a little cleaner from the default.
 
 ## Powershell
 
-Starship prompt.
+Starship prompt and aliases.
 
 ## Lazygit
 
