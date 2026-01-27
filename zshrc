@@ -168,20 +168,8 @@ if [[ -z $ANDROID_DATA ]]; then
     alias vi=nvim
     alias vim=nvim
 
-    # Start nvim with search
-    function nf() {
-        CMD='fd --type f --hidden --follow --exclude .git'
-        choice=$(FZF_DEFAULT_COMMAND=$CMD fzf \
-            --select-1  \
-            --style full \
-            --multi \
-            --preview 'bat --color=always --style=header,grid --line-range :500 {}' \
-            --query "$@"\
-            )
-        if [[ -n $choice ]]; then
-            nvr -s "$choice"
-        fi
-    }
+    # Legacy alias
+    alias nf=rr
 
     # Some env variables for common programs
     export EDITOR=nvim
@@ -254,6 +242,21 @@ function yy() {
         cd -- "$cwd"
     fi
     rm -f -- "$tmp"
+}
+
+
+# ripgrep interactive with fzf
+function rr() {
+(RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+ fzf --disabled \
+     --query "$1" \
+     --ansi \
+     --bind "start:$RELOAD" --bind "change:$RELOAD" \
+     --delimiter : \
+     --preview "bat --style=plain,numbers,changes --color=always --highlight-line {2} {1}" \
+     --preview-window '~4,+{2}+4/3' \
+     --bind 'enter:become:nvim {1} +{2}'
+     )
 }
 
 # Transient Starship prompt
