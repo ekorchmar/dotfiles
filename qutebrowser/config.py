@@ -182,7 +182,7 @@ c.downloads.remove_finished = 30 * 1000  # 30 seconds
 
 ## Default font families to use in the UI
 c.fonts.default_family = "FiraCode Nerd Font Mono"
-c.fonts.default_size = "13pt"
+c.fonts.default_size = "14pt"
 
 ## Comma-separated list of regular expressions to use for 'next' links.
 # c.hints.next_regexes = ['\\bnext\\b', '\\bmore\\b', '\\bnewer\\b', '\\b[>→≫]\\b', '\\b(>>|»)\\b', '\\bcontinue\\b']
@@ -246,6 +246,12 @@ c.tabs.title.format = "{audio} {current_title} {perc}"
 c.tabs.title.format_pinned = "{audio}"
 
 c.tabs.indicator.width = 2
+c.tabs.indicator.padding = {
+    "top": 3,
+    "bottom": 3,
+    "right": 6,
+    "left": 0,
+}
 c.tabs.padding = {
     "top": 2,
     "bottom": 2,
