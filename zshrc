@@ -168,9 +168,6 @@ if [[ -z $ANDROID_DATA ]]; then
     alias vi=nvim
     alias vim=nvim
 
-    # Legacy alias
-    alias nf=rr
-
     # Some env variables for common programs
     export EDITOR=nvim
     export VISUAL=nvim
@@ -257,6 +254,16 @@ function rr() {
      --preview-window '~4,+{2}+4/3' \
      --bind 'enter:become:nvim {1} +{2}'
      )
+}
+
+# fzf as file finder
+function nf() {
+ fzf --query "$1" \
+     --ansi \
+     --delimiter : \
+     --preview "bat --style=plain,numbers,changes --color=always " \
+     --preview="bat --color=always --style=plain --line-range :500 {}" \
+     --bind 'enter:become:nvim {1}'
 }
 
 # Transient Starship prompt
