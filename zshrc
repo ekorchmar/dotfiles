@@ -75,10 +75,11 @@ ZSH_HIGHLIGHT_STYLES[default]='fg=#cdd6f4'
 ZSH_HIGHLIGHT_STYLES[cursor]='fg=#cdd6f4'
 
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
---color=selected-bg:#45475a \
+--color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
+--color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
+--color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
+--color=selected-bg:#45475A \
+--color=border:#6C7086,label:#CDD6F4
 --multi
 --prompt=\"󰣐 : \"
 --height=60%
@@ -247,6 +248,7 @@ function rr() {
 (RELOAD='reload:rg --column --color=always --smart-case {q} || :'
  fzf --disabled \
      --query "$1" \
+     --border-label "Searching file contents" \
      --ansi \
      --bind "start:$RELOAD" --bind "change:$RELOAD" \
      --delimiter : \
@@ -260,9 +262,9 @@ function rr() {
 function nf() {
  fzf --query "$1" \
      --ansi \
+     --border-label "Searching file names" \
      --delimiter : \
-     --preview "bat --style=plain,numbers,changes --color=always " \
-     --preview="bat --color=always --style=plain --line-range :500 {}" \
+     --preview="bat --color=always --style=plain,numbers --line-range :500 {}" \
      --bind 'enter:become:nvim {1}'
 }
 

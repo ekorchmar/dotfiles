@@ -13,6 +13,11 @@ use = "yazi-rs/plugins:smart-filter"
 rev = "e07bf41"
 hash = "407d19bc4fb46eff5fa8ff8337644847"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:mime-ext"
+rev = "e07bf41"
+hash = "7b7dc677b58371da6fc63e4fcd134651"
+
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"
 rev = "8e6296f"
