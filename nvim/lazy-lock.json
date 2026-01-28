@@ -73,7 +73,7 @@
   "typst-preview.nvim": { "branch": "master", "commit": "bf5d5eaf23bbfcca9f98a24ed29bd084abf89bf2" },
   "typst.vim": { "branch": "main", "commit": "1d5436c0f55490893892441c0eca55e6cdf4916c" },
   "undotree": { "branch": "master", "commit": "178d19e00a643f825ea11d581b1684745d0c4eda" },
-  "venv-selector.nvim": { "branch": "main", "commit": "520eb706921036825cfbf4edcd449a3e2d1cf7c6" },
+  "venv-selector.nvim": { "branch": "main", "commit": "5e1ccc57c880ace17ada6b1e216d6a051cb8dbf7" },
   "vim-illuminate": { "branch": "master", "commit": "0d1e93684da00ab7c057410fecfc24f434698898" },
   "vim-ps1": { "branch": "master", "commit": "839cec1550e09fc902c74103053e9e765051083d" },
   "vim-symlink": { "branch": "master", "commit": "fec2d1a72c6875557109ce6113f26d3140b64374" },
