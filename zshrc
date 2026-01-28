@@ -91,8 +91,8 @@ export FZF_DEFAULT_OPTS=" \
 # Prevent R from creating a library in the home directory
 export R_LIBS_USER=${XDG_DATA_HOME:-$HOME/.local/share}/R/%p-library/%v
 
-# Fixes Wezterm
-export XCURSOR_THEME=Breeze
+# FIXME: Find out what exactly is broken. For now, just do this:
+export FZF_TMUX_HEIGHT=60%
 
 #fzf integration
 eval "$(fzf --zsh)"
