@@ -1,17 +1,20 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+palette = "catppuccin_mocha"
 format = """\
 $cmd_duration\
-$status[$os $username$hostname $shell $shlvl$jobs](bg:#c0caf5 fg:#1f2335)\
-[](bg:#7aa2f7 fg:#c0caf5)\
+$status\
+[$os$username$hostname $shell $shlvl$jobs](bg:rosewater fg:base)\
+[](bg:sapphire fg:prev_bg)\
 $directory\
 $direnv\
-[](fg:#7aa2f7 bg:#3b4261)\
+[](bg:surface0 fg:prev_bg)\
 $git_branch\
 $git_commit\
 $git_status\
-[](fg:#3b4261 bg:#292e42)\
+[](bg:base fg:prev_bg)\
 $nodejs\
+$bun\
 $rust\
 $golang\
 $conda\
@@ -23,16 +26,87 @@ $c\
 $cpp\
 $julia\
 $cmake\
-[](fg:#292e42 bg:#1f2335)\
+[](bg:crust fg:prev_bg)\
 $battery$time\
 $line_break$character"""
 
-# Directory and git
+# Optional elements
+[status]
+disabled = false
+style = "bold bg:peach fg:base"
+format = """\
+[ $symbol( $status)( $signal_number) \
+$common_meaning$signal_name ]\
+($style)\
+[](bold bg:rosewater fg:prev_bg)\
+"""
+symbol = ""
+not_executable_symbol = ""
+not_found_symbol = ""
+sigint_symbol = ""
+signal_symbol = ""
+map_symbol = true
+
+[cmd_duration]
+disabled = true
+format = "[ 󱙷 $duration]($style)\n"
+show_milliseconds = true
+min_time = 5_000
+
+# Hostname, username etc.
+[os]
+format = '[ $symbol ]($style)'
+style = "bg:rosewater fg:base"
+disabled = false
+
+[username]
+show_always = true
+style_user = "bg:prev_bg fg:base bold"
+style_root = "bg:prev_bg fg:red bold"
+format = '[$user]($style)'
+aliases = { "" = "Unknown" }
+
+[hostname]
+ssh_only = false
+ssh_symbol = "󰣀"
+style = "bg:prev_bg fg:base"
+format = "@[$ssh_symbol$hostname]($style)"
+
+[os.symbols]
+Windows = ""
+Linux = ""
+Ubuntu = ""
+Macos = ""
+Arch = ""
+Android = ""
+
+[shell]
+disabled = false
+format = "[$indicator]($style)"
+style = "bg:prev_bg fg:prev_fg"
+bash_indicator = ""
+zsh_indicator = ""
+powershell_indicator = ""
+fish_indicator = "󰈺"
+cmd_indicator = ""
+tcsh_indicator = ""
+
+[shlvl]
+disabled = false
+style = "bg:prev_bg fg:prev_fg"
+format = '[ $shlvl]($style)'
+
+[jobs]
+symbol = "󱂬"
+style = "bg:prev_bg fg:prev_fg"
+format = '[$symbol $number]($style)'
+
+
+# Directory
 [directory]
 truncate_to_repo = false
-style = "fg:#3b4261 bg:#7aa2f7"
-before_repo_root_style = "fg:#3b4261 bg:#7aa2f7"
-repo_root_style = "fg:#1f2335 bg:#7aa2f7 bold"
+style = "bg:prev_bg fg:mantle"
+repo_root_style = "bg:prev_bg fg:prev_fg bold"
 format = "[ $path ]($style)[$read_only]($read_only_style)"
 repo_root_format = """\
 [ $before_root_path]($before_repo_root_style)\
@@ -44,77 +118,83 @@ truncation_length = 6
 truncation_symbol = "…/"
 home_symbol = "~"
 read_only = " "
-read_only_style = "bg:#7aa2f7 fg:#1f2335"
+read_only_style = "bg:prev_bg fg:base"
 
 [direnv]
 disabled = false
-symbol = " "
-format = '[ $symbol$allowed ]($style)'
-style = "fg:#1f2335 bg:#7aa2f7"
+symbol = ""
+format = '[ $symbol $allowed ]($style)'
+style = "fg:base bg:prev_bg"
 detect_files = [".envrc", ".env"]
 allowed_msg = ""
 not_allowed_msg = ""
 denied_msg = ""
 
+# Git
 [git_branch]
 symbol = ""
-style = "fg:#7aa2f7 bg:#3b4261"
+style = "bg:prev_bg fg:prev_fg"
 format = '[ $symbol $branch ]($style)'
 
 [git_commit]
 tag_symbol = ""
-style = "fg:#7aa2f7 bg:#3b4261"
+style = "bg:prev_bg fg:prev_fg"
 format = '[ $hash$tag ]($style)'
 
 [git_status]
-style = "fg:#7aa2f7 bg:#3b4261"
+style = "bg:prev_bg fg:prev_fg"
 format = '[($all_status$ahead_behind )]($style)'
 
-# Languages
-[conda]
-symbol = "󱔎"
-style = "bg:#292e42"
-format = '[[ $symbol $environment ](fg:#7aa2f7 bg:#292e42)]($style)'
-
+# Languages and packages
 [nodejs]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+style = "bg:prev_bg fg:lavender"
+format = '[ $symbol ($version) ]($style)'
+ 
+[conda]
+symbol = "󱔎"
+style = "bg:prev_bg fg:lavender"
+format = '[ $symbol $environment ]($style)'
+
+[bun]
+symbol = ""
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 [rust]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 [golang]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 [php]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 [python]
 symbol = " "
-style = "bg:#292e42 fg:#7aa2f7 "
+style = "bg:prev_bg fg:lavender"
 format = '[ ${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 
 [rlang]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 [lua]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 [java]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 detect_files = [
   'pom.xml',
   'build.gradle.kts',
@@ -129,102 +209,32 @@ detect_files = [
 
 [c]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 [cpp]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 [cmake]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 [julia]
 symbol = ""
-style = "bg:#292e42"
-format = '[[ $symbol ($version) ](fg:#7aa2f7 bg:#292e42)]($style)'
-
-# Standart prompt elements
-[username]
-show_always = true
-style_user = "bg:#c0caf5 fg:#1f2335 bold"
-style_root = "bg:#c0caf5 fg:#db3a3a bold"
-format = '[$user]($style)'
-aliases = { "" = "Unknown" }
-
-[hostname]
-ssh_only = false
-ssh_symbol = ""
-style = "bg:#c0caf5 fg:#1f2335"
-format = "@[$ssh_symbol$hostname]($style)"
-
-[os]
-format = '[ $symbol ]($style)'
-style = "bg:#c0caf5 fg:#1f2335"
-disabled = true
-
-[os.symbols]
-Windows = ""
-Linux = ""
-Ubuntu = ""
-Macos = ""
-Arch = ""
-Android = ""
-
-[shell]
-disabled = false
-format = "[$indicator]($style)"
-style = "bg:#c0caf5 fg:#1f2335"
-bash_indicator = ""
-zsh_indicator = ""
-powershell_indicator = ""
-fish_indicator = "󰈺"
-cmd_indicator = ""
-tcsh_indicator = ""
-
-[shlvl]
-disabled = false
-style = "bg:#c0caf5 fg:#1f2335"
-format = '[ $shlvl]($style)'
-
-[jobs]
-symbol = "󱂬"
-style = "bg:#c0caf5 fg:#1f2335"
-format = '[$symbol $number]($style)'
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 [character]
 format = " $symbol[: ](bold white)"
-success_symbol = "[󰣐 ](bold #ff79c6)"
-error_symbol = "[󰋔 ](bold #db3a3a)"
-vimcmd_symbol = "[󰧑 ](bold #ad8ee6)"
-vimcmd_replace_one_symbol = "[󰋇 ](bold #e0af68)"
-vimcmd_replace_symbol = "[ ](bold #e0af68)"
-vimcmd_visual_symbol = "[ ](bold #9ece6a)"
-
-[status]
-disabled = false
-format = """\
-[ $symbol( $status)( $signal_number) \
-$common_meaning$signal_name ]\
-($style)\
-[](bold bg:#c0caf5 fg:#f4bd71)\
-"""
-symbol = ""
-not_executable_symbol = ""
-not_found_symbol = ""
-sigint_symbol = ""
-signal_symbol = ""
-map_symbol = true
-style = "bold bg:#f4bd71 fg:#1f2335"
-
-[cmd_duration]
-disabled = true
-format = "[ 󱙷 $duration]($style)\n"
-show_milliseconds = true
-min_time = 5_000
+success_symbol = "[󰣐 ](bold maroon)"
+error_symbol = "[󰋔 ](bold #f11d1d)"
+vimcmd_symbol = "[󰧑 ](bold mauve)"
+vimcmd_replace_one_symbol = "[󰋇 ](bold peach)"
+vimcmd_replace_symbol = "[ ](bold peach)"
+vimcmd_visual_symbol = "[ ](bold green)"
 
 # Physical world
 [battery]
@@ -238,24 +248,53 @@ unknown_symbol = "󰂑"
 
 [[battery.display]]
 threshold = 10
-style = "bg:#1f2335 fg:#db3a3a"
+style = "bg:prev_bg fg:red"
 discharging_symbol = "󰂎"
 charging_symbol = "󰢟"
 
 [[battery.display]]
 threshold = 30
-style = "bg:#1f2335 fg:#e0af68"
+style = "bg:prev_bg fg:peach"
 discharging_symbol = "󱊡"
 charging_symbol = "󱊤"
 
 [[battery.display]]
 threshold = 55
-style = "bg:#1f2335 fg:#73daca"
+style = "bg:prev_bg fg:teal"
 discharging_symbol = "󱊢"
 charging_symbol = "󱊥"
 
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
-style = "bg:#1f2335"
-format = '[[  $time ](fg:#73DACA bg:#1f2335)]($style)[](fg:#1f2335)'
+style = "bg:crust fg:teal"
+format = '[  $time ]($style)[](fg:crust)'
+
+# https://github.com/catppuccin/starship/blob/main/themes/mocha.toml
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"

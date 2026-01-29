@@ -9,6 +9,7 @@ $git_branch\
 $git_commit\
 $git_status\
 $nodejs\
+$bun\
 $rust\
 $golang\
 $conda\
@@ -19,7 +20,7 @@ $java\
 $c\
 $cpp\
 $julia\
-$cmake
+$cmake\
 $time$battery\
 \n$character"""
 

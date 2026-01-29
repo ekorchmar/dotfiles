@@ -42,7 +42,7 @@ Custom CSS to remove as much clutter from the UI as possible. Relies on tree sty
 
 ## starship
 
-Heavily modified and updated built-in Tokyo Night.
+Heavily modified and updated built-in Tokyo Night, switched to Catppuccin Mocha palette.
 `starship_tty.toml` is a custom prompt with minimalistic style, 256 colors and no nerd font symbols. Can be used by setting `STARSHIP_CONFIG` environment variable to the path of this file.
 
 ## konsole
