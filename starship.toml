@@ -4,8 +4,8 @@ palette = "catppuccin_mocha"
 format = """\
 $cmd_duration\
 $status\
-[$os$username$hostname $shell $shlvl$jobs](bg:rosewater fg:base)\
-[](bg:sapphire fg:prev_bg)\
+[$os$username$hostname $shell $shlvl$jobs](bg:text fg:base)\
+[](bg:overlay2 fg:prev_bg)\
 $directory\
 $direnv\
 [](bg:surface0 fg:prev_bg)\
@@ -38,7 +38,7 @@ format = """\
 [ $symbol( $status)( $signal_number) \
 $common_meaning$signal_name ]\
 ($style)\
-[](bold bg:rosewater fg:prev_bg)\
+[](bold bg:text fg:prev_bg)\
 """
 symbol = ""
 not_executable_symbol = ""
@@ -56,7 +56,7 @@ min_time = 5_000
 # Hostname, username etc.
 [os]
 format = '[ $symbol ]($style)'
-style = "bg:rosewater fg:base"
+style = "bg:text fg:base"
 disabled = false
 
 [username]
