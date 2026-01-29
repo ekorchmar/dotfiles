@@ -1,8 +1,10 @@
+-- Personal preference
 vim.g.autoformat = false
 vim.opt.cmdheight = 2
 vim.opt.colorcolumn = "81"
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.wrap = true
 
 -- Listchars
 local listchars = {
