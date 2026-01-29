@@ -4,13 +4,12 @@ local act = wezterm.action
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
-config.color_scheme = "Tokyo Night"
+config.color_scheme = "Catppuccin Mocha"
 
 -- Windows specific settings
 config.window_background_opacity = 0.8
 if string.find(wezterm.target_triple, "windows") then
     -- Opacity
-    config.window_background_opacity = 0.8
     -- config.text_background_opacity = 0.8
     config.win32_system_backdrop = "Acrylic"
     config.default_prog = { "pwsh", "-NoLogo" }
