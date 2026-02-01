@@ -306,7 +306,8 @@ zle-line-init() {
   local saved_rprompt=$RPROMPT
 
   # Set prompt value from character module
-  PROMPT=$(starship module -s ${STARSHIP_CMD_STATUS:-0} character)
+  PROMPT="$(starship module time)\
+  $(starship module -s ${STARSHIP_CMD_STATUS:-0} character)"
   RPROMPT=''
   zle .reset-prompt
   PROMPT=$saved_prompt
