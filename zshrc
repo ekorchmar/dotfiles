@@ -245,7 +245,17 @@ function yy() {
 
 # ripgrep interactive with fzf
 function rr() {
-(RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+ local query=""
+ local rg_args=()
+
+ if [[ $# -gt 0 ]]; then
+     query="${@: -1}"
+     if [[ $# -gt 1 ]]; then
+         rg_args=("${@:1:$# - 1}")
+     fi
+ fi
+
+(RELOAD="reload:rg --column --color=always --smart-case ${rg_args[@]} {q} || :"
  fzf --disabled \
      --query "$1" \
      --border-label "Searching file contents" \
@@ -260,7 +270,18 @@ function rr() {
 
 # fzf as file finder
 function nf() {
- fzf --query "$1" \
+ local query=""
+ local fzf_args=()
+ 
+ if [[ $# -gt 0 ]]; then
+     query="${@: -1}"
+     if [[ $# -gt 1 ]]; then
+         fzf_args=("${@:1:$# - 1}")
+     fi
+ fi
+ 
+ fzf "${fzf_args[@]}" \
+     --query "$query" \
      --ansi \
      --border-label "Searching file names" \
      --delimiter : \
