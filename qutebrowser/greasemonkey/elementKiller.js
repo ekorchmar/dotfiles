@@ -14,7 +14,6 @@ const hunters = [
     "nav>ul>li.relative",
     0,
   ),
-
   new Hunter(
     "Copilot in Outlook",
     /^https:\/\/outlook.office.com\/mail\/.*/,
@@ -28,6 +27,13 @@ const hunters = [
     'div[data-testid="page-body"]>div',
     0,
   ),
+
+  new Hunter(
+    "Videos on Fandom Wiki",
+    /^https:\/\/\w+.fandom.com\/wiki\/.*/,
+    "#featured-video__player-container",
+    0
+  )
 ];
 
 for (const hunter of hunters) {
