@@ -213,7 +213,9 @@ setopt CHASE_LINKS
 
 if [[ "$(uname)" == "Darwin" ]]; then
     source /opt/local/share/nvm/init-nvm.sh
-    alias l='ls -laGh'
+    alias l='ls -laGh' 
+
+    source /opt/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
     source /usr/share/zsh/plugins/fzf-tab-source/fzf-tab.plugin.zsh
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
