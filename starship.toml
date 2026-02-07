@@ -70,7 +70,7 @@ aliases = { "" = "Unknown" }
 ssh_only = false
 ssh_symbol = "󰣀"
 style = "bg:prev_bg fg:base"
-format = "@[$ssh_symbol$hostname]($style)"
+format = "@[$hostname$ssh_symbol]($style)"
 
 [os.symbols]
 Windows = ""
