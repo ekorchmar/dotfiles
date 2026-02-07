@@ -145,6 +145,8 @@ alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias diff='diff --color=auto'
 alias cat='bat'
+alias ls='eza'
+alias l='eza -la --icons --git --group-directories-first -h'
 
 # Mnemonics
 alias c='clear'
@@ -213,8 +215,6 @@ setopt CHASE_LINKS
 
 if [[ "$(uname)" == "Darwin" ]]; then
     source /opt/local/share/nvm/init-nvm.sh
-    alias l='ls -laGh' 
-
     source /opt/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
     source /usr/share/zsh/plugins/fzf-tab-source/fzf-tab.plugin.zsh
@@ -223,9 +223,6 @@ else
 
     # preview directory's content with eza when completing cd
     zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath --icons --git --group-directories-first '
-
-    alias ls='eza'
-    alias l='eza -la --icons --git --group-directories-first -h'
 fi
 
 source <(zoxide init zsh --cmd cd)
