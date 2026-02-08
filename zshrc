@@ -186,14 +186,9 @@ else
     export TERMUX_X11_XSTARTUP="xfce4-session"
 fi
 
-# I miss MacOS sometimes
-function open () {
-    if [[ ! -a $1 ]]; then
-        nvim $1
-    else
-        xdg-open "$1" 1>/dev/null 2>&1 & disown
-    fi
-}
+    # I miss MacOS sometimes
+    alias open=kde-open
+fi
 
 # Update all the things
 alias dopamine='topgrade'
