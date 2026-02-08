@@ -182,6 +182,8 @@ if [[ -z $ANDROID_DATA ]]; then
     # My custom scripts
     path+=('/home/ekorchmar/.local/bin')
     export PATH
+else
+    export TERMUX_X11_XSTARTUP="xfce4-session"
 fi
 
 # I miss MacOS sometimes
