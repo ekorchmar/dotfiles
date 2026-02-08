@@ -134,7 +134,7 @@ unsetopt nomatch
 # Starsip prompt
 source <(starship init zsh --print-full-init)
 # If we are in TTY, use legacy color config
-if [[ $XDG_SESSION_TYPE == "tty" ]]; then
+if [[ $XDG_SESSION_TYPE == "tty" ]] && [[ -z $SSH_CONNECTION ]]; then
     export STARSHIP_CONFIG=~/.config/starship_tty.toml
 fi
 
@@ -184,8 +184,6 @@ if [[ -z $ANDROID_DATA ]]; then
     export PATH
 else
     export TERMUX_X11_XSTARTUP="xfce4-session"
-fi
-
     # I miss MacOS sometimes
     alias open=kde-open
 fi
