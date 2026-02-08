@@ -1,7 +1,9 @@
-from importlib import invalidate_caches, import_module
+import json
+import pathlib
+from importlib import import_module, invalidate_caches
 from importlib.util import find_spec
-import os
 from urllib.request import urlopen
+
 from PyQt6.QtGui import QColor
 
 ## Documentation:
@@ -18,7 +20,8 @@ config = config  # pyright: ignore[reportUndefinedVariable]  # noqa: F821
 config.load_autoconfig(True)
 
 # Install theme
-if not os.path.exists(config.configdir / "theme.py"):
+theme_path = config.configdir / "theme.py"
+if not theme_path.exists():
     theme = "https://raw.githubusercontent.com/catppuccin/qutebrowser/main/setup.py"
     with urlopen(theme) as themehtml:
         with open(config.configdir / "theme.py", "a") as file:
@@ -27,7 +30,54 @@ if not os.path.exists(config.configdir / "theme.py"):
 if find_spec("theme"):
     invalidate_caches()
     theme = import_module("theme")
-    theme.setup(c, "mocha", True)
+    theme.setup(c, "mocha", samecolorrows=False)
+
+## Search engines which can be used via the address bar.
+c.url.searchengines = {
+    "DEFAULT": "https://duckduckgo.com/?q={}",
+    "!ddg": "https://duckduckgo.com/?q={}",
+}
+
+# Include DuckDuckGo's bangs
+bangs: dict[str, str]
+bangs_path: pathlib.Path = config.configdir / "bangs.json"
+if bangs_path.exists():
+    with open(bangs_path, "r") as f:
+        bangs = json.load(f)
+else:
+    bangs_data_raw: list[dict[str, str]]
+    with urlopen("https://duckduckgo.com/bang.js") as bangs_json:
+        bangs_data_raw = json.load(bangs_json)
+
+        # This is an array, but we want a map
+        bangs = {
+            "!" + entry["t"]: entry["u"]
+            # Substitute DuckDuckGo template
+            .replace("{{{s}}}", "%%QUTE_QUERY%%")
+            # Escape brackets (https://www.ietf.org/rfc/rfc2396.txt)
+            .replace("{", "%7B")
+            .replace("}", "%7D")
+            # Insert qutebrowsers template
+            .replace("%%QUTE_QUERY%%", "{0}")
+            for entry in bangs_data_raw
+            if (
+                # Only use latin
+                all(char.isascii() for char in entry["t"])
+                and
+                # Malformed queries with unbalanced parentheses
+                entry["u"].count("}") == entry["u"].count("{")
+            )
+        }
+
+        # Append query template where it is missing
+        for bang, url in bangs.items():
+            if "{0}" not in url:
+                bangs[bang] = url + "{0}"
+
+        with open(bangs_path, "w") as f:
+            json.dump(bangs, f, indent=4)
+
+c.url.searchengines |= bangs
 
 # Tabs to not to occupy full width
 c.tabs.max_width = 300
@@ -51,15 +101,13 @@ def make_transparent(
 c.statusbar.position = "top"
 c.statusbar.padding = {side: 5 for side in ["top", "bottom", "right", "left"]}
 
-# In normal mode, use tab bar background color as status bar background
-make_transparent(
-    "colors.statusbar.normal.bg",
-    panel_transparency,
-    QColor(config.get("colors.tabs.bar.bg")),
-)
-
-for mode in ["caret", "command", "insert", "passthrough"]:
-    make_transparent(f"colors.statusbar.{mode}.bg", panel_transparency)
+# Use tab bar background color as status bar background
+for mode in ["caret", "command", "insert", "passthrough", "normal"]:
+    make_transparent(
+        f"colors.statusbar.{mode}.bg",
+        panel_transparency,
+        QColor(config.get("colors.tabs.bar.bg")),
+    )
 # Make private mode status bar more visible
 config.set("colors.statusbar.private.bg", f"rgba(80, 40, 120, {panel_transparency})")
 
@@ -112,6 +160,7 @@ c.colors.webpage.darkmode.enabled = True
 ##   - smart-simple: On QtWebEngine 6.6, use a simpler algorithm for smart mode (based on numbers of colors and transparency), rather than an ML-based model. Same as 'smart' on older QtWebEnigne versions.
 c.colors.webpage.darkmode.policy.images = "never"
 
+c.completion.use_best_match = True
 c.completion.open_categories = [
     "bookmarks",
     "history",
@@ -126,7 +175,18 @@ c.content.autoplay = False
 c.tabs.last_close = "blank"
 
 ## List of URLs to ABP-style adblocking rulesets
-# c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt', 'https://easylist.to/easylist/easyprivacy.txt']
+c.content.blocking.adblock.lists = [
+    # Default
+    "https://easylist.to/easylist/easylist.txt",
+    "https://easylist.to/easylist/easyprivacy.txt",
+    # Sourced from https://github.com/bongochong/CombinedPrivacyBlockLists
+    "https://raw.githubusercontent.com/bongochong/CombinedPrivacyBlockLists/master/newhosts-final.hosts",
+    "https://raw.githubusercontent.com/bongochong/CombinedPrivacyBlockLists/master/cpbl-abp-list.txt",
+    "https://raw.githubusercontent.com/bongochong/CombinedPrivacyBlockLists/master/pac-done.js",
+    "https://raw.githubusercontent.com/bongochong/CombinedPrivacyBlockLists/master/combined-final-win.dat",
+    "https://raw.githubusercontent.com/bongochong/CombinedPrivacyBlockLists/master/combined-final.cidr",
+    # TODO: add https://github.com/blocklistproject/Lists?tab=readme-ov-file#available-lists
+]
 
 ## A list of patterns that should always be loaded, despite being blocked
 ## by the ad-/host-blocker. Local domains are always exempt from
@@ -274,18 +334,6 @@ c.url.start_pages = ["about:blank"]
 ##   - anchor
 # c.url.incdec_segments = ['path', 'query']
 
-## Search engines which can be used via the address bar.
-c.url.searchengines = {
-    "DEFAULT": "https://duckduckgo.com/?q={}",
-    "ddg": "https://duckduckgo.com/?q={}",
-    "gg": "https://www.google.com/search?q={}",
-    "gi": "https://www.google.com/search?q={}&udm=2",
-    "yt": "https://www.youtube.com/results?search_query={}",
-    "w": "https://en.wikipedia.org/wiki/{}",
-    "gm": "https://www.google.de/maps/search/{}",
-    "gh": "https://github.com/search?q={}",
-}
-
 ## Default zoom level.
 ## Type: Perc
 c.zoom.default = "110%"
@@ -354,3 +402,4 @@ config.bind(",i", "spawn -d gwenview {url}", mode="normal")
 config.bind(",f", "spawn -d firefox {url}", mode="normal")
 config.bind(",c", "spawn -d chromium {url}", mode="normal")
 config.bind(",p", "spawn -d okular {url}", mode="normal")
+config.bind(",v", "spawn -d vlc {url}", mode="normal")
