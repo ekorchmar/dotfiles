@@ -11,3 +11,11 @@ run = "git"
 id  = "git"
 url = "*/"
 run = "git"
+
+[[plugin.prepend_previewers]]
+url = "*.md"
+run = 'faster-piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"'
+
+[[plugin.prepend_previewers]]
+url = "*.csv"
+run = 'faster-piper -- bat -p --color=always "$1"'

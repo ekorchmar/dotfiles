@@ -1,24 +1,27 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "d078b01"
+rev = "88990a6"
 hash = "270915fa8282a19908449530ff66f7e2"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:jump-to-char"
-rev = "d078b01"
+rev = "88990a6"
 hash = "ce67445ebb1bf3d97b8e44f50904b2c5"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-filter"
-rev = "d078b01"
+rev = "88990a6"
 hash = "407d19bc4fb46eff5fa8ff8337644847"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mime-ext"
-rev = "d078b01"
-hash = "7b7dc677b58371da6fc63e4fcd134651"
+rev = "88990a6"
+hash = "8b177921e50732b2c8e9d71aa5956270"
 
-[[flavor.deps]]
-use = "BennyOe/tokyo-night"
-rev = "8e6296f"
-hash = "d9da921c3bd37ba32ee27a8a7a40461f"
+[[plugin.deps]]
+use = "alberti42/faster-piper"
+rev = "8b794bf"
+hash = "fac71f8ce9447ad509b5aad9e0d8c694"
+
+[flavor]
+deps = []
