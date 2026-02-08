@@ -1,3 +1,5 @@
+if vim.g.vscode then return {} end
+
 -- Personal preference
 vim.g.autoformat = false
 vim.opt.cmdheight = 2

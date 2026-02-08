@@ -1,4 +1,4 @@
-local COPILOT_ENABLED = os.getenv "DISABLE_COPILOT" == nil
+local COPILOT_ENABLED = os.getenv "DISABLE_COPILOT" == nil and not vim.g.vscode
 local default_oil_columns = {
   "permissions",
   "size",
