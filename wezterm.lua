@@ -360,6 +360,34 @@ local function set_controls()
                 window:set_config_overrides(overrides)
             end),
         },
+        -- Ctrl + Shift + "+" to increase zoom
+        {
+            key = "+",
+            mods = "CTRL|SHIFT",
+            action = act.IncreaseFontSize,
+        },
+        {
+            key = "*", -- Shifted "+" on de_DE
+            mods = "CTRL|SHIFT",
+            action = act.IncreaseFontSize,
+        },
+        -- Ctrl + Shift + "-" to decrease zoom
+        {
+            key = "-",
+            mods = "CTRL|SHIFT",
+            action = act.DecreaseFontSize,
+        },
+        {
+            key = "_", -- Shifted "-" on de_DE
+            mods = "CTRL|SHIFT",
+            action = act.DecreaseFontSize,
+        },
+        -- Ctrl + Shift + 0 to reset zoom
+        {
+            key = "=", -- Shifted "0" on de_DE
+            mods = "CTRL|SHIFT",
+            action = act.ResetFontSize,
+        },
     }
     -- Alt + number for corresponding tab
     for i = 1, 9 do
