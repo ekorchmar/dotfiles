@@ -403,3 +403,7 @@ config.bind(",f", "spawn -d firefox {url}", mode="normal")
 config.bind(",c", "spawn -d chromium {url}", mode="normal")
 config.bind(",p", "spawn -d okular {url}", mode="normal")
 config.bind(",v", "spawn -d vlc {url}", mode="normal")
+
+# Reduce logging level to prevent leaks
+c.logging.level.console = "warning"
+c.logging.level.ram = "warning"
