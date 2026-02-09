@@ -21,6 +21,7 @@ $c\
 $cpp\
 $julia\
 $cmake\
+$typst\
 $time$battery\
 \n$character"""
 
@@ -131,6 +132,11 @@ format = '[[ $symbol ($version) ](fg:111 bg:236)]($style)'
 
 [julia]
 symbol = "jl"
+style = "bg:236"
+format = '[[ $symbol ($version) ](fg:111 bg:236)]($style)'
+
+[typst]
+symbol = "t"
 style = "bg:236"
 format = '[[ $symbol ($version) ](fg:111 bg:236)]($style)'
 

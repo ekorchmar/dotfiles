@@ -26,6 +26,7 @@ $c\
 $cpp\
 $julia\
 $cmake\
+$typst\
 [](bg:crust fg:prev_bg)\
 $battery$time\
 $line_break$character"""
@@ -235,6 +236,11 @@ vimcmd_symbol = "[󰧑 ](bold mauve)"
 vimcmd_replace_one_symbol = "[󰋇 ](bold peach)"
 vimcmd_replace_symbol = "[ ](bold peach)"
 vimcmd_visual_symbol = "[ ](bold green)"
+
+[typst]
+symbol = ""
+style = "bg:prev_bg fg:lavender"
+format = "[ $symbol ($version) ]($style)"
 
 # Physical world
 [battery]
