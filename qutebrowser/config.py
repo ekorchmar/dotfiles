@@ -407,3 +407,9 @@ config.bind(",v", "spawn -d vlc {url}", mode="normal")
 # Reduce logging level to prevent leaks
 c.logging.level.console = "warning"
 c.logging.level.ram = "warning"
+
+# pass support
+config.bind("zl", "spawn --userscript qute-pass")
+config.bind("zul", "spawn --userscript qute-pass --username-only")
+config.bind("zpl", "spawn --userscript qute-pass --password-only")
+config.bind("zol", "spawn --userscript qute-pass --otp-only")
