@@ -4,6 +4,7 @@ local act = wezterm.action
 
 DARK_COLOR_SCHEME = "Catppuccin Mocha"
 LIGHT_COLOR_SCHEME = "Catppuccin Latte"
+local TABS_AT_BOTTOM = true
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
@@ -15,6 +16,7 @@ local function set_ui()
     config.command_palette_bg_color = "black"
     config.command_palette_fg_color = "lightgray"
 
+    config.window_decorations = "TITLE | RESIZE"
     config.window_background_opacity = 0.8
 
     --Platform-specific settings
@@ -23,7 +25,9 @@ local function set_ui()
         -- config.text_background_opacity = 0.8
         config.win32_system_backdrop = "Acrylic"
         config.default_prog = { "pwsh", "-NoLogo" }
-        -- Native decorations
+
+        -- Replace native decorations
+        TABS_AT_BOTTOM = false
         config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 
         -- Disable SSH interception
@@ -36,12 +40,9 @@ local function set_ui()
                 args = { "C:\\Program Files\\Git\\bin\\bash.exe" },
             },
         }
-        config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
     elseif string.find(wezterm.target_triple, "darwin") then
-        config.window_decorations = "TITLE | RESIZE"
         config.macos_window_background_blur = 20
     else -- Linux
-        config.window_decorations = "TITLE | RESIZE"
         config.kde_window_background_blur = true
     end
 
@@ -67,6 +68,7 @@ local function set_ui()
 
     -- Tab bar
     config.enable_tab_bar = true
+    config.tab_bar_at_bottom = TABS_AT_BOTTOM
     config.hide_tab_bar_if_only_one_tab = false
     config.tab_max_width = 40
 
@@ -124,8 +126,11 @@ tabline.setup({
             right = wezterm.nerdfonts.ple_upper_right_triangle,
         },
         tab_separators = {
-            left = wezterm.nerdfonts.ple_lower_left_triangle,
-            right = wezterm.nerdfonts.ple_lower_right_triangle,
+            left = TABS_AT_BOTTOM and wezterm.nerdfonts.ple_upper_left_triangle
+                or wezterm.nerdfonts.ple_lower_left_triangle,
+            right = TABS_AT_BOTTOM
+                    and wezterm.nerdfonts.ple_upper_right_triangle
+                or wezterm.nerdfonts.ple_upper_right_triangle,
         },
     },
     sections = {
