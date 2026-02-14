@@ -182,6 +182,20 @@ if [[ -z $ANDROID_DATA ]]; then
     # My custom scripts
     path+=('/home/ekorchmar/.local/bin')
     export PATH
+
+    # Docker with X11 support
+    if [[ -v DISPLAY ]]; then
+        alias listen_x11="xhost +local:"
+        function docker_run_x11() {
+            xhost +local:
+            docker run -e "DISPLAY=$DISPLAY" \
+                --mount type=bind,src=/tmp/.X11-unix,dst=/tmp/.X11-unix \
+                --device=/dev/dri:/dev/dri \
+                --restart=no \
+                -dt \
+                "$@"
+            }
+    fi
 else
     export TERMUX_X11_XSTARTUP="xfce4-session"
     # I miss MacOS sometimes
