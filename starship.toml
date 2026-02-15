@@ -64,14 +64,14 @@ disabled = false
 show_always = true
 style_user = "bg:prev_bg fg:base bold"
 style_root = "bg:prev_bg fg:red bold"
-format = '[$user]($style)'
+format = '[$user@]($style)'
 aliases = { "" = "Unknown" }
 
 [hostname]
 ssh_only = false
 ssh_symbol = "󰣀"
 style = "bg:prev_bg fg:base"
-format = "@[$hostname$ssh_symbol]($style)"
+format = "[$hostname$ssh_symbol]($style)"
 
 [os.symbols]
 Windows = ""
