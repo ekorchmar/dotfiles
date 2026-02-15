@@ -64,7 +64,7 @@ disabled = false
 show_always = true
 style_user = "bg:prev_bg fg:base bold"
 style_root = "bg:prev_bg fg:red bold"
-format = '[$user@]($style)'
+format = '[$user]($style)[@](bg:prev_bg fg:base)'
 aliases = { "" = "Unknown" }
 
 [hostname]
