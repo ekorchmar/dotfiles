@@ -236,6 +236,7 @@ FS.folder.command = CMD_PREPEND + ["yazi", "--cwd-file={}"]
 FS.multiple_files.command = CMD_PREPEND + ["yazi", "--chooser-file={}"]
 FS.single_file.command = CMD_PREPEND + ["yazi", "--chooser-file={}"]
 
+c.prompt.filebrowser = False
 c.downloads.location.directory = "~/Downloads"
 c.downloads.position = "top"
 c.downloads.remove_finished = 30 * 1000  # 30 seconds
@@ -413,3 +414,6 @@ config.bind("zl", "spawn --userscript qute-pass")
 config.bind("zul", "spawn --userscript qute-pass --username-only")
 config.bind("zpl", "spawn --userscript qute-pass --password-only")
 config.bind("zol", "spawn --userscript qute-pass --otp-only")
+
+## Use KGet for downloading urls
+config.bind(";U", "hint links spawn kget {url}", mode="normal")
