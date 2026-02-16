@@ -488,12 +488,16 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
 end)
 
 wezterm.on("bell", function(window, pane)
-    if window:is_focused() then
+    if not pane:has_unseen_output() then
         -- No bell for focused windows
         return
     end
-    local message = 'Bell in pane "' .. pane:get_title() .. '"'
-    window:toast_notification("BEEP BOOP", message, nil, 5000)
+    local tab = pane:tab()
+    local message = "Tab "
+        .. tab:tab_id()
+        .. ": "
+        .. (pane:get_foreground_process_name() or "Unknown")
+    window:toast_notification("Bell in unfocused pane", message, nil, 5000)
 end)
 
 -- Smart splits with neovim
