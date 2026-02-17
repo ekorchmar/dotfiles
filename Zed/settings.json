@@ -37,6 +37,7 @@
   "git_panel": {
     "button": false
   },
+  "icon_theme": "Catppuccin Mocha",
   "indent_guides": {
     "background_coloring": "disabled",
     "coloring": "indent_aware"
@@ -101,8 +102,8 @@
     "working_directory": "current_file_directory"
   },
   "theme": {
-    "dark": "Catppuccin Mocha",
-    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha (Blur) [Heavy]",
+    "light": "Catppuccin Latte (Blur) [Heavy]",
     "mode": "system"
   },
   "title_bar": {
