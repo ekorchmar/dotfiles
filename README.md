@@ -20,6 +20,7 @@ A place for me to store configs for the software I use. Configs are not recommen
 14. [Neovim](#Neovim)
 15. [foot](#foot)
 16. [qutebrowser](#qutebrowser)
+17. [zed](#zed)
 
 ## lvim
 
@@ -89,3 +90,7 @@ Setup for Foot terminal emulator, to set up a minimalistic HUD-style user experi
 ## qutebrowser
 
 Setup for qutebrowser with better defaults, transparency and Catppuccin Mocha theme.
+
+## Zed
+
+Custom config for Zed code editor, with visual slimming and better defaults.

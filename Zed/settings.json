@@ -1,0 +1,131 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "auto_signature_help": true,
+  "bottom_dock_layout": "full",
+  "buffer_font_family": "FiraCode Nerd Font Mono",
+  "buffer_font_size": 18.0,
+  "collaboration_panel": {
+    "button": false
+  },
+  "colorize_brackets": true,
+  "diagnostics": {
+    "inline": {
+      "enabled": false
+    }
+  },
+  "edit_predictions": {
+    "provider": "copilot"
+  },
+  "ensure_final_newline_on_save": false,
+  "extend_comment_on_newline": false,
+  "file_finder": {
+    "file_icons": true
+  },
+  "format_on_save": "off",
+  "git": {
+    "blame": {
+      "show_avatar": false
+    }
+  },
+  "git_panel": {
+    "button": false
+  },
+  "indent_guides": {
+    "background_coloring": "disabled",
+    "coloring": "indent_aware"
+  },
+  "inlay_hints": {
+    "enabled": true,
+    "show_background": true,
+    "show_parameter_hints": false
+  },
+  "notification_panel": {
+    "button": false
+  },
+  "on_last_window_closed": "quit_app",
+  "outline_panel": {
+    "dock": "right",
+    "folder_icons": false,
+    "git_status": false
+  },
+  "preview_tabs": {
+    "enabled": false
+  },
+  "project_panel": {
+    "auto_open": {
+      "on_paste": false
+    },
+    "bold_folder_labels": true,
+    "button": true,
+    "drag_and_drop": false,
+    "entry_spacing": "comfortable",
+    "folder_icons": false,
+    "git_status": true,
+    "hide_root": true,
+    "starts_open": false
+  },
+  "redact_private_values": true,
+  "relative_line_numbers": "wrapped",
+  "remove_trailing_whitespace_on_save": false,
+  "rounded_selection": false,
+  "search": {
+    "button": true,
+    "center_on_match": true,
+    "regex": true
+  },
+  "show_completion_documentation": false,
+  "show_whitespaces": "selection",
+  "sticky_scroll": {
+    "enabled": true
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+    "show_pinned_tabs_in_separate_row": false,
+    "show_tab_bar_buttons": false
+  },
+  "tabs": {
+    "close_position": "right",
+    "file_icons": false,
+    "git_status": false,
+    "show_close_button": "hidden"
+  },
+  "terminal": {
+    "dock": "right",
+    "working_directory": "current_file_directory"
+  },
+  "theme": {
+    "dark": "Catppuccin Mocha",
+    "light": "Catppuccin Latte",
+    "mode": "system"
+  },
+  "title_bar": {
+    "show_branch_icon": true,
+    "show_menus": true,
+    "show_onboarding_banner": false,
+    "show_project_items": true,
+    "show_user_menu": true,
+    "show_user_picture": false
+  },
+  "ui_font_family": "FiraCode Nerd Font Mono",
+  "ui_font_size": 18.0,
+  "use_smartcase_search": true,
+  "use_system_path_prompts": false,
+  "use_system_prompts": false,
+  "vim": {
+    "use_smartcase_find": true
+  },
+  "vim_mode": true,
+  "when_closing_with_no_tabs": "keep_window_open",
+  "which_key": {
+    "delay_ms": 400,
+    "enabled": true
+  },
+  "window_decorations": "server"
+}
