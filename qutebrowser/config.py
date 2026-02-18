@@ -415,5 +415,6 @@ config.bind("zul", "spawn --userscript qute-pass --username-only")
 config.bind("zpl", "spawn --userscript qute-pass --password-only")
 config.bind("zol", "spawn --userscript qute-pass --otp-only")
 
-## Use KGet for downloading urls
+## Use KGet/KTorrent for downloading urls
 config.bind(";U", "hint links spawn kget {url}", mode="normal")
+config.bind(";T", "hint links spawn ktorrent {url}", mode="normal")
