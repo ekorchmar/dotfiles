@@ -213,7 +213,8 @@ c.content.prefers_reduced_motion = True
 ## Never open external protocols in browser
 c.content.register_protocol_handler = False
 
-CMD_PREPEND = [
+
+EDIT_CMD_PREPEND = [
     "wezterm",
     "start",
     "--",
@@ -221,8 +222,7 @@ CMD_PREPEND = [
 
 
 ## Editor (and arguments) to use for the `edit-*` commands
-# FIXME: does not work!
-c.editor.command = CMD_PREPEND + [
+c.editor.command = EDIT_CMD_PREPEND + [
     "nvim",
     "-f",
     "{file}",
@@ -230,11 +230,16 @@ c.editor.command = CMD_PREPEND + [
     "normal {line}G{column0}l",
 ]
 
+PICK_CMD_PREPEND = [
+    "footclient",
+    "--",
+]
+
 FS = c.fileselect
 FS.handler = "external"
-FS.folder.command = CMD_PREPEND + ["yazi", "--cwd-file={}"]
-FS.multiple_files.command = CMD_PREPEND + ["yazi", "--chooser-file={}"]
-FS.single_file.command = CMD_PREPEND + ["yazi", "--chooser-file={}"]
+FS.folder.command = PICK_CMD_PREPEND + ["yazi", "--cwd-file={}"]
+FS.multiple_files.command = PICK_CMD_PREPEND + ["yazi", "--chooser-file={}"]
+FS.single_file.command = PICK_CMD_PREPEND + ["yazi", "--chooser-file={}"]
 
 c.prompt.filebrowser = False
 c.downloads.location.directory = "~/Downloads"
