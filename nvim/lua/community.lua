@@ -22,7 +22,6 @@ local spec = {
 
     { import = P .. "rainbow-delimiter-indent-blankline" },
 
-    { import = E .. "dial-nvim" },
     { import = E .. "hypersonic-nvim" },
     { import = E .. "nvim-origami" },
     { import = E .. "nvim-regexplainer" },
