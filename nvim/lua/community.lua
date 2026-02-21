@@ -4,9 +4,9 @@
 
 local AC = "astrocommunity."
 local C = AC .. "colorscheme."
-local P = AC .. "pack."
 local E = AC .. "editing-support."
 local R = AC .. "recipes."
+local P = AC  .. "pack.python."
 
 ---@type LazySpec
 local spec = {
@@ -15,12 +15,11 @@ local spec = {
 
     { import = AC .. "docker.lazydocker" },
     { import = AC .. "motion.nvim-surround" },
+    { import = AC .. "pack.rainbow-delimiter-indent-blankline" },
 
     { import = C .. "tokyonight-nvim" },
     { import = C .. "rose-pine" },
     { import = C .. "catppuccin" },
-
-    { import = P .. "rainbow-delimiter-indent-blankline" },
 
     { import = E .. "hypersonic-nvim" },
     { import = E .. "nvim-origami" },
@@ -37,6 +36,9 @@ local spec = {
     { import = R .. "heirline-vscode-winbar" },
     { import = R .. "heirline-nvchad-statusline" },
     { import = R .. "vscode" },
+
+    { import = P .. "basedpyright" },
+    { import = P .. "ruff" },
 }
 
 -- Languages
@@ -50,7 +52,6 @@ local langs = {
     "lua",
     "markdown",
     "ps1",
-    "python-ruff",
     "rust",
     "sql",
     "toml",
@@ -60,7 +61,7 @@ local langs = {
 
 for _, lang in pairs(langs) do
     ---@diagnostic disable-next-line
-    table.insert(spec, { import = P .. lang })
+    table.insert(spec, { import = AC .. "pack." .. lang })
 end
 
 return spec
