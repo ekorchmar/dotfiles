@@ -98,7 +98,8 @@ def make_transparent(
 
 
 # Status bar above the tab bar
-c.statusbar.position = "top"
+c.tabs.position = "bottom"
+c.statusbar.position = "bottom"
 c.statusbar.padding = {side: 5 for side in ["top", "bottom", "right", "left"]}
 
 # Use tab bar background color as status bar background
@@ -304,7 +305,6 @@ c.tabs.show = "always"
 c.statusbar.widgets = ["search_match", "progress", "url", "scroll"]
 
 # Tab styling and formatting
-c.tabs.position = "top"
 c.tabs.select_on_remove = "last-used"
 c.tabs.title.alignment = "left"
 c.tabs.title.elide = "middle"
