@@ -6,7 +6,8 @@ local AC = "astrocommunity."
 local C = AC .. "colorscheme."
 local E = AC .. "editing-support."
 local R = AC .. "recipes."
-local P = AC  .. "pack.python."
+local P = AC .. "pack.python."
+local T = AC .. "terminal-integration."
 
 ---@type LazySpec
 local spec = {
@@ -15,7 +16,6 @@ local spec = {
 
     { import = AC .. "docker.lazydocker" },
     { import = AC .. "motion.nvim-surround" },
-    { import = AC .. "pack.rainbow-delimiter-indent-blankline" },
 
     { import = C .. "tokyonight-nvim" },
     { import = C .. "rose-pine" },
@@ -40,6 +40,12 @@ local spec = {
     { import = P .. "basedpyright" },
     { import = P .. "ruff" },
 }
+
+-- tmux specific
+if vim.env.TMUX then
+    table.insert(spec, { import = T .. "vim-tmux-navigator" })
+    table.insert(spec, { import = T .. "vim-tmux-yank" })
+end
 
 -- Languages
 local langs = {
