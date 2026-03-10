@@ -14,6 +14,11 @@ from PyQt6.QtGui import QColor
 c = c  # pyright: ignore[reportUndefinedVariable]  # noqa: F821
 config = config  # pyright: ignore[reportUndefinedVariable]  # noqa: F821
 
+# Constants for quick switching
+CONTROLS_POSITION = "top"
+FLAVOR = "mocha"
+PANEL_TRANSPARENCY = round(0xFF * 0.7)
+TAB_TRANSPARENCY = round(0xFF * 0.85)
 
 ## This is here so configs done via the GUI are still loaded.
 ## Remove it to not load settings done via the GUI.
@@ -30,7 +35,7 @@ if not theme_path.exists():
 if find_spec("theme"):
     invalidate_caches()
     theme = import_module("theme")
-    theme.setup(c, "mocha", samecolorrows=False)
+    theme.setup(c, FLAVOR, samecolorrows=False)
 
 ## Search engines which can be used via the address bar.
 c.url.searchengines = {
@@ -84,8 +89,6 @@ c.tabs.max_width = 300
 
 # Transparent tab bar & status bar
 c.window.transparent = True
-panel_transparency = round(0xFF * 0.7)
-tab_transparency = round(0xFF * 0.85)
 
 
 def make_transparent(
@@ -98,19 +101,19 @@ def make_transparent(
 
 
 # Status bar above the tab bar
-c.tabs.position = "bottom"
-c.statusbar.position = "bottom"
+c.tabs.position = CONTROLS_POSITION
+c.statusbar.position = CONTROLS_POSITION
 c.statusbar.padding = {side: 5 for side in ["top", "bottom", "right", "left"]}
 
 # Use tab bar background color as status bar background
 for mode in ["caret", "command", "insert", "passthrough", "normal"]:
     make_transparent(
         f"colors.statusbar.{mode}.bg",
-        panel_transparency,
+        PANEL_TRANSPARENCY,
         QColor(config.get("colors.tabs.bar.bg")),
     )
 # Make private mode status bar more visible
-config.set("colors.statusbar.private.bg", f"rgba(80, 40, 120, {panel_transparency})")
+config.set("colors.statusbar.private.bg", f"rgba(80, 40, 120, {PANEL_TRANSPARENCY})")
 
 # Catpuccin sets too dark of a color for progress
 config.set("colors.statusbar.progress.bg", "#dd7878")
@@ -126,7 +129,7 @@ for color_path_tail in [
 ]:
     make_transparent(
         f"colors.tabs.{color_path_tail}.bg",
-        panel_transparency if color_path_tail == "bar" else tab_transparency,
+        PANEL_TRANSPARENCY if color_path_tail == "bar" else TAB_TRANSPARENCY,
     )
 # Catpuccin does not style pinned tab colors, set them to match normal tabs
 for tail in ["even", "odd", "selected.even", "selected.odd"]:
@@ -244,7 +247,7 @@ FS.single_file.command = PICK_CMD_PREPEND + ["yazi", "--chooser-file={}"]
 
 c.prompt.filebrowser = False
 c.downloads.location.directory = "~/Downloads"
-c.downloads.position = "top"
+c.downloads.position = "top" if CONTROLS_POSITION == "bottom" else "bottom"
 c.downloads.remove_finished = 30 * 1000  # 30 seconds
 
 ## Default font families to use in the UI
@@ -277,10 +280,11 @@ c.input.insert_mode.plugins = True
 ##   - never: Never use low-end device mode.
 c.qt.chromium.low_end_device_mode = "always"  # ?
 
-## Additional environment variables to set. Setting an environment
-## variable to null/None will unset it.
-## Type: Dict
-# c.qt.environ = {}
+## Additional environment variables to set
+c.qt.environ = {
+    # Fixes transparent gaps, though makes menus ugly
+    "QT_STYLE_OVERRIDE": "fusion",
+}
 
 ## Turn on Qt HighDPI scaling
 c.qt.highdpi = True
@@ -417,3 +421,14 @@ c.logging.level.ram = "warning"
 ## Use KGet/KTorrent for downloading urls
 config.bind(";U", "hint links spawn kget {url}", mode="normal")
 config.bind(";T", "hint links spawn ktorrent {url}", mode="normal")
+
+## Shortcut for last download
+config.bind("cO", "download-open", mode="normal")
+
+## Shortcut to invert browser controls bottom/top
+config.bind(
+    ",w",
+    "config-cycle tabs.position top bottom ;; "
+    "config-cycle statusbar.position top bottom ;;"
+    "config-cycle downloads.position bottom top ",
+)
