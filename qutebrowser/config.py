@@ -239,11 +239,13 @@ PICK_CMD_PREPEND = [
     "--",
 ]
 
+FILE_PICKER = PICK_CMD_PREPEND + ["nnn", "-p", "{}"]
+
 FS = c.fileselect
 FS.handler = "external"
-FS.folder.command = PICK_CMD_PREPEND + ["yazi", "--cwd-file={}"]
-FS.multiple_files.command = PICK_CMD_PREPEND + ["yazi", "--chooser-file={}"]
-FS.single_file.command = PICK_CMD_PREPEND + ["yazi", "--chooser-file={}"]
+FS.folder.command = FILE_PICKER
+FS.multiple_files.command = FILE_PICKER
+FS.single_file.command = FILE_PICKER
 
 c.prompt.filebrowser = False
 c.downloads.location.directory = "~/Downloads"
