@@ -4,7 +4,6 @@ local act = wezterm.action
 
 DARK_COLOR_SCHEME = "Catppuccin Mocha"
 LIGHT_COLOR_SCHEME = "Catppuccin Latte"
-local TABS_AT_BOTTOM = true
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
@@ -27,8 +26,7 @@ local function set_ui()
         config.default_prog = { "pwsh", "-NoLogo" }
 
         -- Replace native decorations
-        TABS_AT_BOTTOM = false
-        config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+        config.tab_bar_at_bottom = false
 
         -- Disable SSH interception
         config.mux_enable_ssh_agent = false
@@ -42,8 +40,10 @@ local function set_ui()
         }
     elseif string.find(wezterm.target_triple, "darwin") then
         config.macos_window_background_blur = 20
+        config.tab_bar_at_bottom = true
     else -- Linux
         config.kde_window_background_blur = true
+        config.tab_bar_at_bottom = true
     end
 
     -- Bell notification
@@ -56,7 +56,7 @@ local function set_ui()
         fade_out_function = "EaseOut",
         fade_out_duration_ms = 150,
     }
-    config.colors.visual_bell = "#202020"
+    config.colors = { visual_bell = "#202020" }
 
     -- Window padding
     config.window_padding = {
@@ -68,7 +68,6 @@ local function set_ui()
 
     -- Tab bar
     config.enable_tab_bar = true
-    config.tab_bar_at_bottom = TABS_AT_BOTTOM
     config.hide_tab_bar_if_only_one_tab = false
     config.tab_max_width = 40
 
@@ -117,61 +116,71 @@ local function no_default(name, tab)
 end
 
 -- Apply the tabline
-local tabline =
-    wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-tabline.setup({
-    options = {
-        section_separators = {
-            left = wezterm.nerdfonts.ple_upper_left_triangle,
-            right = wezterm.nerdfonts.ple_upper_right_triangle,
-        },
-        tab_separators = {
-            left = TABS_AT_BOTTOM and wezterm.nerdfonts.ple_upper_left_triangle
-                or wezterm.nerdfonts.ple_lower_left_triangle,
-            right = TABS_AT_BOTTOM
-                    and wezterm.nerdfonts.ple_upper_right_triangle
-                or wezterm.nerdfonts.ple_upper_right_triangle,
-        },
-    },
-    sections = {
-        tabline_a = { "mode" },
-        tabline_b = {},
-        tabline_c = {},
-        tab_active = {
-            { "index", padding = 0 },
-            {
-                "process",
-                padding = { left = 1, right = 0 },
-                icons_only = true,
+local function apply_tabline()
+    local tabline = wezterm.plugin.require(
+        "https://github.com/michaelbrusegard/tabline.wez"
+    )
+    tabline.setup({
+        options = {
+            theme = DARK_COLOR_SCHEME,
+            section_separators = {
+                left = wezterm.nerdfonts.ple_upper_left_triangle,
+                right = wezterm.nerdfonts.ple_upper_right_triangle,
             },
-            {
-                "tab",
-                padding = { left = 0, right = 0 },
-                icons_enabled = false,
-                fmt = no_default,
+            tab_separators = {
+                left = config.tab_bar_at_bottom
+                        and wezterm.nerdfonts.ple_upper_left_triangle
+                    or wezterm.nerdfonts.ple_lower_left_triangle,
+                right = config.tab_bar_at_bottom
+                        and wezterm.nerdfonts.ple_upper_right_triangle
+                    or wezterm.nerdfonts.ple_lower_right_triangle,
             },
         },
-        tab_inactive = {
-            { "index", padding = 0 },
-            {
-                "process",
-                padding = { left = 1, right = 0 },
-                icons_only = true,
+        sections = {
+            tabline_a = { "mode" },
+            tabline_b = {},
+            tabline_c = {},
+            tab_active = {
+                { "index", padding = 0 },
+                {
+                    "process",
+                    padding = { left = 1, right = 0 },
+                    icons_only = true,
+                },
+                {
+                    "tab",
+                    padding = { left = 0, right = 0 },
+                    icons_enabled = false,
+                    fmt = no_default,
+                },
             },
-            {
-                "tab",
-                padding = { left = 0, right = 0 },
-                icons_enabled = false,
-                fmt = no_default,
+            tab_inactive = {
+                { "index", padding = 0 },
+                {
+                    "process",
+                    padding = { left = 1, right = 0 },
+                    icons_only = true,
+                },
+                {
+                    "tab",
+                    padding = { left = 0, right = 0 },
+                    icons_enabled = false,
+                    fmt = no_default,
+                },
             },
+            tabline_x = { "ram" },
+            tabline_y = { "cpu" },
+            tabline_z = { "domain" },
         },
-        tabline_x = { "ram" },
-        tabline_y = { "cpu" },
-        tabline_z = { "domain" },
-    },
-})
+    })
 
-tabline.apply_to_config(config)
+    tabline.apply_to_config(config)
+
+    -- Tabline overrides some unexpected settings
+    if not config.tab_bar_at_bottom then
+        config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+    end
+end
 
 local function set_controls()
     -- Key bindings
@@ -357,9 +366,14 @@ local function set_controls()
             mods = "ALT|SHIFT",
             action = wezterm.action_callback(function(window, _)
                 local overrides = window:get_config_overrides() or {}
+                local tabline = wezterm.plugin.require(
+                    "https://github.com/michaelbrusegard/tabline.wez"
+                )
                 if overrides.color_scheme == nil then
+                    tabline.set_theme(LIGHT_COLOR_SCHEME)
                     overrides.color_scheme = LIGHT_COLOR_SCHEME
                 else
+                    tabline.set_theme(DARK_COLOR_SCHEME)
                     overrides.color_scheme = nil
                 end
                 window:set_config_overrides(overrides)
@@ -473,7 +487,8 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
             overrides.font_size = nil
             overrides.enable_tab_bar = true
             if
-                ZEN_FORCED_FULLSCREEN and window:get_dimensions().is_full_screen
+                ZEN_FORCED_FULLSCREEN
+                and window:get_dimensions().is_full_screen
             then
                 window:perform_action(act.ToggleFullScreen, pane)
             end
@@ -508,6 +523,7 @@ smart_splits.apply_to_config(config)
 
 -- Return the configuration to wezterm
 set_ui()
+apply_tabline()
 set_controls()
 
 return config
