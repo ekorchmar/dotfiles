@@ -32,6 +32,7 @@ local spec = {
     { import = E .. "undotree" },
 
     { import = R .. "cache-colorscheme" },
+    { import = R .. "diagnostic-virtual-lines-current-line" },
     { import = R .. "astrolsp-no-insert-inlay-hints" },
     { import = R .. "heirline-vscode-winbar" },
     { import = R .. "heirline-nvchad-statusline" },
