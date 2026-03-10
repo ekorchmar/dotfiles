@@ -179,6 +179,8 @@ local function apply_tabline()
     -- Tabline overrides some unexpected settings
     if not config.tab_bar_at_bottom then
         config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+    else
+        config.window_decorations = "TITLE | RESIZE"
     end
 end
 
