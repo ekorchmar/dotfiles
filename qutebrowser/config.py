@@ -208,7 +208,7 @@ c.content.blocking.adblock.lists = [
 ## Type: List of UrlPattern
 # c.content.blocking.whitelist = []
 
-c.content.cookies.accept = "never"  # tCh to toggle per domain
+c.content.cookies.accept = "no-3rdparty"  # tSh to toggle per domain
 c.content.cookies.store = True
 
 ## Allow JavaScript
@@ -366,25 +366,26 @@ config.bind("cD", "download-delete")
 config.bind("<Ctrl-L>", "cmd-set-text :open {url:pretty}")
 config.bind(
     "tCH",
-    "config-cycle -p -u *://*.{url:host}/* content.cookies.accept all never ;; reload",
+    "config-cycle -p -u *://*.{url:host}/* content.cookies.accept all no-3rdparty ;; reload",
 )
 config.bind(
     "tCh",
-    "config-cycle -p -u *://{url:host}/* content.cookies.accept all never ;; reload",
+    "config-cycle -p -u *://{url:host}/* content.cookies.accept all no-3rdparty ;; reload",
 )
 config.bind(
-    "tCu", "config-cycle -p -u {url} content.cookies.accept all never ;; reload"
+    "tCu", "config-cycle -p -u {url} content.cookies.accept all no-3rdparty ;; reload"
 )
 config.bind(
     "tcH",
-    "config-cycle -p -t -u *://*.{url:host}/* content.cookies.accept all never ;; reload",
+    "config-cycle -p -t -u *://*.{url:host}/* content.cookies.accept all no-3rdparty ;; reload",
 )
 config.bind(
     "tch",
-    "config-cycle -p -t -u *://{url:host}/* content.cookies.accept all never ;; reload",
+    "config-cycle -p -t -u *://{url:host}/* content.cookies.accept all no-3rdparty ;; reload",
 )
 config.bind(
-    "tcu", "config-cycle -p -t -u {url} content.cookies.accept all never ;; reload"
+    "tcu",
+    "config-cycle -p -t -u {url} content.cookies.accept all no-3rdparty ;; reload",
 )
 config.bind("<Ctrl-X>", "cmd-edit", mode="command")
 
@@ -409,7 +410,7 @@ config.bind("<Ctrl-Shift-Space>", "tab-give", mode="normal")
 config_cmd_prefix = "set -u *://{url:host}/*"
 for chord, js_setting, cookie_setting in [
     (",t", "true", "all"),
-    (",T", "false", "never"),
+    (",T", "false", "no-3rdparty"),
 ]:
     config.bind(
         chord,

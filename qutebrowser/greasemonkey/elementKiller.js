@@ -9,7 +9,14 @@ class Hunter {
 
 const hunters = [
   new Hunter(
-    "Tai",
+    "Tai on College (lacks any knowledge)",
+    /^https:\/\/labs.cognitiveclass.ai\/v2\/tools\/cloud-ide/,
+    "nav>ul>li.relative",
+    0,
+  ),
+
+  new Hunter(
+    "Tai on Jupyter (is even stupider)",
     /^https:\/\/labs.cognitiveclass.ai\/v2\/tools\/jupyterlab/,
     "nav>ul>li.relative",
     0,
