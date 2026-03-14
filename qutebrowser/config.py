@@ -91,13 +91,11 @@ c.tabs.max_width = 300
 c.window.transparent = True
 
 
-def make_transparent(
-    color_path: str, transparency: int, color_overide: QColor | None = None
-) -> None:
-    color = color_overide or QColor(config.get(color_path))
+def make_qcolor(color_path: str, transparency: int) -> str:
+    color = QColor(config.get(color_path))
     color.setAlpha(transparency)
     color_str = "rgba(" + ",".join(map(str, color.getRgb())) + ")"
-    config.set(color_path, color_str)
+    return color_str
 
 
 # Status bar above the tab bar
@@ -106,12 +104,14 @@ c.statusbar.position = CONTROLS_POSITION
 c.statusbar.padding = {side: 5 for side in ["top", "bottom", "right", "left"]}
 
 # Use tab bar background color as status bar background
+panel_color = make_qcolor(
+    "colors.tabs.bar.bg",
+    PANEL_TRANSPARENCY,
+)
+
 for mode in ["caret", "command", "insert", "passthrough", "normal"]:
-    make_transparent(
-        f"colors.statusbar.{mode}.bg",
-        PANEL_TRANSPARENCY,
-        QColor(config.get("colors.tabs.bar.bg")),
-    )
+    config.set(f"colors.statusbar.{mode}.bg", panel_color)
+
 # Make private mode status bar more visible
 config.set("colors.statusbar.private.bg", f"rgba(80, 40, 120, {PANEL_TRANSPARENCY})")
 
@@ -120,20 +120,30 @@ config.set("colors.statusbar.progress.bg", "#dd7878")
 
 # Tab bar
 # All "selected" are implicitly opaque
+
+# Tabs are colored normally, but more transparent
 for color_path_tail in [
-    "bar",
     "even",
     "odd",
-    "pinned.even",
-    "pinned.odd",
 ]:
-    make_transparent(
+    config.set(
         f"colors.tabs.{color_path_tail}.bg",
-        PANEL_TRANSPARENCY if color_path_tail == "bar" else TAB_TRANSPARENCY,
+        make_qcolor(f"colors.tabs.{color_path_tail}.bg", TAB_TRANSPARENCY),
     )
+
+# Tab bar and pinned tabs are colored like panel
+config.set("colors.tabs.bar.bg", panel_color)
+
+# Pinned tabs are transparent to match the panel
+for tail in ["pinned.even", "pinned.odd"]:
+    config.set(f"colors.tabs.{tail}.bg", "transparent")
+
 # Catpuccin does not style pinned tab colors, set them to match normal tabs
 for tail in ["even", "odd", "selected.even", "selected.odd"]:
-    for component in ["fg", "bg"]:
+    # Non-selected bg is already set
+    affected_components = ["fg", "bg"] if tail.startswith("selected") else ["fg"]
+
+    for component in affected_components:
         src = f"colors.tabs.{tail}.{component}"
         dst = f"colors.tabs.pinned.{tail}.{component}"
         config.set(dst, config.get(src))
