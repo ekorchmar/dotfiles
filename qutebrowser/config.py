@@ -245,8 +245,8 @@ c.editor.command = EDIT_CMD_PREPEND + [
 ]
 
 PICK_CMD_PREPEND = [
-    "footclient",
-    "--",
+    "alacritty",
+    "-e",
 ]
 
 FILE_PICKER = PICK_CMD_PREPEND + ["nnn", "-p", "{}"]

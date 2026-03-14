@@ -21,6 +21,7 @@ A place for me to store configs for the software I use. Configs are not recommen
 15. [foot](#foot)
 16. [qutebrowser](#qutebrowser)
 17. [zed](#zed)
+18. [Alacritty](#alacritty)
 
 ## lvim
 
@@ -94,3 +95,9 @@ Setup for qutebrowser with better defaults, transparency and Catppuccin Mocha th
 ## Zed
 
 Custom config for Zed code editor, with visual slimming and better defaults.
+
+## Alacritty
+
+Custom config for Alacritty terminal emulator, with Catpuccin theme.
+
+TODO: Add light theme switch
