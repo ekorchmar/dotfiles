@@ -523,9 +523,21 @@ local smart_splits =
     wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 smart_splits.apply_to_config(config)
 
+local function setup_ssh_domains()
+    local domains = wezterm.default_ssh_domains()
+    for _, domain in ipairs(domains) do
+        -- Point wezterm to correct ports installation dir on mac
+        if domain.name == "SSHMUX:slug" then
+            domain.remote_wezterm_path = "/usr/local/bin/wezterm"
+        end
+    end
+    config.ssh_domains = domains
+end
+
 -- Return the configuration to wezterm
 set_ui()
 apply_tabline()
 set_controls()
+setup_ssh_domains()
 
 return config
