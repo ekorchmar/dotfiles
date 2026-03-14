@@ -58,14 +58,6 @@ local function set_ui()
     }
     config.colors = { visual_bell = "#202020" }
 
-    -- Window padding
-    config.window_padding = {
-        left = ".5cell",
-        right = 0,
-        top = 0,
-        bottom = 0,
-    }
-
     -- Tab bar
     config.enable_tab_bar = true
     config.hide_tab_bar_if_only_one_tab = false
@@ -182,6 +174,14 @@ local function apply_tabline()
     else
         config.window_decorations = "TITLE | RESIZE"
     end
+
+    -- Window padding
+    config.window_padding = {
+        left = ".5cell",
+        right = 0,
+        top = 0,
+        bottom = 0,
+    }
 end
 
 local function set_controls()
