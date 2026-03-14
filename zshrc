@@ -179,10 +179,6 @@ if [[ -z $ANDROID_DATA ]]; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
     export MANROFFOPT="-c"
 
-    # My custom scripts
-    path+=('/home/ekorchmar/.local/bin')
-    export PATH
-
     # Docker with X11 support
     if [[ -v DISPLAY ]]; then
         alias listen_x11="xhost +local:"
@@ -198,8 +194,6 @@ if [[ -z $ANDROID_DATA ]]; then
     fi
 else
     export TERMUX_X11_XSTARTUP="xfce4-session"
-    # I miss MacOS sometimes
-    alias open=kde-open
 fi
 
 # Update all the things
@@ -225,6 +219,9 @@ setopt CHASE_LINKS
 if [[ "$(uname)" == "Darwin" ]]; then
     source /opt/local/share/nvm/init-nvm.sh
     source /opt/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+    # Add cargo bin as path
+    export PATH="$HOME/.cargo/bin:$PATH"
 else
     source /usr/share/zsh/plugins/fzf-tab-source/fzf-tab.plugin.zsh
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
