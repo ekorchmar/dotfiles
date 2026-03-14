@@ -179,7 +179,7 @@ c.completion.open_categories = [
     "bookmarks",
     "history",
     "quickmarks",
-    "searchengines",
+    # "searchengines",  # Makes little sense with duckduckgo's bangs
 ]
 
 ## Automatically start playing `<video>` elements.
