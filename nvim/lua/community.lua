@@ -38,6 +38,7 @@ local spec = {
     { import = R .. "heirline-nvchad-statusline" },
     { import = R .. "vscode" },
 
+    { import = P .. "base" },
     { import = P .. "basedpyright" },
     { import = P .. "ruff" },
 }
