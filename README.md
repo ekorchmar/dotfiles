@@ -65,8 +65,7 @@ Slightly bluer color scheme, slightly less visual clutter, Nerdfonts icons.
 
 ## fastfetch
 
-The most important part of my dotfiles, holding everything together. Expects a file `~/Pictures/Arch.png` to exist and for
-Kitty graphics to be supported.
+Small config to show relevant information. `.zshrc` will show it in SSH context.
 
 ## direnv
 

@@ -338,7 +338,7 @@ bindkey "^X^E" edit-command-line
 # Just listen, find the magic key
 bindkey " " magic-space
 
-# Foot prompt jumping
-precmd() {
-    print -Pn "\e]133;A\e\\"
-}
+# If in SSH session, report what we got
+if [[ -n $SSH_CONNECTION ]]; then
+    fastfetch
+fi
