@@ -265,7 +265,7 @@ c.downloads.position = "top" if CONTROLS_POSITION == "bottom" else "bottom"
 c.downloads.remove_finished = 30 * 1000  # 30 seconds
 
 ## Default font families to use in the UI
-c.fonts.default_family = "FiraCode Nerd Font Mono"
+c.fonts.default_family = "JetBrains Mono"
 c.fonts.default_size = "14pt"
 
 ## Comma-separated list of regular expressions to use for 'next' links.
