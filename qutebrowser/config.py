@@ -246,8 +246,8 @@ c.editor.command = EDIT_CMD_PREPEND + [
 
 PICK_CMD_PREPEND = [
     "alacritty",
-    "msg",
-    "create-window",
+    # "msg",
+    # "create-window",
     "-e",
 ]
 
