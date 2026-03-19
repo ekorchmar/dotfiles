@@ -71,6 +71,10 @@ local function set_ui()
     -- Graphics acceleration
     config.front_end = "WebGpu"
 
+    -- Quick Select
+    config.quick_select_remove_styling = true
+
+    -- Command palette
     config.command_palette_rows = 8
     config.command_palette_font_size = 16
 end
@@ -409,6 +413,12 @@ local function set_controls()
             mods = "CTRL|SHIFT",
             action = act.ResetFontSize,
         },
+        -- Ctrl + Shift + S for QuickSelect mode
+        {
+            key = "S",
+            mods = "CTRL|SHIFT",
+            action = act.QuickSelect,
+        },
     }
     -- Alt + number for corresponding tab
     for i = 1, 9 do
@@ -517,12 +527,6 @@ wezterm.on("bell", function(window, pane)
     window:toast_notification("Bell in unfocused pane", message, nil, 5000)
 end)
 
--- Smart splits with neovim
--- Need to be here after the key bindings
-local smart_splits =
-    wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
-smart_splits.apply_to_config(config)
-
 local function setup_ssh_domains()
     local domains = wezterm.default_ssh_domains()
     for _, domain in ipairs(domains) do
@@ -539,5 +543,11 @@ set_ui()
 apply_tabline()
 set_controls()
 setup_ssh_domains()
+
+-- Smart splits with neovim
+-- Need to be here after the key bindings
+local smart_splits =
+    wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
+smart_splits.apply_to_config(config)
 
 return config
