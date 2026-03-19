@@ -22,6 +22,7 @@ A place for me to store configs for the software I use. Configs are not recommen
 16. [qutebrowser](#qutebrowser)
 17. [zed](#zed)
 18. [Alacritty](#alacritty)
+19. [KRunner](#krunner)
 
 ## lvim
 
@@ -100,3 +101,7 @@ Custom config for Zed code editor, with visual slimming and better defaults.
 Custom config for Alacritty terminal emulator, with Catpuccin theme.
 
 TODO: Add light theme switch
+
+## KRunner
+
+Enables only a subset of plugins, places input in the middle of the screen and sets very large font.
