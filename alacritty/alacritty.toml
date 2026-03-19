@@ -13,7 +13,7 @@ blur = true
 level = "AlwaysOnTop"
 
 [font]
-normal.family = "JetBrains Mono"
+normal.family = "JetBrainsMono Nerd Font"
 size = 13
 builtin_box_drawing = false
 

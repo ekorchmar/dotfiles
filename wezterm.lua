@@ -64,7 +64,10 @@ local function set_ui()
     config.tab_max_width = 40
 
     -- Font
-    config.font = wezterm.font("JetBrains Mono")
+    config.font = wezterm.font_with_fallback({
+        "JetBrainsMono Nerd Font",
+        "JetBrains Mono",
+    })
     config.adjust_window_size_when_changing_font_size = false
     config.font_size = 14
 

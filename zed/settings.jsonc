@@ -10,7 +10,8 @@
   "$schema": "zed://schemas/settings",
   "auto_signature_help": true,
   "bottom_dock_layout": "full",
-  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_fallbacks": ["JetBrains Mono"],
+  "buffer_font_family": "JetBrainsMono Nerd Font",
   "buffer_font_size": 18.0,
   "collaboration_panel": {
     "button": false,
@@ -115,6 +116,7 @@
     "show_user_menu": true,
     "show_user_picture": false,
   },
+  "ui_font_fallbacks": ["JetBrains Mono"],
   "ui_font_family": "JetBrains Mono",
   "ui_font_size": 18.0,
   "use_smartcase_search": true,
