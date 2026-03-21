@@ -85,7 +85,7 @@ else:
 c.url.searchengines |= bangs
 
 # Tabs to not to occupy full width
-c.tabs.max_width = 300
+c.tabs.max_width = 330
 
 # Transparent tab bar & status bar
 c.window.transparent = True
@@ -119,7 +119,13 @@ config.set("colors.statusbar.private.bg", f"rgba(80, 40, 120, {PANEL_TRANSPARENC
 config.set("colors.statusbar.progress.bg", "#dd7878")
 
 # Tab bar
-# All "selected" are implicitly opaque
+for color_path_tail in [
+    "selected.even",
+    "selected.odd",
+    "pinned.selected.even",
+    "pinned.selected.odd",
+]:
+    config.set(f"colors.tabs.{color_path_tail}.bg", "rgba(136, 57, 239, 200)")
 
 # Tabs are colored normally, but more transparent
 for color_path_tail in [
@@ -326,7 +332,7 @@ c.statusbar.widgets = ["search_match", "progress", "url", "scroll"]
 c.tabs.select_on_remove = "last-used"
 c.tabs.title.alignment = "left"
 c.tabs.title.elide = "middle"
-c.tabs.title.format = "{audio} {current_title} {perc}"
+c.tabs.title.format = "{audio}{current_title}{perc}"
 c.tabs.title.format_pinned = "{audio}"
 
 c.tabs.indicator.width = 2
