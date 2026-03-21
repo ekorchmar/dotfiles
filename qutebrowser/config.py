@@ -362,7 +362,9 @@ c.url.start_pages = ["about:blank"]
 ## Type: Perc
 c.zoom.default = "110%"
 
-config.bind("<Ctrl-T>", "cmd-set-text -s :open -t")
+config.bind("<Ctrl-Q>", "quit")
+config.bind("<Ctrl-T>", "open -t ;; cmd-set-text -s :open")
+config.bind("d", "nop")  # Override default binding to close
 config.bind("D", "tab-close")
 config.bind("cD", "download-delete")
 config.bind("<Ctrl-L>", "cmd-set-text :open {url:pretty}")
