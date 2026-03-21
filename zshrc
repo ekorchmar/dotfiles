@@ -174,7 +174,7 @@ if [[ -z $ANDROID_DATA ]]; then
     # Some env variables for common programs
     export EDITOR=nvim
     export VISUAL=nvim
-    export BROWSER=zen-browser
+    export BROWSER=qutebrowser
     export TERMINAL=wezterm
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
     export MANROFFOPT="-c"
