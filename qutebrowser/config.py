@@ -119,7 +119,13 @@ config.set("colors.statusbar.private.bg", f"rgba(80, 40, 120, {PANEL_TRANSPARENC
 config.set("colors.statusbar.progress.bg", "#dd7878")
 
 # Tab bar
-# All "selected" are implicitly opaque
+for color_path_tail in [
+    "selected.even",
+    "selected.odd",
+    "pinned.selected.even",
+    "pinned.selected.odd",
+]:
+    config.set(f"colors.tabs.{color_path_tail}.bg", "rgba(136, 57, 239, 200)")
 
 # Tabs are colored normally, but more transparent
 for color_path_tail in [
