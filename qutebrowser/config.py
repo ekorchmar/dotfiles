@@ -109,6 +109,11 @@ panel_color = make_qcolor(
     PANEL_TRANSPARENCY,
 )
 
+# Remove white flashbang on new tab
+# FIXME: can not sent any transparent color except for "transparent" literal
+# config.set("colors.webpage.bg", panel_color)
+config.set("colors.webpage.bg", config.get("colors.tabs.bar.bg"))
+
 for mode in ["caret", "command", "insert", "passthrough", "normal"]:
     config.set(f"colors.statusbar.{mode}.bg", panel_color)
 
