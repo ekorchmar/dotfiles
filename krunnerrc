@@ -1,11 +1,10 @@
 [General]
 FreeFloating=true
-font=JetBrainsMono Nerd Font,22,-1,5,50,0,0,0,0,0
-
 baloosearchEnabled=false
 browserhistoryEnabled=false
 browsertabsEnabled=false
 calculatorEnabled=false
+font=JetBrainsMono Nerd Font,22,-1,5,50,0,0,0,0,0
 helprunnerEnabled=false
 krunner_appstreamEnabled=false
 krunner_bookmarksrunnerEnabled=false
@@ -22,5 +21,17 @@ org.kde.activities2Enabled=false
 org.kde.datetimeEnabled=false
 unitconverterEnabled=false
 
+[Plugins]
+browserhistoryEnabled=false
+browsertabsEnabled=false
+calculatorEnabled=false
+krunner_appstreamEnabled=false
+krunner_bookmarksrunnerEnabled=false
+krunner_dictionaryEnabled=false
+krunner_katesessionsEnabled=false
+krunner_konsoleprofilesEnabled=false
+krunner_webshortcutsEnabled=false
+org.kde.activities2Enabled=false
+
 [Plugins][Favorites]
-plugins=krunner_sessions,krunner_powerdevil,krunner_services,krunner_systemsettings
+plugins=krunner_services,krunner_sessions,krunner_powerdevil,krunner_systemsettings
