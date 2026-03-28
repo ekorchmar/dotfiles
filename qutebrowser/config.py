@@ -309,7 +309,16 @@ c.qt.chromium.low_end_device_mode = "always"  # ?
 c.qt.environ = {
     # Fixes transparent gaps, though makes menus ugly
     "QT_STYLE_OVERRIDE": "fusion",
+    # FIXME: hack for Qt 6.11
+    "QTWEBENGINE_FORCE_USE_GBM": "0",
 }
+
+# FIXME: hack for Qt 6.11
+c.qt.args = [
+    "ignore-gpu-blocklist",
+    "disable-gpu-memory-buffer-video-frames=false",
+    "enable-features=VaapiIgnoreDriverChecks,VaapiVideoDecoder,AcceleratedVideoDecoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoEncoder,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE,FluentOverlayScrollbar,MiddleClickAutoscroll",
+]
 
 ## Turn on Qt HighDPI scaling
 c.qt.highdpi = True
