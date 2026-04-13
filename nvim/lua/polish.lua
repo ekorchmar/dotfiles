@@ -8,6 +8,8 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.g.modeline = false
+
 if vim.g.vscode then
     return {}
 end
