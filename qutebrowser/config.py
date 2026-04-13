@@ -363,9 +363,8 @@ c.tabs.padding = {
     "left": 5,
 }
 
-# TODO: create a custom new tab page
-c.url.default_page = "about:blank"
-c.url.start_pages = ["about:blank"]
+c.url.default_page = "slug:8080"
+c.url.start_pages = ["slug:8080"]
 
 ## URL segments where `:navigate increment/decrement` will search for a
 ## number.
