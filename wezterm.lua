@@ -38,10 +38,21 @@ local function set_ui()
                 args = { "C:\\Program Files\\Git\\bin\\bash.exe" },
             },
         }
+        -- Font
+        config.font = wezterm.font("JetBrains Mono")
     elseif string.find(wezterm.target_triple, "darwin") then
         config.macos_window_background_blur = 20
         config.tab_bar_at_bottom = true
+        -- Font
+        config.font = wezterm.font_with_fallback({
+            "JetBrains Mono",
+        })
     else -- Linux
+        -- Font
+        config.font = wezterm.font_with_fallback({
+            "JetBrainsMono Nerd Font",
+            "JetBrains Mono",
+        })
         config.kde_window_background_blur = true
         config.tab_bar_at_bottom = true
     end
@@ -63,11 +74,6 @@ local function set_ui()
     config.hide_tab_bar_if_only_one_tab = false
     config.tab_max_width = 40
 
-    -- Font
-    config.font = wezterm.font_with_fallback({
-        "JetBrainsMono Nerd Font",
-        "JetBrains Mono",
-    })
     config.adjust_window_size_when_changing_font_size = false
     config.font_size = 14
 
