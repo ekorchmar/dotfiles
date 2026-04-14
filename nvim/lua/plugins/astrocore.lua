@@ -93,13 +93,13 @@ return {
           end,
           desc = "Close buffer from tabline",
         },
-        ["<Leader>bk"] = {
+        ["<Leader>bq"] = {
           function()
-            require("astroui.status.heirline").buffer_picker(function() require("astrocore.buffer").close() end)
+            local buf = require "astrocore.buffer"
+            require("astroui.status.heirline").buffer_picker(function() buf.close(buf.current_buf) end)
           end,
-          desc = "Close buffer from tabline",
+          desc = "Close current buffer",
         },
-
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         -- ["<Leader>b"] = { desc = "Buffers" },
