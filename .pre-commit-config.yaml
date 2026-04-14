@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/spinergie/pre-commit-dprint
-    rev: "v0.52.0"
+    rev: v0.52.0
     hooks:
       - id: dprint
   - repo: https://github.com/JohnnyMorganz/StyLua
@@ -17,3 +17,8 @@ repos:
         args: [--fix]
       # Run the formatter.
       - id: ruff-format
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
