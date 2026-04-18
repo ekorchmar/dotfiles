@@ -124,40 +124,32 @@ config.set("colors.statusbar.private.bg", f"rgba(80, 40, 120, {PANEL_TRANSPARENC
 config.set("colors.statusbar.progress.bg", "#dd7878")
 
 # Tab bar
+SATURATED = config.get("colors.prompts.selected.fg")
 for color_path_tail in [
     "selected.even",
     "selected.odd",
     "pinned.selected.even",
     "pinned.selected.odd",
 ]:
-    config.set(f"colors.tabs.{color_path_tail}.bg", "rgba(136, 57, 239, 200)")
+    config.set(f"colors.tabs.{color_path_tail}.bg", SATURATED)
+    config.set(f"colors.tabs.{color_path_tail}.fg", "#1e1e2e")
 
-# Tabs are colored normally, but more transparent
+# Tabs are colored bright on dark, selected is inverted
 for color_path_tail in [
     "even",
     "odd",
 ]:
     config.set(
-        f"colors.tabs.{color_path_tail}.bg",
-        make_qcolor(f"colors.tabs.{color_path_tail}.bg", TAB_TRANSPARENCY),
+        f"colors.tabs.{color_path_tail}.fg",
+        config.get("colors.prompts.selected.fg"),
     )
 
-# Tab bar and pinned tabs are colored like panel
+    # Tabs are transparent to match the panel
+    config.set(f"colors.tabs.{color_path_tail}.bg", "transparent")
+    config.set(f"colors.tabs.pinned.{color_path_tail}.bg", "transparent")
+
+# Tab bar matches panel
 config.set("colors.tabs.bar.bg", panel_color)
-
-# Pinned tabs are transparent to match the panel
-for tail in ["pinned.even", "pinned.odd"]:
-    config.set(f"colors.tabs.{tail}.bg", "transparent")
-
-# Catpuccin does not style pinned tab colors, set them to match normal tabs
-for tail in ["even", "odd", "selected.even", "selected.odd"]:
-    # Non-selected bg is already set
-    affected_components = ["fg", "bg"] if tail.startswith("selected") else ["fg"]
-
-    for component in affected_components:
-        src = f"colors.tabs.{tail}.{component}"
-        dst = f"colors.tabs.pinned.{tail}.{component}"
-        config.set(dst, config.get(src))
 
 c.aliases = {
     "o": "open",
