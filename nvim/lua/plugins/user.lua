@@ -382,4 +382,30 @@ return {
       }
     end,
   },
+  {
+    "stevearc/vim-arduino",
+    cond = function() return vim.fn.findfile("sketch.yaml", vim.fn.getcwd() .. ";") ~= "" end,
+    cmd = {
+      "ArduinoAttach",
+      "ArduinoVerify",
+      "ArduinoUpload",
+      "ArduinoUploadAndSerial",
+      "ArduinoSerial",
+      "ArduinoChooseBoard",
+      "ArduinoChooseProgrammer",
+    },
+    init = function()
+      local wk = require "which-key"
+      wk.add {
+        { "<leader>A", group = "Arduino" },
+        { "<leader>Aa", [[<cmd>ArduinoAttach<CR>]], desc = "Attach to Arduino serial" },
+        { "<leader>Av", [[<cmd>ArduinoVerify<CR>]], desc = "Verify Arduino sketch" },
+        { "<leader>Au", [[<cmd>ArduinoUpload<CR>]], desc = "Upload Arduino sketch" },
+        { "<leader>Aus", [[<cmd>ArduinoUploadAndSerial<CR>]], desc = "Upload Arduino sketch and open serial monitor" },
+        { "<leader>As", [[<cmd>ArduinoSerial<CR>]], desc = "Open Arduino serial monitor" },
+        { "<leader>Ab", [[<cmd>ArduinoChooseBoard<CR>]], desc = "Choose Arduino board" },
+        { "<leader>Ap", [[<cmd>ArduinoChooseProgrammer<CR>]], desc = "Choose Arduino programmer" },
+      }
+    end,
+  },
 }
