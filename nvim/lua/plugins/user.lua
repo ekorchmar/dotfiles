@@ -397,7 +397,7 @@ return {
     init = function()
       local wk = require "which-key"
       wk.add {
-        { "<leader>A", group = "Arduino" },
+        { "<leader>A", group = " Arduino" },
         { "<leader>Aa", [[<cmd>ArduinoAttach<CR>]], desc = "Attach to Arduino serial" },
         { "<leader>Av", [[<cmd>ArduinoVerify<CR>]], desc = "Verify Arduino sketch" },
         { "<leader>Au", [[<cmd>ArduinoUpload<CR>]], desc = "Upload Arduino sketch" },
