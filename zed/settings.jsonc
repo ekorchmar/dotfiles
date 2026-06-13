@@ -49,9 +49,6 @@
     "show_background": true,
     "show_parameter_hints": false,
   },
-  "notification_panel": {
-    "button": false,
-  },
   "on_last_window_closed": "quit_app",
   "outline_panel": {
     "dock": "right",
@@ -109,8 +106,8 @@
     "mode": "system",
   },
   "title_bar": {
-    "show_branch_icon": true,
-    "show_menus": true,
+    "show_branch_status_icon": true,
+    "show_menus": false,
     "show_onboarding_banner": false,
     "show_project_items": true,
     "show_user_menu": true,
